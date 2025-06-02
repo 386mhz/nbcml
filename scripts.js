@@ -65,28 +65,13 @@
         ];
 
         let teams = [
-            { name: 'Team 1', wins: 8, losses: 2 },
-            { name: 'Team 2', wins: 7, losses: 3 },
-            { name: 'Team 3', wins: 6, losses: 4 },
-            { name: 'Team 4', wins: 5, losses: 5 },
-            { name: 'Team 5', wins: 3, losses: 7 },
-            { name: 'Team 6', wins: 1, losses: 9 }
-        ];
-
-        let news = [
-            {
-                id: 1,
-                date: '2025-10-07',
-                title: 'New Season Begins!',
-                content: 'Welcome to the 2025 season of Newmarket Basketball Club. Games start this week!'
-            },
-            {
-                id: 2,
-                date: '2025-08-28',
-                title: 'Registration Will Open August 29th',
-                content: 'Registration available for new players. Contact the Town of Newmarket for more information.'
-            }
-        ];
+				{ name: 'Team 1', wins: 8, losses: 2, ties: 0, pf: 852, pa: 728, streak: 'W4' },
+				{ name: 'Team 2', wins: 7, losses: 3, ties: 0, pf: 821, pa: 753, streak: 'L1' },
+				{ name: 'Team 3', wins: 6, losses: 4, ties: 0, pf: 789, pa: 762, streak: 'W2' },
+				{ name: 'Team 4', wins: 5, losses: 5, ties: 0, pf: 764, pa: 781, streak: 'L2' },
+				{ name: 'Team 5', wins: 3, losses: 7, ties: 0, pf: 712, pa: 834, streak: 'L3' },
+				{ name: 'Team 6', wins: 1, losses: 9, ties: 0, pf: 688, pa: 879, streak: 'L5' }
+			];
 
         // Navigation functionality
         function showSection(sectionId) {
@@ -160,47 +145,41 @@
         }
 
         // Render standings
-        function renderStandings() {
-            const standingsBody = document.getElementById('standingsBody');
-            standingsBody.innerHTML = '';
+		function renderStandings() {
+			const standingsBody = document.getElementById('standingsBody');
+			standingsBody.innerHTML = '';
 
-            // Sort teams by win percentage
-            const sortedTeams = [...teams].sort((a, b) => {
-                const aWinPct = a.wins / (a.wins + a.losses);
-                const bWinPct = b.wins / (b.wins + b.losses);
-                return bWinPct - aWinPct;
-            });
+			// Sort teams by total points: 2 points per win, 1 per tie
+			const sortedTeams = [...teams].sort((a, b) => {
+				const aPts = (a.wins * 2) + a.ties;
+				const bPts = (b.wins * 2) + b.ties;
+				return bPts - aPts;
+			});
 
-            sortedTeams.forEach((team, index) => {
-                const winPct = (team.wins / (team.wins + team.losses) * 100).toFixed(1);
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${team.name}</td>
-                    <td>${team.wins}</td>
-                    <td>${team.losses}</td>
-                    <td>${winPct}%</td>
-                `;
-                standingsBody.appendChild(row);
-            });
-        }
+			const topPoints = (sortedTeams[0].wins * 2) + sortedTeams[0].ties;
 
-        // Render news
-        function renderNews() {
-            const newsContainer = document.getElementById('newsContainer');
-            newsContainer.innerHTML = '';
+			sortedTeams.forEach((team, index) => {
+				const totalGames = team.wins + team.losses + team.ties;
+				const winPct = (team.wins / totalGames).toFixed(3);
+				const points = (team.wins * 2) + team.ties;
+				const gb = ((topPoints - points) / 2).toFixed(1);
 
-            news.forEach(item => {
-                const newsItem = document.createElement('div');
-                newsItem.className = 'news-item';
-                newsItem.innerHTML = `
-                    <div class="news-date">${formatDate(item.date)}</div>
-                    <div class="news-title">${item.title}</div>
-                    <div class="news-content">${item.content}</div>
-                `;
-                newsContainer.appendChild(newsItem);
-            });
-        }
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${index + 1}</td>
+					<td>${team.name}</td>
+					<td>${team.wins}</td>
+					<td>${team.losses}</td>
+					<td>${team.ties}</td>
+					<td>${team.pf}</td>
+					<td>${team.pa}</td>
+					<td>${points}</td>
+					<td>${gb === '0.0' ? '-' : gb}</td>
+					<td>${team.streak}</td>
+				`;
+				standingsBody.appendChild(row);
+			});
+		}
 
         // Admin functions
         function addGame() {
@@ -229,31 +208,6 @@
                 document.getElementById('awayTeam').value = '';
 
                 alert('Game added successfully!');
-            } else {
-                alert('Please fill in all fields');
-            }
-        }
-
-        function addNews() {
-            const title = document.getElementById('newsTitle').value;
-            const content = document.getElementById('newsContent').value;
-
-            if (title && content) {
-                const newNews = {
-                    id: news.length + 1,
-                    date: new Date().toISOString().split('T')[0],
-                    title: title,
-                    content: content
-                };
-
-                news.unshift(newNews); // Add to beginning of array
-                renderNews();
-
-                // Clear form
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsContent').value = '';
-
-                alert('News item added successfully!');
             } else {
                 alert('Please fill in all fields');
             }

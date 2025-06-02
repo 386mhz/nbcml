@@ -236,27 +236,6 @@ body {
     background: #f8f9fa;
 }
 
-.news-item {
-    border-bottom: 1px solid #eee;
-    padding: 20px 0;
-}
-
-.news-item:last-child {
-    border-bottom: none;
-}
-
-.news-date {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-}
-
-.news-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
 .admin-login {
     position: fixed;
     top: 50%;
@@ -574,3 +553,23 @@ body {
 		background: rgba(255, 255, 255, 0.2);
 		color: #ffffff;
 	}
+	
+	.complaints-highlight {
+    background: #000E54 !important;
+    color: #ffffff;
+    border-left: 3px solid #ffffff;
+}
+
+	.complaints-highlight .captain-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+	.standings-table th, .standings-table td {
+    font-size: 0.85rem;
+    padding: 8px 6px;
+    text-align: center;
+}
+
+	.standings-table th {
+    white-space: nowrap;
+}

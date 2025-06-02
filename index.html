@@ -29,9 +29,6 @@
             <button class="nav-tab" onclick="showSection('standings')">
                 <i class="fas fa-trophy"></i> Standings
             </button>
-            <button class="nav-tab" onclick="showSection('news')">
-                <i class="fas fa-newspaper"></i> News
-            </button>
 			<button class="nav-tab" onclick="showSection('rules')">
 				<i class="fas fa-gavel"></i> Rules
 			</button>
@@ -67,21 +64,18 @@
                         <th>Team</th>
                         <th>Wins</th>
                         <th>Losses</th>
-                        <th>Win %</th>
+                        <th>Win %</th><th>Ties</th>
+						<th>PF</th>
+						<th>PA</th>
+						<th>Pts</th>
+						<th>GB</th>
+						<th>Streak</th>
                     </tr>
                 </thead>
                 <tbody id="standingsBody">
                     <!-- Standings will be populated by JavaScript -->
                 </tbody>
             </table>
-        </div>
-
-        <!-- News Section -->
-        <div id="news" class="content-section">
-            <h2><i class="fas fa-bullhorn"></i> League News</h2>
-            <div id="newsContainer">
-                <!-- News items will be populated by JavaScript -->
-            </div>
         </div>
 		
 		<!-- Rules Section -->
@@ -99,7 +93,8 @@
 		<div class="executive-team">
 			<h2><i class="fas fa-comments"></i> NBCML Complaints Department</h2>
 			<ul class="player-list">
-				<li class="captain">🎭 Petar Rafajlovic 🎭 <span class="captain-badge">COMPLAINTS</span></li>
+				<li class="captain complaints-highlight">🎭 Petar Rafajlovic 🎭 <span class="captain-badge">COMPLAINTS</span></li>
+
 			</ul>
 		</div>			
 			<h2><i class="fas fa-gavel"></i> Modified FIBA Rules</h2>
@@ -162,19 +157,6 @@
                         <input type="text" id="awayTeam" placeholder="Enter away team name">
                     </div>
                     <button class="btn" onclick="addGame()">Add Game</button>
-                </div>
-
-                <div class="admin-form">
-                    <h3>Add News Item</h3>
-                    <div class="form-group">
-                        <label>Title:</label>
-                        <input type="text" id="newsTitle" placeholder="News headline">
-                    </div>
-                    <div class="form-group">
-                        <label>Content:</label>
-                        <input type="text" id="newsContent" placeholder="News content">
-                    </div>
-                    <button class="btn" onclick="addNews()">Add News</button>
                 </div>
             </div>
         </div>
