@@ -404,7 +404,6 @@
 						renderSchedule();
 						renderFullSchedule();
 						renderStandings();
-						renderNews();
 						renderRosters();
 						renderTeamScoring();
 						renderIndividualScoring();
