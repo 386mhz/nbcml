@@ -281,8 +281,8 @@
 
 				// Roster data
 				let rosters = {
-					'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Dennis Bean', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
-					'Team 2': ['*C* Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson'],
+					'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
+					'Team 2': ['*C* Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson', 'Dennis Bean'],
 					'Team 3': ['*C* Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris'],
 					'Team 4': ['*C* Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker'],
 					'Team 5': ['*C* Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright'],
@@ -335,7 +335,14 @@
 						teamRoster.innerHTML = `
 							<h3>${teamName}</h3>
 							<ul class="player-list">
-								${rosters[teamName].map(player => `<li>${player}</li>`).join('')}
+								${rosters[teamName].map(player => {
+									if (player.startsWith('*C*')) {
+										const captainName = player.replace('*C* ', '');
+										return `<li class="captain"><i class="fas fa-crown"></i> ${captainName} <span class="captain-badge">CAPTAIN</span></li>`;
+									} else {
+										return `<li>${player}</li>`;
+									}
+								}).join('')}
 							</ul>
 						`;
 						rostersContainer.appendChild(teamRoster);
@@ -408,7 +415,6 @@
 						renderSchedule();
 						renderStandings();
 						renderNews();
-						renderRules();
 						renderRosters();
 						renderTeamScoring();
 						renderIndividualScoring();

@@ -34,6 +34,12 @@ body {
     margin-bottom: 10px;
     font-weight: 700;
 }
+.header-logo {
+    height: 50px;
+    width: auto;
+    vertical-align: middle;
+    margin: 0 15px;
+}
 
 .header p {
     color: #7f8c8d;
@@ -381,7 +387,26 @@ body {
 		border-radius: 8px;
 		border-left: 3px solid #3498db;
 	}
+	.player-list li.captain {
+		background: linear-gradient(135deg, #f39c12, #e67e22);
+		color: white;
+		font-weight: bold;
+		border-left: 3px solid #d35400;
+		position: relative;
+	}
 
+	.captain-badge {
+		font-size: 0.7rem;
+		background: rgba(255, 255, 255, 0.3);
+		padding: 2px 6px;
+		border-radius: 10px;
+		margin-left: 8px;
+	}
+
+	.player-list li.captain i {
+		color: #f1c40f;
+		margin-right: 5px;
+	}
 	.team-stat-card {
 		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
 		border-radius: 10px;
@@ -461,4 +486,46 @@ body {
 	.stat-label {
 		font-size: 0.8rem;
 		color: #7f8c8d;
+	}
+	
+	.rules-pdf-section {
+		text-align: center;
+		margin: 30px 0;
+		padding: 20px;
+		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+		border-radius: 15px;
+		border: 2px dashed #3498db;
+	}
+
+	.rules-pdf-link {
+		display: inline-block;
+		text-decoration: none;
+		color: #2c3e50;
+		transition: all 0.3s ease;
+		padding: 20px;
+		border-radius: 10px;
+	}
+
+	.rules-pdf-link:hover {
+		transform: scale(1.05);
+		background: rgba(52, 152, 219, 0.1);
+	}
+
+	.fiba-icon {
+		font-size: 4rem;
+		color: #F76900;
+		margin-bottom: 15px;
+		transition: all 0.3s ease;
+	}
+
+	.rules-pdf-link:hover .fiba-icon {
+		color: #e55a00;
+		transform: scale(1.1);
+	}
+
+	.rules-pdf-link p {
+		font-weight: 600;
+		font-size: 1.1rem;
+		margin: 0;
+		color: #3498db;
 	}
