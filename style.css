@@ -606,3 +606,7 @@ body {
     margin: 10px 0;
     font-size: 0.95rem;
 }
+	.admin-form textarea {
+    background: white;
+    color: #333;
+}

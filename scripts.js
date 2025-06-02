@@ -406,6 +406,11 @@
 						return;
 					}
 
+					// Show confirmation dialog
+					if (!confirm('This will overwrite the entire existing schedule. Are you sure you want to continue?')) {
+						return;
+					}
+
 					const lines = csvData.split('\n');
 					const newGames = [];
 					
