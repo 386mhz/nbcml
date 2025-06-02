@@ -157,46 +157,29 @@
         <!-- Admin Section -->
         <div id="admin" class="content-section">
             <div class="admin-panel">
-				<h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
-				<p>Update league information quickly and easily</p>
-				
-				<!-- Data Backup/Restore Section -->
-				<div class="admin-form">
-					<h3>Data Backup & Restore</h3>
-					<p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 15px;">
-						Important: Download a backup before making major changes. Upload a backup to restore previous data.
-					</p>
-					<div style="display: flex; gap: 10px; flex-wrap: wrap;">
-						<button class="btn" onclick="downloadBackup()">
-							<i class="fas fa-download"></i> Download Backup
-						</button>
-						<input type="file" id="backupFile" accept=".json" onchange="uploadBackup(event)" style="display: none;">
-						<button class="btn" onclick="document.getElementById('backupFile').click()">
-							<i class="fas fa-upload"></i> Restore Backup
-						</button>
-					</div>
-				</div>
-				
-				<div class="admin-form">
-					<h3>Add New Game</h3>
-					<div class="form-group">
-						<label>Date:</label>
-						<input type="date" id="gameDate">
-					</div>
-					<div class="form-group">
-						<label>Time:</label>
-						<input type="time" id="gameTime">
-					</div>
-					<div class="form-group">
-						<label>Home Team:</label>
-						<input type="text" id="homeTeam" placeholder="Enter home team name">
-					</div>
-					<div class="form-group">
-						<label>Away Team:</label>
-						<input type="text" id="awayTeam" placeholder="Enter away team name">
-					</div>
-					<button class="btn" onclick="addGame()">Add Game</button>
-				</div>
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <p>Update league information quickly and easily</p>
+                
+                <div class="admin-form">
+                    <h3>Add New Game</h3>
+                    <div class="form-group">
+                        <label>Date:</label>
+                        <input type="date" id="gameDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Time:</label>
+                        <input type="time" id="gameTime">
+                    </div>
+                    <div class="form-group">
+                        <label>Home Team:</label>
+                        <input type="text" id="homeTeam" placeholder="Enter home team name">
+                    </div>
+                    <div class="form-group">
+                        <label>Away Team:</label>
+                        <input type="text" id="awayTeam" placeholder="Enter away team name">
+                    </div>
+                    <button class="btn" onclick="addGame()">Add Game</button>
+                </div>
 				
 				<div class="admin-form">
 					<h3>Update Full Schedule (CSV)</h3>
@@ -206,7 +189,10 @@
 					</div>
 					<button class="btn" onclick="updateScheduleFromCSV()">Update Schedule</button>
 				</div>
-			</div>
+            </div>
+        </div>
+
+				
 
         <!-- Admin Login Modal -->
         <div id="adminLogin" class="admin-login">
