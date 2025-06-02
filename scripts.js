@@ -398,6 +398,85 @@
 						container.appendChild(playerCard);
 					});
 				}
+				
+				function updateScheduleFromCSV() {
+					const csvData = document.getElementById('scheduleCSV').value.trim();
+					if (!csvData) {
+						alert('Please paste CSV data first');
+						return;
+					}
+
+					const lines = csvData.split('\n');
+					const newGames = [];
+					
+					lines.forEach(line => {
+						if (line.trim()) {
+							const parts = line.split(',').map(part => part.trim());
+							if (parts.length >= 4) {
+								const week = parts[0];
+								const date = parts[1];
+								
+								// Convert date format if needed (assuming MM/DD/YYYY to YYYY-MM-DD)
+								let formattedDate = date;
+								if (date.includes('/')) {
+									const dateParts = date.split('/');
+									if (dateParts.length === 3) {
+										formattedDate = `${dateParts[2]}-${dateParts[0].padStart(2, '0')}-${dateParts[1].padStart(2, '0')}`;
+									}
+								}
+								
+								// Early game (6:30 PM)
+								if (parts[2] && parts[3]) {
+									newGames.push({
+										id: newGames.length + 1,
+										date: formattedDate,
+										time: '18:30',
+										homeTeam: parts[2],
+										awayTeam: parts[3],
+										location: 'Magna Centre Gym',
+										status: 'scheduled'
+									});
+								}
+								
+								// Middle game (7:40 PM)
+								if (parts[4] && parts[5]) {
+									newGames.push({
+										id: newGames.length + 1,
+										date: formattedDate,
+										time: '19:40',
+										homeTeam: parts[4],
+										awayTeam: parts[5],
+										location: 'Magna Centre Gym',
+										status: 'scheduled'
+									});
+								}
+								
+								// Late game (8:50 PM)
+								if (parts[6] && parts[7]) {
+									newGames.push({
+										id: newGames.length + 1,
+										date: formattedDate,
+										time: '20:50',
+										homeTeam: parts[6],
+										awayTeam: parts[7],
+										location: 'Magna Centre Gym',
+										status: 'scheduled'
+									});
+								}
+							}
+						}
+					});
+					
+					if (newGames.length > 0) {
+						games = newGames; // Replace entire games array
+						renderSchedule();
+						renderFullSchedule();
+						document.getElementById('scheduleCSV').value = '';
+						alert(`Schedule updated with ${newGames.length} games!`);
+					} else {
+						alert('No valid games found in CSV data');
+					}
+				}
 
 					// Initialize the page
 					document.addEventListener('DOMContentLoaded', function() {
