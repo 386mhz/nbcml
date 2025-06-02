@@ -40,51 +40,51 @@
         let games = [
             {
                 id: 1,
-                date: '2025-06-08',
-                time: '19:30',
-                homeTeam: 'Thunder',
-                awayTeam: 'Lightning',
+                date: '2025-10-07',
+                time: '18:30',
+                homeTeam: 'Team 1',
+                awayTeam: 'Team 2',
                 status: 'scheduled'
             },
             {
                 id: 2,
-                date: '2025-06-08',
-                time: '20:30',
-                homeTeam: 'Wolves',
-                awayTeam: 'Eagles',
+                date: '2025-10-07',
+                time: '19:40',
+                homeTeam: 'Team 3',
+                awayTeam: 'Team 4',
                 status: 'scheduled'
             },
             {
                 id: 3,
-                date: '2025-06-15',
-                time: '19:30',
-                homeTeam: 'Sharks',
-                awayTeam: 'Tigers',
+                date: '2025-10-07',
+                time: '20:50',
+                homeTeam: 'Team 5',
+                awayTeam: 'Team 6',
                 status: 'scheduled'
             }
         ];
 
         let teams = [
-            { name: 'Thunder', wins: 8, losses: 2 },
-            { name: 'Lightning', wins: 7, losses: 3 },
-            { name: 'Wolves', wins: 6, losses: 4 },
-            { name: 'Eagles', wins: 5, losses: 5 },
-            { name: 'Sharks', wins: 3, losses: 7 },
-            { name: 'Tigers', wins: 1, losses: 9 }
+            { name: 'Team 1', wins: 8, losses: 2 },
+            { name: 'Team 2', wins: 7, losses: 3 },
+            { name: 'Team 3', wins: 6, losses: 4 },
+            { name: 'Team 4', wins: 5, losses: 5 },
+            { name: 'Team 5', wins: 3, losses: 7 },
+            { name: 'Team 6', wins: 1, losses: 9 }
         ];
 
         let news = [
             {
                 id: 1,
-                date: '2025-06-01',
+                date: '2025-10-07',
                 title: 'New Season Begins!',
-                content: 'Welcome to the 2025 season of Newmarket Basketball Club. Games start this weekend!'
+                content: 'Welcome to the 2025 season of Newmarket Basketball Club. Games start this week!'
             },
             {
                 id: 2,
-                date: '2025-05-28',
-                title: 'Registration Still Open',
-                content: 'Late registration is still available for new players. Contact us for more information.'
+                date: '2025-08-28',
+                title: 'Registration Will Open August 29th',
+                content: 'Registration available for new players. Contact the Town of Newmarket for more information.'
             }
         ];
 
@@ -281,32 +281,32 @@
 
 				// Roster data
 				let rosters = {
-					'Thunder': ['Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller'],
-					'Lightning': ['Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson'],
-					'Wolves': ['Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris'],
-					'Eagles': ['Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker'],
-					'Sharks': ['Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright'],
-					'Tigers': ['Owen Lopez', 'Ethan Hill', 'Lucas Scott', 'Carter Green', 'Hunter Adams']
+					'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Dennis Bean', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
+					'Team 2': ['*C* Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson'],
+					'Team 3': ['*C* Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris'],
+					'Team 4': ['*C* Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker'],
+					'Team 5': ['*C* Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright'],
+					'Team 6': ['*C* Owen Lopez', 'Ethan Hill', 'Lucas Scott', 'Carter Green', 'Hunter Adams']
 				};
 
 				// Team scoring data
 				let teamStats = [
-					{ team: 'Thunder', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
-					{ team: 'Lightning', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
-					{ team: 'Wolves', avgPts: 78.9, avgAllowed: 76.2, topScorer: 'Paul Taylor' },
-					{ team: 'Eagles', avgPts: 76.4, avgAllowed: 78.1, topScorer: 'Dan Martin' },
-					{ team: 'Sharks', avgPts: 71.2, avgAllowed: 83.4, topScorer: 'Adam Hall' },
-					{ team: 'Tigers', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez' }
+					{ team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
+					{ team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
+					{ team: 'Team 3', avgPts: 78.9, avgAllowed: 76.2, topScorer: 'Paul Taylor' },
+					{ team: 'Team 4', avgPts: 76.4, avgAllowed: 78.1, topScorer: 'Dan Martin' },
+					{ team: 'Team 5', avgPts: 71.2, avgAllowed: 83.4, topScorer: 'Adam Hall' },
+					{ team: 'Team 6', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez' }
 				];
 
 				// Individual scoring data
 				let playerStats = [
-					{ name: 'Mike Johnson', team: 'Thunder', ppg: 22.4, rpg: 8.2, apg: 5.1 },
-					{ name: 'Kevin Wilson', team: 'Lightning', ppg: 20.8, rpg: 6.9, apg: 7.3 },
-					{ name: 'Paul Taylor', team: 'Wolves', ppg: 19.6, rpg: 9.1, apg: 4.2 },
-					{ name: 'Dan Martin', team: 'Eagles', ppg: 18.9, rpg: 5.8, apg: 6.7 },
-					{ name: 'Adam Hall', team: 'Sharks', ppg: 17.2, rpg: 7.4, apg: 3.9 },
-					{ name: 'Owen Lopez', team: 'Tigers', ppg: 16.8, rpg: 6.1, apg: 4.8 }
+					{ name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, rpg: 8.2, apg: 5.1 },
+					{ name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, rpg: 6.9, apg: 7.3 },
+					{ name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, rpg: 9.1, apg: 4.2 },
+					{ name: 'Dan Martin', team: 'Team 4', ppg: 18.9, rpg: 5.8, apg: 6.7 },
+					{ name: 'Adam Hall', team: 'Team 5', ppg: 17.2, rpg: 7.4, apg: 3.9 },
+					{ name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, rpg: 6.1, apg: 4.8 }
 				];
 
 				// Render functions
