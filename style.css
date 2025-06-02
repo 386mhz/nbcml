@@ -333,3 +333,132 @@ body {
         gap: 10px;
     }
 }
+
+	.rule-item {
+		border-bottom: 1px solid #eee;
+		padding: 20px 0;
+	}
+
+	.rule-item:last-child {
+		border-bottom: none;
+	}
+
+	.rule-title {
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin-bottom: 8px;
+		color: #2c3e50;
+	}
+
+	.rule-content {
+		color: #7f8c8d;
+		line-height: 1.6;
+	}
+
+	.team-roster {
+		background: #f8f9fa;
+		border-radius: 10px;
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+
+	.team-roster h3 {
+		color: #2c3e50;
+		margin-bottom: 15px;
+		font-size: 1.3rem;
+	}
+
+	.player-list {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 10px;
+	}
+
+	.player-list li {
+		background: white;
+		padding: 10px 15px;
+		border-radius: 8px;
+		border-left: 3px solid #3498db;
+	}
+
+	.team-stat-card {
+		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+		border-radius: 10px;
+		padding: 20px;
+		margin-bottom: 20px;
+		border-left: 4px solid #3498db;
+	}
+
+	.team-stat-card h3 {
+		color: #2c3e50;
+		margin-bottom: 15px;
+	}
+
+	.stat-row {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+		padding-bottom: 8px;
+		border-bottom: 1px solid #eee;
+	}
+
+	.stat-row:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+	}
+
+	.player-stat-card {
+		display: flex;
+		align-items: center;
+		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+		border-radius: 10px;
+		padding: 20px;
+		margin-bottom: 15px;
+		border-left: 4px solid #e74c3c;
+	}
+
+	.player-rank {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: #e74c3c;
+		margin-right: 20px;
+		min-width: 40px;
+	}
+
+	.player-info {
+		flex: 1;
+		margin-right: 20px;
+	}
+
+	.player-name {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #2c3e50;
+	}
+
+	.player-team {
+		color: #7f8c8d;
+		font-size: 0.9rem;
+	}
+
+	.player-stats {
+		display: flex;
+		gap: 20px;
+	}
+
+	.stat-item {
+		text-align: center;
+	}
+
+	.stat-value {
+		display: block;
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: #2c3e50;
+	}
+
+	.stat-label {
+		font-size: 0.8rem;
+		color: #7f8c8d;
+	}

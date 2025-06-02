@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newmarket Basketball Club - Men's League</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link rel="stylesheet" href="style.css">
 	<script src="scripts.js"></script>
     
 </head>
@@ -27,6 +28,18 @@
             <button class="nav-tab" onclick="showSection('news')">
                 <i class="fas fa-newspaper"></i> News
             </button>
+			<button class="nav-tab" onclick="showSection('rules')">
+				<i class="fas fa-gavel"></i> Rules
+			</button>
+			<button class="nav-tab" onclick="showSection('rosters')">
+				<i class="fas fa-users"></i> Rosters
+			</button>
+			<button class="nav-tab" onclick="showSection('team-scoring')">
+				<i class="fas fa-chart-bar"></i> Team Stats
+			</button>
+			<button class="nav-tab" onclick="showSection('individual-scoring')">
+				<i class="fas fa-star"></i> Player Stats
+			</button>
             <button class="nav-tab" id="adminTab" style="display: none;" onclick="showSection('admin')">
                 <i class="fas fa-cog"></i> Admin
             </button>
@@ -66,6 +79,38 @@
                 <!-- News items will be populated by JavaScript -->
             </div>
         </div>
+		
+		<!-- Rules Section -->
+		<div id="rules" class="content-section">
+			<h2><i class="fas fa-gavel"></i> Modified FIBA Rules</h2>
+			<div id="rulesContainer">
+				<!-- Rules will be populated by JavaScript -->
+			</div>
+		</div>
+
+		<!-- Rosters Section -->
+		<div id="rosters" class="content-section">
+			<h2><i class="fas fa-users"></i> Team Rosters</h2>
+			<div id="rostersContainer">
+				<!-- Rosters will be populated by JavaScript -->
+			</div>
+		</div>
+
+		<!-- Team Scoring Section -->
+		<div id="team-scoring" class="content-section">
+			<h2><i class="fas fa-chart-bar"></i> Team Scoring Statistics</h2>
+			<div id="teamScoringContainer">
+				<!-- Team scoring stats will be populated by JavaScript -->
+			</div>
+		</div>
+
+		<!-- Individual Scoring Section -->
+		<div id="individual-scoring" class="content-section">
+			<h2><i class="fas fa-star"></i> Individual Player Statistics</h2>
+			<div id="individualScoringContainer">
+				<!-- Individual scoring stats will be populated by JavaScript -->
+			</div>
+		</div>		
 
         <!-- Admin Section -->
         <div id="admin" class="content-section">

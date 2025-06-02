@@ -259,9 +259,157 @@
             }
         }
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            renderSchedule();
-            renderStandings();
-            renderNews();
-        });
+				// Rules data
+				let rules = [
+					{
+						title: "Game Duration",
+						content: "4 quarters of 10 minutes each with a 15-minute halftime break."
+					},
+					{
+						title: "Shot Clock",
+						content: "24-second shot clock reset to 14 seconds on offensive rebounds."
+					},
+					{
+						title: "Fouls",
+						content: "Players foul out after 5 personal fouls. Team fouls reset each quarter."
+					},
+					{
+						title: "Three-Point Line",
+						content: "FIBA three-point line distance (6.75m from basket center)."
+					}
+				];
+
+				// Roster data
+				let rosters = {
+					'Thunder': ['Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller'],
+					'Lightning': ['Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson'],
+					'Wolves': ['Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris'],
+					'Eagles': ['Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker'],
+					'Sharks': ['Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright'],
+					'Tigers': ['Owen Lopez', 'Ethan Hill', 'Lucas Scott', 'Carter Green', 'Hunter Adams']
+				};
+
+				// Team scoring data
+				let teamStats = [
+					{ team: 'Thunder', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
+					{ team: 'Lightning', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
+					{ team: 'Wolves', avgPts: 78.9, avgAllowed: 76.2, topScorer: 'Paul Taylor' },
+					{ team: 'Eagles', avgPts: 76.4, avgAllowed: 78.1, topScorer: 'Dan Martin' },
+					{ team: 'Sharks', avgPts: 71.2, avgAllowed: 83.4, topScorer: 'Adam Hall' },
+					{ team: 'Tigers', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez' }
+				];
+
+				// Individual scoring data
+				let playerStats = [
+					{ name: 'Mike Johnson', team: 'Thunder', ppg: 22.4, rpg: 8.2, apg: 5.1 },
+					{ name: 'Kevin Wilson', team: 'Lightning', ppg: 20.8, rpg: 6.9, apg: 7.3 },
+					{ name: 'Paul Taylor', team: 'Wolves', ppg: 19.6, rpg: 9.1, apg: 4.2 },
+					{ name: 'Dan Martin', team: 'Eagles', ppg: 18.9, rpg: 5.8, apg: 6.7 },
+					{ name: 'Adam Hall', team: 'Sharks', ppg: 17.2, rpg: 7.4, apg: 3.9 },
+					{ name: 'Owen Lopez', team: 'Tigers', ppg: 16.8, rpg: 6.1, apg: 4.8 }
+				];
+
+				// Render functions
+				function renderRules() {
+					const rulesContainer = document.getElementById('rulesContainer');
+					rulesContainer.innerHTML = '';
+
+					rules.forEach(rule => {
+						const ruleItem = document.createElement('div');
+						ruleItem.className = 'rule-item';
+						ruleItem.innerHTML = `
+							<div class="rule-title">${rule.title}</div>
+							<div class="rule-content">${rule.content}</div>
+						`;
+						rulesContainer.appendChild(ruleItem);
+					});
+				}
+
+				function renderRosters() {
+					const rostersContainer = document.getElementById('rostersContainer');
+					rostersContainer.innerHTML = '';
+
+					Object.keys(rosters).forEach(teamName => {
+						const teamRoster = document.createElement('div');
+						teamRoster.className = 'team-roster';
+						teamRoster.innerHTML = `
+							<h3>${teamName}</h3>
+							<ul class="player-list">
+								${rosters[teamName].map(player => `<li>${player}</li>`).join('')}
+							</ul>
+						`;
+						rostersContainer.appendChild(teamRoster);
+					});
+				}
+
+				function renderTeamScoring() {
+					const container = document.getElementById('teamScoringContainer');
+					container.innerHTML = '';
+
+					teamStats.forEach(team => {
+						const teamCard = document.createElement('div');
+						teamCard.className = 'team-stat-card';
+						teamCard.innerHTML = `
+							<h3>${team.team}</h3>
+							<div class="stat-row">
+								<span>Avg Points Scored:</span>
+								<span>${team.avgPts}</span>
+							</div>
+							<div class="stat-row">
+								<span>Avg Points Allowed:</span>
+								<span>${team.avgAllowed}</span>
+							</div>
+							<div class="stat-row">
+								<span>Top Scorer:</span>
+								<span>${team.topScorer}</span>
+							</div>
+						`;
+						container.appendChild(teamCard);
+					});
+				}
+
+				function renderIndividualScoring() {
+					const container = document.getElementById('individualScoringContainer');
+					container.innerHTML = '';
+
+					// Sort players by points per game
+					const sortedPlayers = [...playerStats].sort((a, b) => b.ppg - a.ppg);
+
+					sortedPlayers.forEach((player, index) => {
+						const playerCard = document.createElement('div');
+						playerCard.className = 'player-stat-card';
+						playerCard.innerHTML = `
+							<div class="player-rank">#${index + 1}</div>
+							<div class="player-info">
+								<div class="player-name">${player.name}</div>
+								<div class="player-team">${player.team}</div>
+							</div>
+							<div class="player-stats">
+								<div class="stat-item">
+									<span class="stat-value">${player.ppg}</span>
+									<span class="stat-label">PPG</span>
+								</div>
+								<div class="stat-item">
+									<span class="stat-value">${player.rpg}</span>
+									<span class="stat-label">RPG</span>
+								</div>
+								<div class="stat-item">
+									<span class="stat-value">${player.apg}</span>
+									<span class="stat-label">APG</span>
+								</div>
+							</div>
+						`;
+						container.appendChild(playerCard);
+					});
+				}
+
+					// Initialize the page
+					document.addEventListener('DOMContentLoaded', function() {
+						renderSchedule();
+						renderStandings();
+						renderNews();
+						renderRules();
+						renderRosters();
+						renderTeamScoring();
+						renderIndividualScoring();
+					});
