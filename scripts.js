@@ -123,11 +123,31 @@
         }
 
         // Render schedule
-        function renderSchedule() {
+		function renderSchedule() {
 			const scheduleGrid = document.getElementById('scheduleGrid');
 			scheduleGrid.innerHTML = '';
 
-			games.forEach(game => {
+			// Get current date
+			const today = new Date();
+			today.setHours(0, 0, 0, 0); // Reset time to midnight for date comparison
+
+			// Filter games that are today or in the future
+			const upcomingGames = games.filter(game => {
+				const gameDate = new Date(game.date);
+				gameDate.setHours(0, 0, 0, 0);
+				return gameDate >= today;
+			}).sort((a, b) => {
+				// Sort by date first, then by time
+				if (a.date === b.date) {
+					return a.time.localeCompare(b.time);
+				}
+				return a.date.localeCompare(b.date);
+			});
+
+			// Take only the first 3 upcoming games
+			const nextThreeGames = upcomingGames.slice(0, 3);
+
+			nextThreeGames.forEach(game => {
 				const gameCard = document.createElement('div');
 				gameCard.className = 'game-card';
 				gameCard.innerHTML = `
@@ -148,35 +168,18 @@
 				`;
 				scheduleGrid.appendChild(gameCard);
 			});
-		}
-		
-		function renderFullSchedule() {
-			const fullScheduleBody = document.getElementById('fullScheduleBody');
-			fullScheduleBody.innerHTML = '';
 
-			// Group games by date
-			const groupedByDate = games.reduce((acc, game) => {
-				if (!acc[game.date]) acc[game.date] = [];
-				acc[game.date].push(game);
-				return acc;
-			}, {});
-
-			const sortedDates = Object.keys(groupedByDate).sort();
-
-			sortedDates.forEach((date, index) => {
-				const week = index + 1;
-				const [early, middle, late] = groupedByDate[date];
-
-				const row = document.createElement('tr');
-				row.innerHTML = `
-					<td>${week}</td>
-					<td>${formatDate(date)}</td>
-					<td>${early ? `${early.homeTeam} vs ${early.awayTeam}` : '-'}</td>
-					<td>${middle ? `${middle.homeTeam} vs ${middle.awayTeam}` : '-'}</td>
-					<td>${late ? `${late.homeTeam} vs ${late.awayTeam}` : '-'}</td>
+			// If no upcoming games, show a message
+			if (nextThreeGames.length === 0) {
+				const noGamesCard = document.createElement('div');
+				noGamesCard.className = 'game-card';
+				noGamesCard.innerHTML = `
+					<div style="text-align: center; color: #7f8c8d;">
+						<h3>No upcoming games scheduled</h3>
+					</div>
 				`;
-				fullScheduleBody.appendChild(row);
-			});
+				scheduleGrid.appendChild(noGamesCard);
+			}
 		}
 
         // Render standings
