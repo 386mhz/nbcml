@@ -143,6 +143,35 @@
                 scheduleGrid.appendChild(gameCard);
             });
         }
+		
+		function renderFullSchedule() {
+			const fullScheduleBody = document.getElementById('fullScheduleBody');
+			fullScheduleBody.innerHTML = '';
+
+			// Group games by date
+			const groupedByDate = games.reduce((acc, game) => {
+				if (!acc[game.date]) acc[game.date] = [];
+				acc[game.date].push(game);
+				return acc;
+			}, {});
+
+			const sortedDates = Object.keys(groupedByDate).sort();
+
+			sortedDates.forEach((date, index) => {
+				const week = index + 1;
+				const [early, middle, late] = groupedByDate[date];
+
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${week}</td>
+					<td>${formatDate(date)}</td>
+					<td>${early ? `${early.homeTeam} vs ${early.awayTeam}` : '-'}</td>
+					<td>${middle ? `${middle.homeTeam} vs ${middle.awayTeam}` : '-'}</td>
+					<td>${late ? `${late.homeTeam} vs ${late.awayTeam}` : '-'}</td>
+				`;
+				fullScheduleBody.appendChild(row);
+			});
+		}
 
         // Render standings
 		function renderStandings() {
@@ -367,6 +396,7 @@
 					// Initialize the page
 					document.addEventListener('DOMContentLoaded', function() {
 						renderSchedule();
+						renderFullSchedule();
 						renderStandings();
 						renderNews();
 						renderRosters();

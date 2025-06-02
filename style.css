@@ -573,3 +573,29 @@ body {
 	.standings-table th {
     white-space: nowrap;
 }
+	.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+	.schedule-table th, .schedule-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+	.schedule-table th {
+    background: #000E54;
+    color: white;
+    font-weight: 600;
+}
+
+	.schedule-table tr:nth-child(even) {
+    background: #f9f9f9;
+}

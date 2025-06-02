@@ -23,9 +23,12 @@
 
         <!-- Navigation -->
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showSection('schedule')">
-                <i class="fas fa-calendar"></i> Schedule
-            </button>
+            <button class="nav-tab active" onclick="showSection('main')">
+				<i class="fas fa-home"></i> Main
+			</button>
+			<button class="nav-tab" onclick="showSection('schedule')">
+				<i class="fas fa-calendar-alt"></i> Schedule
+			</button>
             <button class="nav-tab" onclick="showSection('standings')">
                 <i class="fas fa-trophy"></i> Standings
             </button>
@@ -46,13 +49,32 @@
             </button>
         </div>
 
-        <!-- Schedule Section -->
-        <div id="schedule" class="content-section active">
-            <h2><i class="fas fa-calendar-alt"></i> Game Schedule</h2>
-            <div class="schedule-grid" id="scheduleGrid">
-                <!-- Games will be populated by JavaScript -->
-            </div>
-        </div>
+        <!-- Main Section -->
+        <div id="main" class="content-section active">
+			<h2><i class="fas fa-home"></i> Game Summary</h2>
+			<div class="schedule-grid" id="scheduleGrid">
+				<!-- Games will be populated by JavaScript -->
+			</div>
+		</div>
+		
+		<!-- Schedule Section -->
+		<div id="schedule" class="content-section">
+			<h2><i class="fas fa-calendar-alt"></i> Full Season Schedule</h2>
+			<table class="schedule-table">
+				<thead>
+					<tr>
+						<th>Week</th>
+						<th>Date</th>
+						<th>Early Game</th>
+						<th>Middle Game</th>
+						<th>Late Game</th>
+					</tr>
+				</thead>
+				<tbody id="fullScheduleBody">
+					<!-- Filled by JavaScript -->
+				</tbody>
+			</table>
+		</div>
 
         <!-- Standings Section -->
         <div id="standings" class="content-section">
