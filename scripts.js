@@ -416,6 +416,7 @@
 
 					const lines = csvData.split('\n');
 					const newGames = [];
+					let gameId = 1;
 					
 					lines.forEach(line => {
 						if (line.trim()) {
@@ -436,7 +437,7 @@
 								// Early game (6:30 PM)
 								if (parts[2] && parts[3]) {
 									newGames.push({
-										id: newGames.length + 1,
+										id: gameId++,
 										date: formattedDate,
 										time: '18:30',
 										homeTeam: parts[2],
@@ -449,7 +450,7 @@
 								// Middle game (7:40 PM)
 								if (parts[4] && parts[5]) {
 									newGames.push({
-										id: newGames.length + 1,
+										id: gameId++,
 										date: formattedDate,
 										time: '19:40',
 										homeTeam: parts[4],
@@ -462,7 +463,7 @@
 								// Late game (8:50 PM)
 								if (parts[6] && parts[7]) {
 									newGames.push({
-										id: newGames.length + 1,
+										id: gameId++,
 										date: formattedDate,
 										time: '20:50',
 										homeTeam: parts[6],
