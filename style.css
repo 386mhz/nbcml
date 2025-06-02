@@ -599,3 +599,10 @@ body {
 	.schedule-table tr:nth-child(even) {
     background: #f9f9f9;
 }
+	.game-location {
+    text-align: center;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 10px 0;
+    font-size: 0.95rem;
+}

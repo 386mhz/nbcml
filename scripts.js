@@ -44,6 +44,7 @@
                 time: '18:30',
                 homeTeam: 'Team 1',
                 awayTeam: 'Team 2',
+				location: 'Magna Centre Gym',
                 status: 'scheduled'
             },
             {
@@ -52,6 +53,7 @@
                 time: '19:40',
                 homeTeam: 'Team 3',
                 awayTeam: 'Team 4',
+				location: 'Magna Centre Gym',
                 status: 'scheduled'
             },
             {
@@ -60,6 +62,7 @@
                 time: '20:50',
                 homeTeam: 'Team 5',
                 awayTeam: 'Team 6',
+				location: 'Magna Centre Gym',
                 status: 'scheduled'
             }
         ];
@@ -97,7 +100,8 @@
         // Format date for display
         function formatDate(dateString) {
 			const [year, month, day] = dateString.split('-');
-			const date = new Date(Date.UTC(year, month - 1, day));
+			const date = new Date(Number(year), Number(month) - 1, Number(day));
+			date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 			return date.toLocaleDateString('en-US', {
 				weekday: 'long',
 				year: 'numeric',
@@ -120,30 +124,31 @@
 
         // Render schedule
         function renderSchedule() {
-            const scheduleGrid = document.getElementById('scheduleGrid');
-            scheduleGrid.innerHTML = '';
+			const scheduleGrid = document.getElementById('scheduleGrid');
+			scheduleGrid.innerHTML = '';
 
-            games.forEach(game => {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                gameCard.innerHTML = `
-                    <div class="game-header">
-                        <div class="game-time">${formatTime(game.time)}</div>
-                        <div class="game-date">${formatDate(game.date)}</div>
-                    </div>
-                    <div class="game-matchup">
-                        <div class="team">
-                            <div class="team-name">${game.homeTeam}</div>
-                        </div>
-                        <div class="vs">VS</div>
-                        <div class="team">
-                            <div class="team-name">${game.awayTeam}</div>
-                        </div>
-                    </div>
-                `;
-                scheduleGrid.appendChild(gameCard);
-            });
-        }
+			games.forEach(game => {
+				const gameCard = document.createElement('div');
+				gameCard.className = 'game-card';
+				gameCard.innerHTML = `
+					<div class="game-header">
+						<div class="game-time">${formatTime(game.time)}</div>
+						<div class="game-date">${formatDate(game.date)}</div>
+					</div>
+					<div class="game-location">${game.location || 'TBD'}</div>
+					<div class="game-matchup">
+						<div class="team">
+							<div class="team-name">${game.homeTeam}</div>
+						</div>
+						<div class="vs">VS</div>
+						<div class="team">
+							<div class="team-name">${game.awayTeam}</div>
+						</div>
+					</div>
+				`;
+				scheduleGrid.appendChild(gameCard);
+			});
+		}
 		
 		function renderFullSchedule() {
 			const fullScheduleBody = document.getElementById('fullScheduleBody');
