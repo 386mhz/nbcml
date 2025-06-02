@@ -315,26 +315,6 @@
             }
         }
 
-				// Rules data
-				let rules = [
-					{
-						title: "Game Duration",
-						content: "4 quarters of 10 minutes each with a 15-minute halftime break."
-					},
-					{
-						title: "Shot Clock",
-						content: "24-second shot clock reset to 14 seconds on offensive rebounds."
-					},
-					{
-						title: "Fouls",
-						content: "Players foul out after 5 personal fouls. Team fouls reset each quarter."
-					},
-					{
-						title: "Three-Point Line",
-						content: "FIBA three-point line distance (6.75m from basket center)."
-					}
-				];
-
 				// Roster data
 				let rosters = {
 					'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
@@ -366,21 +346,6 @@
 				];
 
 				// Render functions
-				function renderRules() {
-					const rulesContainer = document.getElementById('rulesContainer');
-					rulesContainer.innerHTML = '';
-
-					rules.forEach(rule => {
-						const ruleItem = document.createElement('div');
-						ruleItem.className = 'rule-item';
-						ruleItem.innerHTML = `
-							<div class="rule-title">${rule.title}</div>
-							<div class="rule-content">${rule.content}</div>
-						`;
-						rulesContainer.appendChild(ruleItem);
-					});
-				}
-
 				function renderRosters() {
 					const rostersContainer = document.getElementById('rostersContainer');
 					rostersContainer.innerHTML = '';
