@@ -1,4 +1,3 @@
-    <script>
         // Admin authentication
         let isAdminLoggedIn = false;
         const adminPassword = "nbc2025"; // Change this to your desired password
@@ -266,4 +265,3 @@
             renderStandings();
             renderNews();
         });
-    </script>
