@@ -1,4 +1,4 @@
-        // Admin authentication
+// Admin authentication
         let isAdminLoggedIn = false;
         const adminPassword = "nbc2025"; // Change this to your desired password
 
@@ -182,6 +182,68 @@
 			}
 		}
 
+        // Render full schedule for schedule page
+        function renderFullSchedule() {
+            const fullScheduleBody = document.getElementById('fullScheduleBody');
+            fullScheduleBody.innerHTML = '';
+
+            // Group games by date
+            const gamesByDate = {};
+            games.forEach(game => {
+                if (!gamesByDate[game.date]) {
+                    gamesByDate[game.date] = [];
+                }
+                gamesByDate[game.date].push(game);
+            });
+
+            // Sort dates
+            const sortedDates = Object.keys(gamesByDate).sort();
+            
+            let weekCounter = 1;
+            sortedDates.forEach(date => {
+                const gamesOnDate = gamesByDate[date].sort((a, b) => a.time.localeCompare(b.time));
+                
+                const row = document.createElement('tr');
+                
+                // Week column
+                const weekCell = document.createElement('td');
+                weekCell.textContent = `Week ${weekCounter}`;
+                row.appendChild(weekCell);
+                
+                // Date column
+                const dateCell = document.createElement('td');
+                dateCell.textContent = formatDate(date);
+                row.appendChild(dateCell);
+                
+                // Game time slots
+                const timeSlots = ['18:30', '19:40', '20:50']; // Early, Middle, Late
+                
+                timeSlots.forEach(timeSlot => {
+                    const gameCell = document.createElement('td');
+                    const gameAtTime = gamesOnDate.find(game => game.time === timeSlot);
+                    
+                    if (gameAtTime) {
+                        gameCell.innerHTML = `${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}`;
+                    } else {
+                        gameCell.innerHTML = '<em>No game</em>';
+                        gameCell.style.color = '#999';
+                    }
+                    
+                    row.appendChild(gameCell);
+                });
+                
+                fullScheduleBody.appendChild(row);
+                weekCounter++;
+            });
+
+            // If no games scheduled
+            if (sortedDates.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="5" style="text-align: center; color: #999;">No games scheduled</td>';
+                fullScheduleBody.appendChild(row);
+            }
+        }
+
         // Render standings
 		function renderStandings() {
 			const standingsBody = document.getElementById('standingsBody');
@@ -233,11 +295,13 @@
                     time: time,
                     homeTeam: homeTeam,
                     awayTeam: awayTeam,
+                    location: 'Magna Centre Gym',
                     status: 'scheduled'
                 };
 
                 games.push(newGame);
                 renderSchedule();
+                renderFullSchedule();
 
                 // Clear form
                 document.getElementById('gameDate').value = '';
@@ -409,19 +473,26 @@
 						return;
 					}
 
-					// Show confirmation dialog
-					if (!confirm('This will overwrite the entire existing schedule. Are you sure you want to continue?')) {
+					// Count current games before update
+					const currentGameCount = games.length;
+
+					// Show confirmation dialog with current count
+					if (!confirm(`This will replace all ${currentGameCount} existing games with new data from CSV. Are you sure you want to continue?`)) {
 						return;
 					}
 
 					const lines = csvData.split('\n');
 					const newGames = [];
 					let gameId = 1;
+					let processedLines = 0;
+					let validLines = 0;
 					
-					lines.forEach(line => {
+					lines.forEach((line, lineIndex) => {
 						if (line.trim()) {
+							processedLines++;
 							const parts = line.split(',').map(part => part.trim());
 							if (parts.length >= 4) {
+								validLines++;
 								const week = parts[0];
 								const date = parts[1];
 								
@@ -481,9 +552,20 @@
 						renderSchedule();
 						renderFullSchedule();
 						document.getElementById('scheduleCSV').value = '';
-						alert(`Schedule updated with ${newGames.length} games!`);
+						
+						// Show detailed success message
+						alert(`Schedule Update Complete!\n\n` +
+							  `📊 CSV Processing Summary:\n` +
+							  `• Lines processed: ${processedLines}\n` +
+							  `• Valid schedule lines: ${validLines}\n` +
+							  `• Previous games: ${currentGameCount}\n` +
+							  `• New games created: ${newGames.length}\n\n` +
+							  `✅ The schedule has been successfully updated!`);
 					} else {
-						alert('No valid games found in CSV data');
+						alert(`❌ CSV Processing Failed!\n\n` +
+							  `No valid games found in the CSV data.\n\n` +
+							  `Please check your CSV format:\n` +
+							  `Week,Date,Early Home,Early Away,Middle Home,Middle Away,Late Home,Late Away`);
 					}
 				}
 
