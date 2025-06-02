@@ -477,7 +477,7 @@
 					const currentGameCount = games.length;
 
 					// Show confirmation dialog with current count
-					if (!confirm(`This will replace all ${currentGameCount} existing games with new data from CSV. Are you sure you want to continue?`)) {
+					if (!confirm(`This will replace all ${currentGameCount} existing games with new data from CSV. Are you sure you want to continue?\n\nTip: Download a backup first to save your current data.`)) {
 						return;
 					}
 
@@ -553,6 +553,11 @@
 						renderFullSchedule();
 						document.getElementById('scheduleCSV').value = '';
 						
+						// Automatically download backup of new data
+						setTimeout(() => {
+							downloadBackup();
+						}, 500);
+						
 						// Show detailed success message
 						alert(`Schedule Update Complete!\n\n` +
 							  `📊 CSV Processing Summary:\n` +
@@ -560,7 +565,8 @@
 							  `• Valid schedule lines: ${validLines}\n` +
 							  `• Previous games: ${currentGameCount}\n` +
 							  `• New games created: ${newGames.length}\n\n` +
-							  `✅ The schedule has been successfully updated!`);
+							  `✅ The schedule has been successfully updated!\n` +
+							  `📥 A backup file has been automatically downloaded.`);
 					} else {
 						alert(`❌ CSV Processing Failed!\n\n` +
 							  `No valid games found in the CSV data.\n\n` +
@@ -568,6 +574,63 @@
 							  `Week,Date,Early Home,Early Away,Middle Home,Middle Away,Late Home,Late Away`);
 					}
 				}
+
+				// Data persistence functions
+					function saveDataToJSON() {
+						const data = {
+							games: games,
+							teams: teams,
+							lastUpdated: new Date().toISOString()
+						};
+						return JSON.stringify(data, null, 2);
+					}
+
+					function loadDataFromJSON(jsonString) {
+						try {
+							const data = JSON.parse(jsonString);
+							if (data.games && Array.isArray(data.games)) {
+								games = data.games;
+							}
+							if (data.teams && Array.isArray(data.teams)) {
+								teams = data.teams;
+							}
+							return true;
+						} catch (error) {
+							console.error('Error loading data:', error);
+							return false;
+						}
+					}
+
+					function downloadBackup() {
+						const dataStr = saveDataToJSON();
+						const dataBlob = new Blob([dataStr], {type: 'application/json'});
+						const url = URL.createObjectURL(dataBlob);
+						const link = document.createElement('a');
+						link.href = url;
+						link.download = `nbcml-backup-${new Date().toISOString().split('T')[0]}.json`;
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						URL.revokeObjectURL(url);
+					}
+
+					function uploadBackup(event) {
+						const file = event.target.files[0];
+						if (!file) return;
+						
+						const reader = new FileReader();
+						reader.onload = function(e) {
+							if (loadDataFromJSON(e.target.result)) {
+								renderSchedule();
+								renderFullSchedule();
+								renderStandings();
+								alert('Data restored successfully!');
+							} else {
+								alert('Error: Invalid backup file format');
+							}
+						};
+						reader.readAsText(file);
+					}
 
 					// Initialize the page
 					document.addEventListener('DOMContentLoaded', function() {
