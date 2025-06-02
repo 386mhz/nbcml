@@ -96,14 +96,15 @@
 
         // Format date for display
         function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-        }
+			const [year, month, day] = dateString.split('-');
+			const date = new Date(Date.UTC(year, month - 1, day));
+			return date.toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			});
+		}
 
         // Format time for display
         function formatTime(timeString) {
