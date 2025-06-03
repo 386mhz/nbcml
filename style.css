@@ -321,10 +321,10 @@ body {
 
 /* Player Lists */
 .player-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Force 4 players per row */
+  gap: 10px;
 }
 
 .player-list li {
