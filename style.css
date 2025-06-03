@@ -1,3 +1,37 @@
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+    --primary-blue: #000E54;
+    --primary-orange: #F76900;
+    --primary-orange-dark: #e55a00;
+    --accent-blue: #3498db;
+    --accent-green: #2ecc71;
+    --accent-green-dark: #27ae60;
+    --accent-red: #e74c3c;
+    --accent-red-dark: #c0392b;
+    --accent-gold: #f39c12;
+    --accent-gold-dark: #e67e22;
+    
+    --card-bg: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-bg-light: rgba(255, 255, 255, 0.1);
+    
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-light: #34495e;
+    --border-color: #eee;
+    --border-color-dark: #ddd;
+    
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 10px 25px rgba(0, 0, 0, 0.15);
+    
+    --border-radius: 10px;
+    --border-radius-large: 20px;
+    --border-radius-small: 8px;
+    --border-radius-pill: 50px;
+}
+
+/* ===== BASE STYLES ===== */
 * {
     margin: 0;
     padding: 0;
@@ -7,11 +41,12 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #000E54 0%, #F76900 100%);
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-orange) 100%);
     min-height: 100vh;
 }
 
+/* ===== LAYOUT COMPONENTS ===== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -19,21 +54,22 @@ body {
 }
 
 .header {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
+    border-radius: var(--border-radius-large);
     padding: 30px;
     text-align: center;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-medium);
 }
 
 .header h1 {
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 2.5rem;
     margin-bottom: 10px;
     font-weight: 700;
 }
+
 .header-logo {
     height: 50px;
     width: auto;
@@ -42,16 +78,17 @@ body {
 }
 
 .header p {
-    color: #7f8c8d;
+    color: var(--text-secondary);
     font-size: 1.2rem;
 }
 
+/* ===== NAVIGATION ===== */
 .nav-tabs {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
+    background: var(--glass-bg-light);
+    border-radius: var(--border-radius-pill);
     padding: 10px;
     backdrop-filter: blur(10px);
 }
@@ -77,12 +114,13 @@ body {
     background: rgba(255, 255, 255, 0.15);
 }
 
+/* ===== CARDS & CONTENT ===== */
 .content-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius-large);
     padding: 30px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-medium);
     backdrop-filter: blur(10px);
     display: none;
 }
@@ -91,22 +129,41 @@ body {
     display: block;
 }
 
+/* Base card styles */
+.card-base {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Hover effect utility */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-heavy);
+}
+
 .schedule-grid {
     display: grid;
     gap: 20px;
 }
 
 .game-card {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    background: var(--card-bg);
     border-radius: 15px;
     padding: 20px;
-    border-left: 5px solid #3498db;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--accent-blue);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-heavy);
 }
 
 .game-header {
@@ -118,17 +175,25 @@ body {
 }
 
 .game-time {
-    background: #3498db;
+    background: var(--accent-blue);
     color: white;
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: var(--border-radius-large);
     font-weight: 600;
     font-size: 0.9rem;
 }
 
 .game-date {
-    color: #7f8c8d;
+    color: var(--text-secondary);
     font-weight: 500;
+}
+
+.game-location {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 10px 0;
+    font-size: 0.95rem;
 }
 
 .game-matchup {
@@ -147,11 +212,11 @@ body {
 .team-name {
     font-weight: 600;
     font-size: 1.1rem;
-    color: #2c3e50;
+    color: var(--text-primary);
 }
 
 .vs {
-    background: #e74c3c;
+    background: var(--accent-red);
     color: white;
     padding: 8px 12px;
     border-radius: 50%;
@@ -159,6 +224,309 @@ body {
     font-size: 0.8rem;
 }
 
+/* Team and Player Cards */
+.team-roster {
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.team-roster h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.team-stat-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-blue);
+}
+
+.team-stat-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.player-stat-card {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--accent-red);
+}
+
+.player-rank {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    margin-right: 20px;
+    min-width: 40px;
+}
+
+.player-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.player-team {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.player-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Player Lists */
+.player-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.player-list li {
+    background: white;
+    padding: 10px 15px;
+    border-radius: var(--border-radius-small);
+    border-left: 3px solid var(--accent-blue);
+}
+
+.player-list li.captain {
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    color: white;
+    font-weight: bold;
+    border-left: 3px solid #d35400;
+    position: relative;
+}
+
+.captain-badge {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 6px;
+    border-radius: var(--border-radius);
+    margin-left: 8px;
+}
+
+.player-list li.captain i {
+    color: #f1c40f;
+    margin-right: 5px;
+}
+
+.complaints-highlight {
+    background: var(--primary-blue) !important;
+    color: #ffffff;
+    border-left: 3px solid #ffffff;
+}
+
+.complaints-highlight .captain-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* ===== TABLES ===== */
+.table-base {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.table-base th, .table-base td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.table-base th {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 600;
+}
+
+.table-base tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.standings-table th, .standings-table td {
+    font-size: 0.85rem;
+    padding: 8px 6px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.standings-table th {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.standings-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.schedule-table th, .schedule-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.schedule-table th {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 600;
+}
+
+.schedule-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* ===== EXECUTIVE TEAM ===== */
+.executive-team {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--text-primary);
+}
+
+.executive-team h2 {
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.executive-team .player-list {
+    justify-content: center;
+    text-align: center;
+}
+
+.executive-team .player-list li {
+    justify-content: center;
+    text-align: center;
+}
+
+.executive-team:last-of-type .player-list li.captain {
+    background: var(--primary-blue);
+    color: #ffffff;
+    border-left: 3px solid #ffffff;
+}
+
+.executive-team:last-of-type .captain-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* ===== RULES SECTION ===== */
+.rules-pdf-section {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 15px;
+    border: 2px dashed var(--accent-blue);
+}
+
+.rules-pdf-link {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.rules-pdf-link:hover {
+    transform: scale(1.05);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.fiba-icon {
+    font-size: 4rem;
+    color: var(--primary-orange);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.rules-pdf-link:hover .fiba-icon {
+    color: var(--primary-orange-dark);
+    transform: scale(1.1);
+}
+
+.rules-pdf-link p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--accent-blue);
+}
+
+/* ===== FORMS & ADMIN ===== */
 .admin-panel {
     background: linear-gradient(135deg, #ff7e5f, #feb47b);
     color: white;
@@ -186,54 +554,36 @@ body {
 .form-group input, .form-group select {
     padding: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     font-size: 1rem;
 }
 
+.admin-form textarea {
+    background: white;
+    color: #333;
+}
+
 .btn {
-    background: #2ecc71;
+    background: var(--accent-green);
     color: white;
     border: none;
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     cursor: pointer;
     font-weight: 500;
     transition: background 0.3s ease;
 }
 
 .btn:hover {
-    background: #27ae60;
+    background: var(--accent-green-dark);
 }
 
 .btn-danger {
-    background: #e74c3c;
+    background: var(--accent-red);
 }
 
 .btn-danger:hover {
-    background: #c0392b;
-}
-
-.standings-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.standings-table th,
-.standings-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.standings-table th {
-    background: #34495e;
-    color: white;
-    font-weight: 600;
-}
-
-.standings-table tr:hover {
-    background: #f8f9fa;
+    background: var(--accent-red-dark);
 }
 
 .admin-login {
@@ -259,7 +609,7 @@ body {
     padding: 12px;
     margin: 10px 0;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     font-size: 1rem;
 }
 
@@ -288,6 +638,7 @@ body {
     color: rgba(255, 255, 255, 0.6);
 }
 
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -317,296 +668,4 @@ body {
         flex-direction: column;
         gap: 10px;
     }
-}
-
-	.rule-item {
-		border-bottom: 1px solid #eee;
-		padding: 20px 0;
-	}
-
-	.rule-item:last-child {
-		border-bottom: none;
-	}
-
-	.rule-title {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin-bottom: 8px;
-		color: #2c3e50;
-	}
-
-	.rule-content {
-		color: #7f8c8d;
-		line-height: 1.6;
-	}
-
-	.team-roster {
-		background: #f8f9fa;
-		border-radius: 10px;
-		padding: 20px;
-		margin-bottom: 20px;
-	}
-
-	.team-roster h3 {
-		color: #2c3e50;
-		margin-bottom: 15px;
-		font-size: 1.3rem;
-	}
-
-	.player-list {
-		list-style: none;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 10px;
-	}
-
-	.player-list li {
-		background: white;
-		padding: 10px 15px;
-		border-radius: 8px;
-		border-left: 3px solid #3498db;
-	}
-	.player-list li.captain {
-		background: linear-gradient(135deg, #f39c12, #e67e22);
-		color: white;
-		font-weight: bold;
-		border-left: 3px solid #d35400;
-		position: relative;
-	}
-
-	.captain-badge {
-		font-size: 0.7rem;
-		background: rgba(255, 255, 255, 0.3);
-		padding: 2px 6px;
-		border-radius: 10px;
-		margin-left: 8px;
-	}
-
-	.player-list li.captain i {
-		color: #f1c40f;
-		margin-right: 5px;
-	}
-	.team-stat-card {
-		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-		border-radius: 10px;
-		padding: 20px;
-		margin-bottom: 20px;
-		border-left: 4px solid #3498db;
-	}
-
-	.team-stat-card h3 {
-		color: #2c3e50;
-		margin-bottom: 15px;
-	}
-
-	.stat-row {
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 10px;
-		padding-bottom: 8px;
-		border-bottom: 1px solid #eee;
-	}
-
-	.stat-row:last-child {
-		border-bottom: none;
-		margin-bottom: 0;
-	}
-
-	.player-stat-card {
-		display: flex;
-		align-items: center;
-		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-		border-radius: 10px;
-		padding: 20px;
-		margin-bottom: 15px;
-		border-left: 4px solid #e74c3c;
-	}
-
-	.player-rank {
-		font-size: 1.5rem;
-		font-weight: bold;
-		color: #e74c3c;
-		margin-right: 20px;
-		min-width: 40px;
-	}
-
-	.player-info {
-		flex: 1;
-		margin-right: 20px;
-	}
-
-	.player-name {
-		font-size: 1.1rem;
-		font-weight: 600;
-		color: #2c3e50;
-	}
-
-	.player-team {
-		color: #7f8c8d;
-		font-size: 0.9rem;
-	}
-
-	.player-stats {
-		display: flex;
-		gap: 20px;
-	}
-
-	.stat-item {
-		text-align: center;
-	}
-
-	.stat-value {
-		display: block;
-		font-size: 1.2rem;
-		font-weight: bold;
-		color: #2c3e50;
-	}
-
-	.stat-label {
-		font-size: 0.8rem;
-		color: #7f8c8d;
-	}
-	
-	.rules-pdf-section {
-		text-align: center;
-		margin: 30px 0;
-		padding: 20px;
-		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-		border-radius: 15px;
-		border: 2px dashed #3498db;
-	}
-
-	.rules-pdf-link {
-		display: inline-block;
-		text-decoration: none;
-		color: #2c3e50;
-		transition: all 0.3s ease;
-		padding: 20px;
-		border-radius: 10px;
-	}
-
-	.rules-pdf-link:hover {
-		transform: scale(1.05);
-		background: rgba(52, 152, 219, 0.1);
-	}
-
-	.fiba-icon {
-		font-size: 4rem;
-		color: #F76900;
-		margin-bottom: 15px;
-		transition: all 0.3s ease;
-	}
-
-	.rules-pdf-link:hover .fiba-icon {
-		color: #e55a00;
-		transform: scale(1.1);
-	}
-
-	.rules-pdf-link p {
-		font-weight: 600;
-		font-size: 1.1rem;
-		margin: 0;
-		color: #3498db;
-	}
-	
-	.executive-team {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    border-left: 4px solid #2c3e50;
-}
-
-	.executive-team h2 {
-		margin-bottom: 15px;
-		color: #2c3e50;
-	}
-
-	.executive-list {
-		list-style: none;
-		padding-left: 0;
-		line-height: 1.8;
-		color: #34495e;
-	}
-
-	.executive-list li {
-		margin-bottom: 5px;
-	}
-
-	.executive-team .player-list {
-		justify-content: center;
-		text-align: center;
-	}
-
-	.executive-team .player-list li {
-		justify-content: center;
-		text-align: center;
-	}
-
-	.executive-team:last-of-type .player-list li.captain {
-		background: #000E54;
-		color: #ffffff;
-		border-left: 3px solid #ffffff;
-	}
-
-	.executive-team:last-of-type .captain-badge {
-		background: rgba(255, 255, 255, 0.2);
-		color: #ffffff;
-	}
-	
-	.complaints-highlight {
-    background: #000E54 !important;
-    color: #ffffff;
-    border-left: 3px solid #ffffff;
-}
-
-	.complaints-highlight .captain-badge {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
-	.standings-table th, .standings-table td {
-    font-size: 0.85rem;
-    padding: 8px 6px;
-    text-align: center;
-}
-
-	.standings-table th {
-    white-space: nowrap;
-}
-	.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-	.schedule-table th, .schedule-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-	.schedule-table th {
-    background: #000E54;
-    color: white;
-    font-weight: 600;
-}
-
-	.schedule-table tr:nth-child(even) {
-    background: #f9f9f9;
-}
-	.game-location {
-    text-align: center;
-    font-weight: 600;
-    color: #2c3e50;
-    margin: 10px 0;
-    font-size: 0.95rem;
-}
-	.admin-form textarea {
-    background: white;
-    color: #333;
 }
