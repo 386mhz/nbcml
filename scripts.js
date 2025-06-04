@@ -132,6 +132,18 @@ const Utils = {
         });
     },
 
+	formatDateShort(dateString) {
+		const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+		const date = new Date(year, month - 1, day);
+		
+		return date.toLocaleDateString('en-US', {
+			weekday: 'short',
+			month: 'short', 
+			day: 'numeric',
+			timeZone: 'America/Toronto'
+		}).toUpperCase();
+	},
+
     getUpcomingGames(limit = 3) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -483,7 +495,7 @@ const ResultsRenderer = {
             const resultGroup = Utils.createElement('div', 'result-group');
             
             // Create date header
-            const dateHeader = Utils.createElement('div', 'result-date', Utils.formatDate(date));
+            const dateHeader = Utils.createElement('div', 'result-date', Utils.formatDateShort(date));
             resultGroup.appendChild(dateHeader);
             
             // Add games for this date
