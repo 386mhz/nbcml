@@ -3,8 +3,8 @@ const CONFIG = {
     adminPassword: "nbc2025",
     venue: "Magna Centre Gym",
     gameTimeSlots: ['18:30', '19:40', '20:50'],
-    gameLabels: ['Early Game - 6:30', 'Middle Game - 7:40', 'Late Game - 8:50']
-	scrollPosition: 0,
+    gameLabels: ['Early Game - 6:30', 'Middle Game - 7:40', 'Late Game - 8:50'],
+    scrollPosition: 0,
     scrollStep: 300
 };
 
@@ -59,14 +59,14 @@ const DataStore = {
         new Game(3, '2025-10-07', '20:50', 'Team 5', 'Team 6')
     ],
 
-	gameResults: [
-		{ id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
-		{ id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 85, awayScore: 79, status: 'final' },
-		{ id: 3, date: '2025-05-28', homeTeam: 'Team 5', awayTeam: 'Team 6', homeScore: 71, awayScore: 68, status: 'final' },
-		{ id: 4, date: '2025-06-04', homeTeam: 'Team 2', awayTeam: 'Team 5', homeScore: null, awayScore: null, status: 'scheduled', time: '18:30' },
-		{ id: 5, date: '2025-06-04', homeTeam: 'Team 1', awayTeam: 'Team 3', homeScore: null, awayScore: null, status: 'scheduled', time: '19:40' },
-		{ id: 6, date: '2025-06-04', homeTeam: 'Team 4', awayTeam: 'Team 6', homeScore: null, awayScore: null, status: 'scheduled', time: '20:50' }
-	],
+    gameResults: [
+        { id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
+        { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 85, awayScore: 79, status: 'final' },
+        { id: 3, date: '2025-05-28', homeTeam: 'Team 5', awayTeam: 'Team 6', homeScore: 71, awayScore: 68, status: 'final' },
+        { id: 4, date: '2025-06-04', homeTeam: 'Team 2', awayTeam: 'Team 5', homeScore: null, awayScore: null, status: 'scheduled', time: '18:30' },
+        { id: 5, date: '2025-06-04', homeTeam: 'Team 1', awayTeam: 'Team 3', homeScore: null, awayScore: null, status: 'scheduled', time: '19:40' },
+        { id: 6, date: '2025-06-04', homeTeam: 'Team 4', awayTeam: 'Team 6', homeScore: null, awayScore: null, status: 'scheduled', time: '20:50' }
+    ],
 
     teams: [
         new Team('Team 1', 8, 2, 0, 852, 728, 'W4'),
@@ -459,109 +459,115 @@ const StatsRenderer = {
     }
 };
 
-		const ResultsRenderer = {
-			render() {
-				const container = document.getElementById('resultsContainer');
-				if (!container) return;
-				
-				container.innerHTML = '';
-				
-				// Group games by date
-				const gamesByDate = {};
-				DataStore.gameResults.forEach(game => {
-					if (!gamesByDate[game.date]) {
-						gamesByDate[game.date] = [];
-					}
-					gamesByDate[game.date].push(game);
-				});
-				
-				// Sort dates
-				const sortedDates = Object.keys(gamesByDate).sort();
-				
-				sortedDates.forEach(date => {
-					const games = gamesByDate[date];
-					const resultGroup = Utils.createElement('div', 'result-group');
-					
-					// Create date header
-					const dateHeader = Utils.createElement('div', 'result-date', Utils.formatDate(date));
-					resultGroup.appendChild(dateHeader);
-					
-					// Add games for this date
-					games.forEach(game => {
-						const gameDiv = Utils.createElement('div', 'result-game');
-						
-						const gameInfo = Utils.createElement('div', 'game-info');
-						
-						// Teams and scores/records
-						const teamsDiv = Utils.createElement('div', 'game-teams');
-						
-						if (game.status === 'final') {
-							teamsDiv.innerHTML = `
-								<div class="team-result">
-									<span>${game.homeTeam}</span>
-									<span class="team-score">${game.homeScore}</span>
-								</div>
-								<div class="team-result">
-									<span>${game.awayTeam}</span>
-									<span class="team-score">${game.awayScore}</span>
-								</div>
-							`;
-						} else {
-							// Get team records
-							const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
-							const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);
-							
-							teamsDiv.innerHTML = `
-								<div class="team-result">
-									<span>${game.homeTeam}</span>
-									<span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
-								</div>
-								<div class="team-result">
-									<span>${game.awayTeam}</span>
-									<span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
-								</div>
-							`;
-						}
-						
-						gameInfo.appendChild(teamsDiv);
-						
-						// Game status
-						const statusDiv = Utils.createElement('div', 
-							`game-status ${game.status}`, 
-							game.status === 'final' ? 'FINAL' : Utils.formatTime(game.time)
-						);
-						gameInfo.appendChild(statusDiv);
-						
-						gameDiv.appendChild(gameInfo);
-						resultGroup.appendChild(gameDiv);
-					});
-					
-					container.appendChild(resultGroup);
-				});
-				
-				// Reset scroll position
-				CONFIG.scrollPosition = 0;
-				this.updateScrollPosition();
-			},
-			
-			updateScrollPosition() {
-				const container = document.getElementById('resultsContainer');
-				if (!container) return;
-				
-				container.style.transform = `translateX(-${CONFIG.scrollPosition}px)`;
-				
-				// Update arrow states
-				const leftArrow = document.querySelector('.scroll-left');
-				const rightArrow = document.querySelector('.scroll-right');
-				
-				if (leftArrow) leftArrow.disabled = CONFIG.scrollPosition <= 0;
-				
-				if (rightArrow) {
-					const maxScroll = Math.max(0, container.scrollWidth - container.parentElement.clientWidth);
-					rightArrow.disabled = CONFIG.scrollPosition >= maxScroll;
-				}
-			}
-		};
+const ResultsRenderer = {
+    render() {
+        const container = document.getElementById('resultsContainer');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        // Group games by date
+        const gamesByDate = {};
+        DataStore.gameResults.forEach(game => {
+            if (!gamesByDate[game.date]) {
+                gamesByDate[game.date] = [];
+            }
+            gamesByDate[game.date].push(game);
+        });
+        
+        // Sort dates in descending order (most recent first)
+        const sortedDates = Object.keys(gamesByDate).sort().reverse();
+        
+        sortedDates.forEach(date => {
+            const games = gamesByDate[date];
+            const resultGroup = Utils.createElement('div', 'result-group');
+            
+            // Create date header
+            const dateHeader = Utils.createElement('div', 'result-date', Utils.formatDate(date));
+            resultGroup.appendChild(dateHeader);
+            
+            // Add games for this date
+            games.forEach(game => {
+                const gameDiv = Utils.createElement('div', 'result-game');
+                
+                const gameInfo = Utils.createElement('div', 'game-info');
+                
+                // Teams and scores/records
+                const teamsDiv = Utils.createElement('div', 'game-teams');
+                
+                if (game.status === 'final') {
+                    // Determine winner for highlighting
+                    const homeWon = game.homeScore > game.awayScore;
+                    const awayWon = game.awayScore > game.homeScore;
+                    
+                    teamsDiv.innerHTML = `
+                        <div class="team-result ${homeWon ? 'winner' : ''}">
+                            <span class="team-name">${game.homeTeam}</span>
+                            <span class="team-score">${game.homeScore}</span>
+                        </div>
+                        <div class="vs-small">vs</div>
+                        <div class="team-result ${awayWon ? 'winner' : ''}">
+                            <span class="team-name">${game.awayTeam}</span>
+                            <span class="team-score">${game.awayScore}</span>
+                        </div>
+                    `;
+                } else {
+                    // Get team records
+                    const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
+                    const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);
+                    
+                    teamsDiv.innerHTML = `
+                        <div class="team-result">
+                            <span class="team-name">${game.homeTeam}</span>
+                            <span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
+                        </div>
+                        <div class="vs-small">vs</div>
+                        <div class="team-result">
+                            <span class="team-name">${game.awayTeam}</span>
+                            <span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
+                        </div>
+                    `;
+                }
+                
+                gameInfo.appendChild(teamsDiv);
+                
+                // Game status
+                const statusDiv = Utils.createElement('div', 
+                    `game-status ${game.status}`, 
+                    game.status === 'final' ? 'FINAL' : Utils.formatTime(game.time)
+                );
+                gameInfo.appendChild(statusDiv);
+                
+                gameDiv.appendChild(gameInfo);
+                resultGroup.appendChild(gameDiv);
+            });
+            
+            container.appendChild(resultGroup);
+        });
+        
+        // Reset scroll position
+        CONFIG.scrollPosition = 0;
+        this.updateScrollPosition();
+    },
+    
+    updateScrollPosition() {
+        const container = document.getElementById('resultsContainer');
+        if (!container) return;
+        
+        container.style.transform = `translateX(-${CONFIG.scrollPosition}px)`;
+        
+        // Update arrow states
+        const leftArrow = document.querySelector('.scroll-left');
+        const rightArrow = document.querySelector('.scroll-right');
+        
+        if (leftArrow) leftArrow.disabled = CONFIG.scrollPosition <= 0;
+        
+        if (rightArrow) {
+            const maxScroll = Math.max(0, container.scrollWidth - container.parentElement.clientWidth);
+            rightArrow.disabled = CONFIG.scrollPosition >= maxScroll;
+        }
+    }
+};
 
 // ===== ADMIN MODULE =====
 const Admin = {
@@ -677,7 +683,7 @@ const App = {
         RosterRenderer.render();
         StatsRenderer.renderTeamStats();
         StatsRenderer.renderPlayerStats();
-        ResultsRenderer.render(); // ADDED FOR SCROLLER
+        ResultsRenderer.render();
     }
 };
 
