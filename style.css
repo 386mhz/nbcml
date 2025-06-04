@@ -568,10 +568,20 @@ body {
     align-items: center;
     background: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 15px;
     border-left: 4px solid var(--accent-red);
 }
+
+.player-stat-grey {
+  background: #f4f4f4;
+  border-left: 4px solid #ccc;
+  color: #555;
+  height: 80px;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+}
+
 
 .player-rank {
     font-size: 1.5rem;

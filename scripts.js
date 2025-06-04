@@ -438,37 +438,36 @@ const StatsRenderer = {
         });
     },
 
-    renderPlayerStats() {
-        const container = document.getElementById('individualScoringContainer');
-        container.innerHTML = '';
-
-        const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
-
-        sortedPlayers.forEach((player, index) => {
-            const playerCard = Utils.createElement('div', 'player-stat-card', `
-                <div class="player-rank">#${index + 1}</div>
-                <div class="player-info">
-                    <div class="player-name">${player.name}</div>
-                    <div class="player-team">${player.team}</div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">${player.ppg}</span>
-                        <span class="stat-label">PPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.rpg}</span>
-                        <span class="stat-label">RPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.apg}</span>
-                        <span class="stat-label">APG</span>
-                    </div>
-                </div>
-            `);
-            container.appendChild(playerCard);
-        });
-    }
+renderPlayerStats() {
+  const container = document.getElementById('individualScoringContainer');
+  container.innerHTML = '';
+  const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
+  sortedPlayers.forEach((player, index) => {
+    const isTop10 = index < 10;
+    const playerCard = Utils.createElement('div', `player-stat-card ${isTop10 ? '' : 'player-stat-grey'}`, `
+      <div class="player-rank"${!isTop10 ? ' style="color: grey;"' : ''}>#${index + 1}</div>
+      <div class="player-info">
+        <div class="player-name">${player.name}</div>
+        <div class="player-team">${player.team}</div>
+      </div>
+      <div class="player-stats">
+        <div class="stat-item">
+          <span class="stat-value">${player.ppg}</span>
+          <span class="stat-label">PPG</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">${player.rpg}</span>
+          <span class="stat-label">RPG</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">${player.apg}</span>
+          <span class="stat-label">APG</span>
+        </div>
+      </div>
+    `);
+    container.appendChild(playerCard);
+  });
+}
 };
 
 const ResultsRenderer = {
