@@ -494,68 +494,63 @@ const ResultsRenderer = {
             const games = gamesByDate[date];
             const resultGroup = Utils.createElement('div', 'result-group');
             
-            // Create date header
-            const dateHeader = Utils.createElement('div', 'result-date', Utils.formatDateShort(date));
-            resultGroup.appendChild(dateHeader);
+            // Create date header with vertical layout
+            const dateSection = Utils.createElement('div', 'result-date-section');
+            const dateHeader = Utils.createElement('div', 'result-date-vertical', Utils.formatDateShort(date));
+            dateSection.appendChild(dateHeader);
             
-            // Add games for this date
+            // Create games row container
+            const gamesRow = Utils.createElement('div', 'games-row');
+            
+            // Add games horizontally
             games.forEach(game => {
-                const gameDiv = Utils.createElement('div', 'result-game');
+                const gameCard = Utils.createElement('div', 'game-result-card');
                 
-                const gameInfo = Utils.createElement('div', 'game-info');
-                
-                // Teams and scores/records
-                const teamsDiv = Utils.createElement('div', 'game-teams');
-                
-				if (game.status === 'final') {
-					// Determine winner for highlighting
-					const homeWon = game.homeScore > game.awayScore;
-					const awayWon = game.awayScore > game.homeScore;
-					
-					teamsDiv.innerHTML = `
-						<div class="team-result ${homeWon ? 'winner' : ''}">
-							${homeWon ? '<div class="winner-triangle"></div>' : ''}
-							<span class="team-name">${game.homeTeam}</span>
-							<span class="team-score">${game.homeScore}</span>
-						</div>
-						<div class="vs-small">vs</div>
-						<div class="team-result ${awayWon ? 'winner' : ''}">
-							${awayWon ? '<div class="winner-triangle"></div>' : ''}
-							<span class="team-name">${game.awayTeam}</span>
-							<span class="team-score">${game.awayScore}</span>
-						</div>
-					`;
-				} else {
+                if (game.status === 'final') {
+                    // Determine winner for highlighting
+                    const homeWon = game.homeScore > game.awayScore;
+                    const awayWon = game.awayScore > game.homeScore;
+                    
+                    gameCard.innerHTML = `
+                        <div class="game-result-teams">
+                            <div class="team-score-line ${homeWon ? 'winner' : ''}">
+                                <span class="team-name">${game.homeTeam}</span>
+                                <span class="team-score">${game.homeScore}</span>
+                                ${homeWon ? '<div class="winner-indicator">▶</div>' : ''}
+                            </div>
+                            <div class="team-score-line ${awayWon ? 'winner' : ''}">
+                                <span class="team-name">${game.awayTeam}</span>
+                                <span class="team-score">${game.awayScore}</span>
+                                ${awayWon ? '<div class="winner-indicator">▶</div>' : ''}
+                            </div>
+                        </div>
+                        <div class="game-result-status final">FINAL</div>
+                    `;
+                } else {
                     // Get team records
                     const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
                     const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);
                     
-                    teamsDiv.innerHTML = `
-                        <div class="team-result">
-                            <span class="team-name">${game.homeTeam}</span>
-                            <span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
+                    gameCard.innerHTML = `
+                        <div class="game-result-teams">
+                            <div class="team-score-line">
+                                <span class="team-name">${game.homeTeam}</span>
+                                <span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
+                            </div>
+                            <div class="team-score-line">
+                                <span class="team-name">${game.awayTeam}</span>
+                                <span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
+                            </div>
                         </div>
-                        <div class="vs-small">vs</div>
-                        <div class="team-result">
-                            <span class="team-name">${game.awayTeam}</span>
-                            <span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
-                        </div>
+                        <div class="game-result-status scheduled">${Utils.formatTime(game.time)}</div>
                     `;
                 }
                 
-                gameInfo.appendChild(teamsDiv);
-                
-                // Game status
-                const statusDiv = Utils.createElement('div', 
-                    `game-status ${game.status}`, 
-                    game.status === 'final' ? 'FINAL' : Utils.formatTime(game.time)
-                );
-                gameInfo.appendChild(statusDiv);
-                
-                gameDiv.appendChild(gameInfo);
-                resultGroup.appendChild(gameDiv);
+                gamesRow.appendChild(gameCard);
             });
             
+            dateSection.appendChild(gamesRow);
+            resultGroup.appendChild(dateSection);
             container.appendChild(resultGroup);
         });
         
@@ -563,22 +558,12 @@ const ResultsRenderer = {
         CONFIG.scrollPosition = 0;
         this.updateScrollPosition();
     },
-    
+
+    // ADD THIS MISSING METHOD:
     updateScrollPosition() {
         const container = document.getElementById('resultsContainer');
-        if (!container) return;
-        
-        container.style.transform = `translateX(-${CONFIG.scrollPosition}px)`;
-        
-        // Update arrow states
-        const leftArrow = document.querySelector('.scroll-left');
-        const rightArrow = document.querySelector('.scroll-right');
-        
-        if (leftArrow) leftArrow.disabled = CONFIG.scrollPosition <= 0;
-        
-        if (rightArrow) {
-            const maxScroll = Math.max(0, container.scrollWidth - container.parentElement.clientWidth);
-            rightArrow.disabled = CONFIG.scrollPosition >= maxScroll;
+        if (container) {
+            container.style.transform = `translateX(-${CONFIG.scrollPosition}px)`;
         }
     }
 };

@@ -226,7 +226,7 @@ body {
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 8px solid #27ae60; /* Green triangle */
+    border-bottom: 8px solid #F76900; /* Orange triangle */
     margin-right: 4px;
 }
 
