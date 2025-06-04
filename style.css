@@ -568,18 +568,20 @@ body {
     align-items: center;
     background: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
     border-left: 4px solid var(--accent-red);
 }
 
 .player-stat-grey {
+  display: flex;
+  align-items: center;
   background: #f4f4f4;
-  border-left: 4px solid #ccc;
   color: #555;
-  height: 80px;
-  padding: 10px 15px;
+  padding: 5px;
+  margin-bottom: 5px;
   font-size: 0.85rem;
+  border-left: 4px solid #ccc;
 }
 
 
@@ -598,7 +600,7 @@ body {
 
 .player-name {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 800;
     color: var(--text-primary);
 }
 
