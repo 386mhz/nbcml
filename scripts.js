@@ -687,7 +687,6 @@ const Admin = {
 const App = {
     init() {
         // Render initial content
-        ScheduleRenderer.renderUpcoming();
         ScheduleRenderer.renderFull();
         StandingsRenderer.render();
         RosterRenderer.render();
