@@ -49,6 +49,23 @@
             </button>
         </div>
 
+		<!-- Scrolling Results Section -->
+		<div class="results-scroller">
+			<button class="scroll-arrow scroll-left" onclick="scrollResults('left')">
+				<i class="fas fa-chevron-left"></i>
+			</button>
+			
+			<div class="results-viewport">
+				<div class="results-container" id="resultsContainer">
+					<!-- Results will be populated by JavaScript -->
+				</div>
+			</div>
+			
+			<button class="scroll-arrow scroll-right" onclick="scrollResults('right')">
+				<i class="fas fa-chevron-right"></i>
+			</button>
+		</div>
+
         <!-- Main Section -->
         <div id="main" class="content-section active">
 			<h2><i class="fas fa-home"></i> Upcoming Games</h2>

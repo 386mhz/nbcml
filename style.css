@@ -114,6 +114,169 @@ body {
     background: rgba(255, 255, 255, 0.15);
 }
 
+/* ===== SCROLLING RESULTS ===== */
+.results-scroller {
+    display: flex;
+    align-items: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-large);
+    padding: 15px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-medium);
+    gap: 15px;
+}
+
+.scroll-arrow {
+    background: var(--accent-blue);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.scroll-arrow:hover {
+    background: var(--primary-blue);
+    transform: scale(1.1);
+}
+
+.scroll-arrow:disabled {
+    background: var(--text-secondary);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.results-viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.results-container {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease;
+    will-change: transform;
+}
+
+.result-group {
+    flex-shrink: 0;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: var(--shadow-light);
+    min-width: 280px;
+    border-left: 4px solid var(--accent-blue);
+}
+
+.result-date {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.result-game {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.result-game:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.game-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.team-result {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.team-score {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent-blue);
+    min-width: 25px;
+    text-align: center;
+}
+
+.team-record {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+.game-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.game-status.final {
+    color: var(--accent-red);
+    font-weight: bold;
+}
+
+.game-status.scheduled {
+    color: var(--accent-blue);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .results-scroller {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .scroll-arrow {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .result-group {
+        min-width: 240px;
+        padding: 12px;
+    }
+    
+    .result-date {
+        font-size: 0.9rem;
+    }
+    
+    .team-result {
+        font-size: 0.9rem;
+    }
+}
+
 /* ===== CARDS & CONTENT ===== */
 .content-section {
     background: var(--glass-bg);
