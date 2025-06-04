@@ -677,6 +677,7 @@ const App = {
         RosterRenderer.render();
         StatsRenderer.renderTeamStats();
         StatsRenderer.renderPlayerStats();
+        ResultsRenderer.render(); // ADDED FOR SCROLLER
     }
 };
 
