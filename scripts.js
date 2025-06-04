@@ -61,7 +61,7 @@ const DataStore = {
 
     gameResults: [
         { id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
-        { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 85, awayScore: 79, status: 'final' },
+        { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 75, awayScore: 79, status: 'final' },
         { id: 3, date: '2025-05-28', homeTeam: 'Team 5', awayTeam: 'Team 6', homeScore: 71, awayScore: 68, status: 'final' },
         { id: 4, date: '2025-06-04', homeTeam: 'Team 2', awayTeam: 'Team 5', homeScore: null, awayScore: null, status: 'scheduled', time: '18:30' },
         { id: 5, date: '2025-06-04', homeTeam: 'Team 1', awayTeam: 'Team 3', homeScore: null, awayScore: null, status: 'scheduled', time: '19:40' },
@@ -507,23 +507,25 @@ const ResultsRenderer = {
                 // Teams and scores/records
                 const teamsDiv = Utils.createElement('div', 'game-teams');
                 
-                if (game.status === 'final') {
-                    // Determine winner for highlighting
-                    const homeWon = game.homeScore > game.awayScore;
-                    const awayWon = game.awayScore > game.homeScore;
-                    
-                    teamsDiv.innerHTML = `
-                        <div class="team-result ${homeWon ? 'winner' : ''}">
-                            <span class="team-name">${game.homeTeam}</span>
-                            <span class="team-score">${game.homeScore}</span>
-                        </div>
-                        <div class="vs-small">vs</div>
-                        <div class="team-result ${awayWon ? 'winner' : ''}">
-                            <span class="team-name">${game.awayTeam}</span>
-                            <span class="team-score">${game.awayScore}</span>
-                        </div>
-                    `;
-                } else {
+				if (game.status === 'final') {
+					// Determine winner for highlighting
+					const homeWon = game.homeScore > game.awayScore;
+					const awayWon = game.awayScore > game.homeScore;
+					
+					teamsDiv.innerHTML = `
+						<div class="team-result ${homeWon ? 'winner' : ''}">
+							${homeWon ? '<div class="winner-triangle"></div>' : ''}
+							<span class="team-name">${game.homeTeam}</span>
+							<span class="team-score">${game.homeScore}</span>
+						</div>
+						<div class="vs-small">vs</div>
+						<div class="team-result ${awayWon ? 'winner' : ''}">
+							${awayWon ? '<div class="winner-triangle"></div>' : ''}
+							<span class="team-name">${game.awayTeam}</span>
+							<span class="team-score">${game.awayScore}</span>
+						</div>
+					`;
+				} else {
                     // Get team records
                     const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
                     const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);

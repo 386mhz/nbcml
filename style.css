@@ -221,6 +221,15 @@ body {
     color: var(--text-primary);
 }
 
+.winner-triangle {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #27ae60; /* Green triangle */
+    margin-right: 4px;
+}
+
 .team-score {
     font-size: 1.1rem;
     font-weight: bold;
