@@ -101,7 +101,19 @@ const DataStore = {
         { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, rpg: 9.1, apg: 4.2 },
         { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, rpg: 5.8, apg: 6.7 },
         { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, rpg: 7.4, apg: 3.9 },
-        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, rpg: 6.1, apg: 4.8 }
+        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, rpg: 6.1, apg: 4.8 },
+		{ name: 'Ethan Hill', team: 'Team 1', ppg: 28.4, rpg: 8.2, apg: 5.1 },
+        { name: 'Connor Allen', team: 'Team 2', ppg: 25.8, rpg: 6.9, apg: 7.3 },
+        { name: 'Luke Thompson', team: 'Team 3', ppg: 15.6, rpg: 9.1, apg: 4.2 },
+        { name: 'Matt Thomas', team: 'Team 4', ppg: 8.9, rpg: 5.8, apg: 6.7 },
+        { name: 'Mark Garcia', team: 'Team 5', ppg: 27.2, rpg: 7.4, apg: 3.9 },
+        { name: 'Chris Williams', team: 'Team 6', ppg: 15.8, rpg: 6.1, apg: 4.8 },
+		{ name: 'David Brown', team: 'Team 1', ppg: 22.8, rpg: 8.2, apg: 5.1 },
+        { name: 'Tom Rodriguez', team: 'Team 2', ppg: 20.1, rpg: 6.9, apg: 7.3 },
+        { name: 'Josh Jackson', team: 'Team 3', ppg: 29.6, rpg: 9.1, apg: 4.2 },
+        { name: 'Sam Garcia', team: 'Team 4', ppg: 14.9, rpg: 5.8, apg: 6.7 },
+        { name: 'Noah Young', team: 'Team 5', ppg: 7.2, rpg: 7.4, apg: 3.9 },
+        { name: 'Lucas Scott', team: 'Team 6', ppg: 12.8, rpg: 6.1, apg: 4.8 }
     ]
 };
 
