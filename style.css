@@ -351,7 +351,7 @@ body {
 
 .winner-indicator {
     position: absolute;
-    right: -8px;
+    right: 20px;
     color: var(--primary-orange);
     font-size: 0.8rem;
     font-weight: bold;
