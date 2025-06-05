@@ -54,13 +54,13 @@ body {
 }
 
 .header {
-    background: linear-gradient(135deg, rgba(0, 14, 84, 0.95), rgba(247, 105, 0, 0.95)),
+    background: linear-gradient(135deg, rgba(0, 14, 84, 0.55), rgba(247, 105, 0, 0.95)),
                 url('images/basketball-pattern.png');
     background-size: cover;
     background-position: center;
     backdrop-filter: blur(10px);
     border-radius: var(--border-radius-large);
-    padding: 40px;
+    padding: 20px 40px;  /* Reduce vertical padding to accommodate larger logos */
     text-align: center;
     margin-bottom: 30px;
     box-shadow: var(--shadow-medium);
@@ -73,10 +73,19 @@ body {
     margin-bottom: 15px;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header h1 span {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .header-logo {
-    height: 80px;
+    height: 120px;  /* Increase from 80px */
     width: auto;
     vertical-align: middle;
     margin: 0 15px;
