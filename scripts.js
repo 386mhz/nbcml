@@ -451,35 +451,74 @@ const StatsRenderer = {
     },
 
 renderPlayerStats() {
-  const container = document.getElementById('individualScoringContainer');
-  container.innerHTML = '';
-  const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
-  sortedPlayers.forEach((player, index) => {
-    const isTop10 = index < 10;
-    const playerCard = Utils.createElement('div', `player-stat-card ${isTop10 ? '' : 'player-stat-grey'}`, `
-      <div class="player-rank"${!isTop10 ? ' style="color: grey;"' : ''}>#${index + 1}</div>
-      <div class="player-info">
-        <div class="player-name">${player.name}</div>
-        <div class="player-team">${player.team}</div>
-      </div>
-      <div class="player-stats">
-        <div class="stat-item">
-          <span class="stat-value">${player.ppg}</span>
-          <span class="stat-label">PPG</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">${player.rpg}</span>
-          <span class="stat-label">RPG</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">${player.apg}</span>
-          <span class="stat-label">APG</span>
-        </div>
-      </div>
-    `);
-    container.appendChild(playerCard);
-  });
-}
+        const container = document.getElementById('individualScoringContainer');
+        container.innerHTML = '';
+
+        // Prepare columns
+        const topColumn = Utils.createElement('div', 'player-stats-column', '');
+        const middleColumn = Utils.createElement('div', 'player-stats-column', '');
+        const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
+
+        // Sort players by PPG descending
+        const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
+        const total = sortedPlayers.length;
+        const oneThird = Math.ceil(total / 3);
+
+        const getRankColor = (col) => {
+            if (col === 'top') return '#F76900';
+            if (col === 'middle') return '#000E54';
+            return '#8D817B';
+        };
+
+        sortedPlayers.forEach((player, idx) => {
+            let col, rankColor;
+            if (idx < oneThird) {
+                col = 'top';
+                rankColor = getRankColor('top');
+            } else if (idx < 2 * oneThird) {
+                col = 'middle';
+                rankColor = getRankColor('middle');
+            } else {
+                col = 'bottom';
+                rankColor = getRankColor('bottom');
+            }
+
+            const playerCard = Utils.createElement('div', 'player-stat-card', `
+                <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
+                <div class="player-info">
+                    <div class="player-name">${player.name}</div>
+                    <div class="player-team">${player.team}</div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">${player.ppg}</span>
+                        <span class="stat-label">PPG</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${player.rpg}</span>
+                        <span class="stat-label">RPG</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${player.apg}</span>
+                        <span class="stat-label">APG</span>
+                    </div>
+                </div>
+            `);
+
+            if (col === 'top') {
+                topColumn.appendChild(playerCard);
+            } else if (col === 'middle') {
+                middleColumn.appendChild(playerCard);
+            } else {
+                bottomColumn.appendChild(playerCard);
+            }
+        });
+
+        // Add all columns to the container
+        container.appendChild(topColumn);
+        container.appendChild(middleColumn);
+        container.appendChild(bottomColumn);
+    }
 };
 
 const ResultsRenderer = {

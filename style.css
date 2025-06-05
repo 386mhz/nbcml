@@ -563,34 +563,40 @@ body {
     margin-bottom: 0;
 }
 
+.player-stats-columns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.player-stats-column {
+    flex: 1 1 0px;
+    min-width: 250px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .player-stat-card {
     display: flex;
     align-items: center;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    padding: 5px;
+    background: var(--card-bg, #fff);
+    border-radius: var(--border-radius, 8px);
+    padding: 10px;
     margin-bottom: 5px;
-    border-left: 4px solid var(--accent-red);
+    border-left: 4px solid var(--accent-red, #d35400);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-
-.player-stat-grey {
-  display: flex;
-  align-items: center;
-  background: #f4f4f4;
-  color: #555;
-  padding: 5px;
-  margin-bottom: 5px;
-  font-size: 0.85rem;
-  border-left: 4px solid #ccc;
-}
-
 
 .player-rank {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--accent-red);
     margin-right: 20px;
     min-width: 40px;
+    /* color will be set inline */
 }
 
 .player-info {
@@ -601,11 +607,11 @@ body {
 .player-name {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-primary, #222);
 }
 
 .player-team {
-    color: var(--text-secondary);
+    color: var(--text-secondary, #666);
     font-size: 0.9rem;
 }
 
@@ -622,12 +628,12 @@ body {
     display: block;
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--text-primary, #222);
 }
 
 .stat-label {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #666);
 }
 
 /* Player Lists */
