@@ -364,9 +364,15 @@ const ScheduleRenderer = {
                 const gameAtTime = gamesOnDate.find(game => game.time === timeSlot);
                 
                 if (gameAtTime) {
-                    gameCell.innerHTML = `${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}`;
+                    gameCell.innerHTML = `
+                        <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
+                        <div class="scorekeepers">${gameAtTime.sk1} & ${gameAtTime.sk2}</div>
+                    `;
                 } else {
-                    gameCell.innerHTML = '<em>No game</em>';
+                    gameCell.innerHTML = `
+                        <div class="game-teams"><em>No game</em></div>
+                        <div class="scorekeepers"><em>--</em></div>
+                    `;
                     gameCell.style.color = '#999';
                 }
                 

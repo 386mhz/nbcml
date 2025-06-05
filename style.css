@@ -231,7 +231,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .team-result {
@@ -817,6 +817,11 @@ body {
     background: #f9f9f9;
 }
 
+.schedule-table td {
+    vertical-align: top;
+    padding: 15px 10px;
+}
+
 /* ===== EXECUTIVE TEAM ===== */
 .executive-team {
     background: var(--card-bg);
@@ -1069,4 +1074,37 @@ body {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+.scorekeeper-header th {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 600;
+    padding: 0 12px 0px 12px;
+    background: var(--primary-blue);
+    border: none;
+    font-style: italic;
+}
+
+.schedule-table th {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 0px 12px 0px 12px;
+}
+
+.game-teams {
+    margin-bottom: 5px;
+}
+
+.scorekeepers {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.schedule-table td {
+    vertical-align: top;
+    padding: 15px 10px;
 }
