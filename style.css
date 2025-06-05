@@ -232,6 +232,8 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
+    width: 100%;
+    text-align: center;
 }
 
 .team-result {
@@ -818,7 +820,7 @@ body {
 }
 
 .schedule-table td {
-    vertical-align: top;
+    text-align: center;
     padding: 15px 10px;
 }
 
@@ -1099,12 +1101,8 @@ body {
 }
 
 .scorekeepers {
+    width: 100%;
+    text-align: center;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    text-align: center;
-}
-
-.schedule-table td {
-    vertical-align: top;
-    padding: 15px 10px;
 }

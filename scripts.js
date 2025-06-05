@@ -365,13 +365,17 @@ const ScheduleRenderer = {
                 
                 if (gameAtTime) {
                     gameCell.innerHTML = `
-                        <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
-                        <div class="scorekeepers">${gameAtTime.sk1} & ${gameAtTime.sk2}</div>
+                        <div class="game-cell-content">
+                            <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
+                            <div class="scorekeepers">${gameAtTime.sk1} & ${gameAtTime.sk2}</div>
+                        </div>
                     `;
                 } else {
                     gameCell.innerHTML = `
-                        <div class="game-teams"><em>No game</em></div>
-                        <div class="scorekeepers"><em>--</em></div>
+                        <div class="game-cell-content">
+                            <div class="game-teams"><em>No game</em></div>
+                            <div class="scorekeepers"><em>--</em></div>
+                        </div>
                     `;
                     gameCell.style.color = '#999';
                 }
