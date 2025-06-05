@@ -717,13 +717,15 @@ body {
     gap: 8px;
     padding: 10px 20px;
     background-color: var(--primary-blue);
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
     border-radius: var(--border-radius);
     transition: all 0.3s ease;
 }
 
 .venue-link:hover {
+    background-color: var(--primary-orange);
+    transform: translateY(-2px);
     color: var(--primary-orange);
 }
 
