@@ -1,8 +1,8 @@
-Week,Date,Early Home,Early Away,Middle Home,Middle Away,Late Home,Late Away,SK1,SK2
-1,05/20/2025,Team 1,Team 2,Team 3,Team 4,Team 5,Team 6,Mike,Kevin	 	 											
-2,05/27/2025,Team 4,Team 5,Team 1,Team 6,Team 2,Team 3,Paul,Dan	 	 											
-3,06/15/2025,Team 1,Team 3,Team 2,Team 5,Team 4,Team 6,Adam,Owen 	 											
-4,06/22/2025,Team 2,Team 6,Team 1,Team 4,Team 3,Team 5,Ethan,Connor 	 											
-5,06/29/2025,Team 1,Team 5,Team 3,Team 6,Team 2,Team 4,Luke,Matt 	 											
-6,06/05/2025,Team 5,Team 6,Team 1,Team 2,Team 3,Team 4,Mark,Chris 	 											 	 											
+Week,Date,Early Home,Early Away,Early SK1,Early SK2,Middle Home,Middle Away,Middle SK1,Middle SK2,Late Home,Late Away,Late SK1,Late SK2
+1,05/20/2025,Team 1,Team 2,Mark,Chris,Team 3,Team 4,Team 5,Team 6,Mike,Kevin	 	 											
+2,05/27/2025,Team 4,Team 5,Luke,Matt,Team 1,Team 6,Team 2,Team 3,Paul,Dan	 	 											
+3,06/15/2025,Team 1,Team 3,Ethan,Connor,Team 2,Team 5,Team 4,Team 6,Adam,Owen 	 											
+4,06/22/2025,Team 2,Team 6,Adam,Owen,Team 1,Team 4,Team 3,Team 5,Ethan,Connor 	 											
+5,06/29/2025,Team 1,Team 5,Paul,Dan,Team 3,Team 6,Team 2,Team 4,Luke,Matt 	 											
+6,06/05/2025,Team 5,Team 6,Mike,Kevin,Team 1,Team 2,Team 3,Team 4,Mark,Chris 	 											 	 											
 	 	 
