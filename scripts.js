@@ -54,9 +54,15 @@ class Team {
 // ===== DATA STORAGE =====
 const DataStore = {
     games: [
-        new Game(1, '2025-10-07', '18:30', 'Team 1', 'Team 2'),
-        new Game(2, '2025-10-07', '19:40', 'Team 3', 'Team 4'),
-        new Game(3, '2025-10-07', '20:50', 'Team 5', 'Team 6')
+        new Game(1, '2025-06-03', '18:30', 'Team 1', 'Team 2'),
+        new Game(2, '2025-06-03', '19:40', 'Team 3', 'Team 4'),
+        new Game(3, '2025-06-03', '20:50', 'Team 5', 'Team 6'),
+        new Game(1, '2025-06-10', '18:30', 'Team 1', 'Team 2'),
+        new Game(2, '2025-06-10', '19:40', 'Team 3', 'Team 4'),
+        new Game(3, '2025-06-10', '20:50', 'Team 5', 'Team 6'),
+        new Game(1, '2025-06-17', '18:30', 'Team 1', 'Team 2'),
+        new Game(2, '2025-06-17', '19:40', 'Team 3', 'Team 4'),
+        new Game(3, '2025-06-17', '20:50', 'Team 5', 'Team 6')
     ],
 
     gameResults: [
@@ -366,6 +372,13 @@ const ScheduleRenderer = {
                 
                 row.appendChild(gameCell);
             });
+            
+            // Add scoresheet column
+            const scoresheetCell = document.createElement('td');
+            scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
+                <i class="fa-solid fa-download" style="color: #000E54;"></i>
+            </a>`;
+            row.appendChild(scoresheetCell);
             
             fullScheduleBody.appendChild(row);
             weekCounter++;

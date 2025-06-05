@@ -683,6 +683,35 @@ body {
     color: #ffffff;
 }
 
+/* Venue Card */
+.venue-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.venue-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--primary-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.venue-link:hover {
+    color: var(--primary-orange);
+}
+
+.map-container {
+    box-shadow: var(--shadow-medium);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
 /* ===== TABLES ===== */
 .table-base {
     width: 100%;
