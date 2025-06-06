@@ -16,7 +16,7 @@ const AppState = {
 
 // Data Models
 class Game {
-    constructor(id, date, time, homeTeam, awayTeam, location = CONFIG.venue, status = 'scheduled') {
+    constructor(id, date, time, homeTeam, awayTeam, location = CONFIG.venue, status = 'scheduled', sk1 = '', sk2 = '') {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -24,6 +24,8 @@ class Game {
         this.awayTeam = awayTeam;
         this.location = location;
         this.status = status;
+        this.sk1 = sk1;
+        this.sk2 = sk2;
     }
 }
 
@@ -704,9 +706,9 @@ const Admin = {
                 
                 // Process games for each time slot
                 const gameSlots = [
-                    { homeIndex: 2, awayIndex: 3, time: '18:30' },
-                    { homeIndex: 4, awayIndex: 5, time: '19:40' },
-                    { homeIndex: 6, awayIndex: 7, time: '20:50' }
+                    { homeIndex: 2, awayIndex: 3, sk1Index: 4, sk2Index: 5, time: '18:30' },
+                    { homeIndex: 6, awayIndex: 7, sk1Index: 8, sk2Index: 9, time: '19:40' },
+                    { homeIndex: 10, awayIndex: 11, sk1Index: 12, sk2Index: 13, time: '20:50' }
                 ];
                 
                 gameSlots.forEach(slot => {
@@ -716,7 +718,11 @@ const Admin = {
                             formattedDate,
                             slot.time,
                             parts[slot.homeIndex],
-                            parts[slot.awayIndex]
+                            parts[slot.awayIndex],
+                            CONFIG.venue,
+                            'scheduled',
+                            parts[slot.sk1Index],  // Add SK1
+                            parts[slot.sk2Index]   // Add SK2
                         ));
                     }
                 });
