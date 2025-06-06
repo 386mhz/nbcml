@@ -56,15 +56,15 @@ class Team {
 // ===== DATA STORAGE =====
 const DataStore = {
     games: [
-        new Game(1, '2025-06-03', '18:30', 'Team 1', 'Team 2'),
-        new Game(2, '2025-06-03', '19:40', 'Team 3', 'Team 4'),
-        new Game(3, '2025-06-03', '20:50', 'Team 5', 'Team 6'),
-        new Game(1, '2025-06-10', '18:30', 'Team 1', 'Team 2'),
-        new Game(2, '2025-06-10', '19:40', 'Team 3', 'Team 4'),
-        new Game(3, '2025-06-10', '20:50', 'Team 5', 'Team 6'),
-        new Game(1, '2025-06-17', '18:30', 'Team 1', 'Team 2'),
-        new Game(2, '2025-06-17', '19:40', 'Team 3', 'Team 4'),
-        new Game(3, '2025-06-17', '20:50', 'Team 5', 'Team 6')
+        new Game(1, '2025-06-03', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Mark', 'Chris'),
+        new Game(2, '2025-06-03', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Adam', 'Dan'),
+        new Game(3, '2025-06-03', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Mike', 'Kevin'),
+        new Game(4, '2025-06-10', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Luke', 'Matt'),
+        new Game(5, '2025-06-10', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Peter', 'Geroge'),
+        new Game(6, '2025-06-10', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Paul', 'Dan'),
+        new Game(7, '2025-06-17', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Ethan', 'Connor'),
+        new Game(8, '2025-06-17', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Steve', 'Ian'),
+        new Game(9, '2025-06-17', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Adam', 'Owen')
     ],
 
     gameResults: [
@@ -366,10 +366,13 @@ const ScheduleRenderer = {
                 const gameAtTime = gamesOnDate.find(game => game.time === timeSlot);
                 
                 if (gameAtTime) {
+                    const scorekeepers = gameAtTime.sk1 && gameAtTime.sk2 ? 
+                        `${gameAtTime.sk1} & ${gameAtTime.sk2}` : '--';
+                        
                     gameCell.innerHTML = `
                         <div class="game-cell-content">
                             <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
-                            <div class="scorekeepers">${gameAtTime.sk1} & ${gameAtTime.sk2}</div>
+                            <div class="scorekeepers">${scorekeepers}</div>
                         </div>
                     `;
                 } else {
@@ -718,11 +721,11 @@ const Admin = {
                             formattedDate,
                             slot.time,
                             parts[slot.homeIndex],
-                            parts[slot.awayIndex],
+                            parts[slot.awayIndex],  // Fixed: was parts[slot.awayTeam]
                             CONFIG.venue,
                             'scheduled',
-                            parts[slot.sk1Index],  // Add SK1
-                            parts[slot.sk2Index]   // Add SK2
+                            parts[slot.sk1Index],
+                            parts[slot.sk2Index]
                         ));
                     }
                 });
