@@ -67,143 +67,142 @@
 		</div>
 
         <!-- Main Section -->
-		<!-- Executives Card -->
-        <div id="main" class="content-section active">
-			<h2><i class="fas fa-users"></i> NBCML Executive Team</h2>
-			<div class="executive-team">
-			  <ul class="player-list">
-				<li class="captain"><i class="fas fa-crown"></i> Steve Harrison <span class="captain-badge">EXECUTIVE</span></li>
-				<li class="captain"><i class="fas fa-crown"></i> Jeff Smith <span class="captain-badge">EXECUTIVE</span></li>
-				<li class="captain"><i class="fas fa-crown"></i> Colin Andruniak <span class="captain-badge">EXECUTIVE</span></li>
-			  </ul>
+		<div class="content-sections">
+			<div id="main" class="content-section active">
+				<!-- Executives Card -->
+				<div class="info-card">
+					<h2><i class="fas fa-users"></i> NBCML Executive Team</h2>
+					<div class="executive-team">
+						<ul class="player-list">
+							<li class="captain"><i class="fas fa-crown"></i> Steve Harrison <span class="captain-badge">EXECUTIVE</span></li>
+							<li class="captain"><i class="fas fa-crown"></i> Jeff Smith <span class="captain-badge">EXECUTIVE</span></li>
+							<li class="captain"><i class="fas fa-crown"></i> Colin Andruniak <span class="captain-badge">EXECUTIVE</span></li>
+						</ul>
+					</div>
+
+					<h2><i class="fas fa-comments"></i> NBCML Complaints Department</h2>
+					<div class="executive-team">
+						<ul class="player-list">
+							<li class="captain complaints-highlight">🎭 Petar Rafajlovic 🎭 <span class="captain-badge">COMPLAINTS</span></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Magna Centre Card -->
+				<div class="info-card">
+					<h2><i class="fas fa-building"></i> Magna Centre</h2>
+					<h3 style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 5px;">Home of the NBCML since 2007</h3>
+					<div class="venue-info">
+						<a href="http://maps.newmarket.ca/tour_Magna.html" target="_blank" class="magna-tour-btn">
+							<i class="fas fa-video"></i> Take a 3D Virtual Tour Of The Magna Centre
+						</a>
+					</div>
+					
+					<div class="map-container" style="margin-top: 20px;">
+						<iframe 
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2873.0122597461096!2d-79.45801372346546!3d43.95651897107605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad295b4dc4177%3A0x4266a2667b8500eb!2s800%20Mulock%20Dr%2C%20Newmarket%2C%20ON%20L3Y%209C1!5e0!3m2!1sen!2sca!4v1686157433646!5m2!1sen!2sca"
+							width="100%" 
+							height="300px" 
+							style="border:0; border-radius: 10px;" 
+							allowfullscreen="" 
+							loading="lazy" 
+							referrerpolicy="no-referrer-when-downgrade">
+						</iframe>
+					</div>
+				</div>
 			</div>
 
-			<h2><i class="fas fa-comments"></i> NBCML Complaints Department</h2>
-			<div class="executive-team">
-			  <ul class="player-list">
-				<li class="captain complaints-highlight">🎭 Petar Rafajlovic 🎭 <span class="captain-badge">COMPLAINTS</span></li>
-			  </ul>
+			<!-- Schedule Section -->
+			<div id="schedule" class="content-section">
+				<h2><i class="fas fa-calendar-alt"></i> Full Season Schedule</h2>
+				<table class="schedule-table">
+					<thead>
+						<tr>
+							<th>Week</th>
+							<th>Date</th>
+							<th>Early Game - 6:30</th>
+							<th>Middle Game - 7:40</th>
+							<th>Late Game - 8:50</th>
+							<th>Scoresheets</th>
+						</tr>
+						<tr class="scorekeeper-header">
+							<th></th>
+							<th></th>
+							<th>Scorekeepers</th>
+							<th>Scorekeepers</th>
+							<th>Scorekeepers</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="fullScheduleBody">
+						<!-- Filled by JavaScript -->
+					</tbody>
+				</table>
 			</div>
-		</div>
 
-		<!-- Magna Centre Card -->
-		<div id="main" class="content-section active">
-            <h2><i class="fas fa-building"></i> Magna Centre</h2>
-            <h2 style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 5px;">Home of the NBCML since 2007</h2>
-            <div class="executive-team">
-                <ul class="player-list">
-                    <li class="captain">
-                        <a href="http://maps.newmarket.ca/tour_Magna.html" target="_blank" class="magna-tour-btn">
-                            <i class="fas fa-video"></i> Take a 3D Virtual Tour Of The Magna Centre
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="map-container" style="margin-top: 20px;">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2873.0122597461096!2d-79.45801372346546!3d43.95651897107605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad295b4dc4177%3A0x4266a2667b8500eb!2s800%20Mulock%20Dr%2C%20Newmarket%2C%20ON%20L3Y%209C1!5e0!3m2!1sen!2sca!4v1686157433646!5m2!1sen!2sca"
-                    width="100%" 
-                    height="300px" 
-                    style="border:0; border-radius: 10px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-		
-		<!-- Schedule Section -->
-		<div id="schedule" class="content-section">
-			<h2><i class="fas fa-calendar-alt"></i> Full Season Schedule</h2>
-			<table class="schedule-table">
-				<thead>
-					<tr>
-						<th>Week</th>
-						<th>Date</th>
-						<th>Early Game - 6:30</th>
-						<th>Middle Game - 7:40</th>
-						<th>Late Game - 8:50</th>
-						<th>Scoresheets</th>
-					</tr>
-					<tr class="scorekeeper-header">
-						<th></th>
-						<th></th>
-						<th>Scorekeepers</th>
-						<th>Scorekeepers</th>
-						<th>Scorekeepers</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody id="fullScheduleBody">
-					<!-- Filled by JavaScript -->
-				</tbody>
-			</table>
-		</div>
-
-        <!-- Standings Section -->
-        <div id="standings" class="content-section">
-            <h2><i class="fas fa-list-ol"></i> Team Standings</h2>
-            <table class="standings-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Wins</th>
-                        <th>Losses</th>
-						<th>Ties</th>
-						<th>PF</th>
-						<th>PA</th>
-						<th>Pts</th>
-						<th>GB</th>
-						<th>Streak</th>
-                    </tr>
-                </thead>
-                <tbody id="standingsBody">
-                    <!-- Standings will be populated by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-		
-		<!-- Rules Section -->
-		<div id="rules" class="content-section">			
-			<h2><i class="fas fa-gavel"></i> Modified FIBA Rules</h2>
-		
-		<!-- FIBA Rules PDF Link -->
-		<div class="rules-pdf-section">
-			<a href="NBCML Rules.pdf" target="_blank" class="rules-pdf-link">
-			<i class="fas fa-basketball-ball fiba-icon"></i>
-				<p>Click to view complete NBCML Rules (PDF)</p>
-				</a>
+			<!-- Standings Section -->
+			<div id="standings" class="content-section">
+				<h2><i class="fas fa-list-ol"></i> Team Standings</h2>
+				<table class="standings-table">
+					<thead>
+						<tr>
+							<th>Rank</th>
+							<th>Team</th>
+							<th>Wins</th>
+							<th>Losses</th>
+							<th>Ties</th>
+							<th>PF</th>
+							<th>PA</th>
+							<th>Pts</th>
+							<th>GB</th>
+							<th>Streak</th>
+						</tr>
+					</thead>
+					<tbody id="standingsBody">
+						<!-- Standings will be populated by JavaScript -->
+					</tbody>
+				</table>
 			</div>
-		</div>
-
-		<!-- Rosters Section -->
-		<div id="rosters" class="content-section">
-			<h2><i class="fas fa-users"></i> Team Rosters</h2>
-			<div id="rostersContainer">
-				<!-- Rosters will be populated by JavaScript -->
+			
+			<!-- Rules Section -->
+			<div id="rules" class="content-section">			
+				<h2><i class="fas fa-gavel"></i> Modified FIBA Rules</h2>
+			
+			<!-- FIBA Rules PDF Link -->
+			<div class="rules-pdf-section">
+				<a href="NBCML Rules.pdf" target="_blank" class="rules-pdf-link">
+				<i class="fas fa-basketball-ball fiba-icon"></i>
+					<p>Click to view complete NBCML Rules (PDF)</p>
+					</a>
+				</div>
 			</div>
-		</div>
 
-		<!-- Team Scoring Section -->
-		<div id="team-scoring" class="content-section">
-			<h2><i class="fas fa-chart-bar"></i> Team Scoring Statistics</h2>
-			<div id="teamScoringContainer">
-				<!-- Team scoring stats will be populated by JavaScript -->
+			<!-- Rosters Section -->
+			<div id="rosters" class="content-section">
+				<h2><i class="fas fa-users"></i> Team Rosters</h2>
+				<div id="rostersContainer">
+					<!-- Rosters will be populated by JavaScript -->
+				</div>
 			</div>
-		</div>
 
-		<!-- Individual Scoring Section -->
-		<div id="individual-scoring" class="content-section">
-  			<h2><i class="fas fa-star"></i> Player Stats</h2>
-  			<div id="individualScoringContainer" class="player-stats-columns">
-				<!-- Individual scoring stats will be populated by JavaScript -->
-			<div class="player-stats-column" id="topThird"></div>
-			<div class="player-stats-column" id="middleThird"></div>
-			<div class="player-stats-column" id="bottomThird"></div>
-	</div>
-		</div>		
+			<!-- Team Scoring Section -->
+			<div id="team-scoring" class="content-section">
+				<h2><i class="fas fa-chart-bar"></i> Team Scoring Statistics</h2>
+				<div id="teamScoringContainer">
+					<!-- Team scoring stats will be populated by JavaScript -->
+				</div>
+			</div>
+
+			<!-- Individual Scoring Section -->
+			<div id="individual-scoring" class="content-section">
+  				<h2><i class="fas fa-star"></i> Player Stats</h2>
+  				<div id="individualScoringContainer" class="player-stats-columns">
+					<!-- Individual scoring stats will be populated by JavaScript -->
+				<div class="player-stats-column" id="topThird"></div>
+				<div class="player-stats-column" id="middleThird"></div>
+				<div class="player-stats-column" id="bottomThird"></div>
+		</div>
+			</div>		
 
         <!-- Admin Section -->
         <div id="admin" class="content-section">
