@@ -430,26 +430,56 @@ const StandingsRenderer = {
 };
 
 const RosterRenderer = {
-    render() {
+    async render() {
         const rostersContainer = document.getElementById('rostersContainer');
-        rostersContainer.innerHTML = '';
+        if (!rostersContainer) {
+            console.error('Rosters container not found in DOM');
+            return;
+        }
+        
+        rostersContainer.innerHTML = '<div class="loading">Loading rosters...</div>';
 
-        Object.entries(DataStore.rosters).forEach(([teamName, players]) => {
-            const teamRoster = Utils.createElement('div', 'team-roster', `
-                <h3>${teamName}</h3>
-                <ul class="player-list">
-                    ${players.map(player => {
-                        if (player.startsWith('*C*')) {
-                            const captainName = player.replace('*C* ', '');
-                            return `<li class="captain"><i class="fas fa-crown"></i> ${captainName} <span class="captain-badge">CAPTAIN</span></li>`;
-                        } else {
-                            return `<li>${player}</li>`;
-                        }
-                    }).join('')}
-                </ul>
-            `);
-            rostersContainer.appendChild(teamRoster);
-        });
+        try {
+            console.log('Attempting to load rosters...');
+            const rosters = await RosterLoader.loadRostersFromCSV();
+            console.log('Loaded rosters:', rosters);
+            
+            if (!rosters) {
+                rostersContainer.innerHTML = '<div class="error">Error loading rosters. Check console for details.</div>';
+                return;
+            }
+
+            rostersContainer.innerHTML = '';
+            Object.entries(rosters).forEach(([teamName, teamData]) => {
+                // Sort players - captains first, then alphabetically by name
+                const sortedPlayers = teamData.players.sort((a, b) => {
+                    if (a.captain !== b.captain) return b.captain - a.captain;
+                    return a.name.localeCompare(b.name);
+                });
+
+                const teamRoster = Utils.createElement('div', 'team-roster', `
+                    <h3>${teamName}</h3>
+                    <ul class="player-list">
+                        ${sortedPlayers.map(player => {
+                            const numberDisplay = player.number ? `#${player.number}` : '';
+                            if (player.captain) {
+                                return `<li class="captain">
+                                    <i class="fas fa-crown"></i> 
+                                    ${player.name} ${numberDisplay}
+                                    <span class="captain-badge">CAPTAIN</span>
+                                </li>`;
+                            } else {
+                                return `<li>${player.name} ${numberDisplay}</li>`;
+                            }
+                        }).join('')}
+                    </ul>
+                `);
+                rostersContainer.appendChild(teamRoster);
+            });
+        } catch (error) {
+            console.error('Error in RosterRenderer:', error);
+            rostersContainer.innerHTML = '<div class="error">Error displaying rosters. Check console for details.</div>';
+        }
     }
 };
 
@@ -756,11 +786,11 @@ const Admin = {
 
 // ===== INITIALIZATION =====
 const App = {
-    init() {
+    async init() {
         // Render initial content
         ScheduleRenderer.renderFull();
         StandingsRenderer.render();
-        RosterRenderer.render();
+        await RosterRenderer.render(); // Changed to await
         StatsRenderer.renderTeamStats();
         StatsRenderer.renderPlayerStats();
         ResultsRenderer.render();
@@ -812,4 +842,4 @@ function scrollResults(direction) {
 }
 
 // Initialize app when DOM is ready
-document.addEventListener('DOMContentLoaded', App.init);
+document.addEventListener('DOMContentLoaded', () => App.init());

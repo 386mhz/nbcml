@@ -1113,3 +1113,18 @@ body {
     align-items: center;
     text-align: center;
 }
+
+/* Add to your existing CSS */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #e74c3c;
+    background: #fde8e7;
+    border-radius: var(--border-radius);
+}
