@@ -1,49 +1,49 @@
 ﻿Team,FirstName,LastName,Captain,Number,Email
-Team 1,Brian ,Wilson,TRUE,,brian@email.com
+Team 1,Brian ,Wilson,TRUE,25,brian@email.com
 Team 1,Dave ,Moore,FALSE,,dave@email.com
-Team 1,Evan ,Hopkins,FALSE,,evan@email.com
-Team 1,Jeff ,Smith,FALSE,,jeff@email.com
-Team 1,Jordan ,Huang,FALSE,,jordan@email.com
-Team 1,Damon ,Navi,FALSE,,damon@email.com
-Team 1,Mike ,Purewal,FALSE,,mike@email.com
-Team 1,Paul ,Pappas,FALSE,,paul@email.com
-Team 2,Frank,Vucko,FALSE,,frank@email.com
-Team 2,James,Wang,FALSE,,james@email.com
-Team 2,Mav,Marick,FALSE,,mav@email.com
+Team 1,Evan ,Hopkins,FALSE,18,evan@email.com
+Team 1,Jeff ,Smith,FALSE,20,jeff@email.com
+Team 1,Jordan ,Huang,FALSE,23,jordan@email.com
+Team 1,Damon ,Navi,FALSE,41,damon@email.com
+Team 1,Mike ,Purewal,FALSE,34,mike@email.com
+Team 1,Paul ,Pappas,FALSE,50,paul@email.com
+Team 2,Frank,Vucko,FALSE,28,frank@email.com
+Team 2,James,Wang,FALSE,68,james@email.com
+Team 2,Mav,Marick,FALSE,5,mav@email.com
 Team 2,George,Sparangis,FALSE,,george@email.com
-Team 2,Petar,Rafajlovic,TRUE,,petar@email.com
-Team 2,Ralph,Romano,FALSE,,ralph@email.com
-Team 2,Richard,Montoya,FALSE,,richard@email.com
-Team 2,Sean,Ludwig,FALSE,,sean@email.com
-Team 3,Brian,Kleiboer,FALSE,,brian@email.com
-Team 3,Chris,Robertson,FALSE,,chris@email.com
-Team 3,Ian,Mayers,FALSE,,ian@email.com
-Team 3,Lee,Taylor,TRUE,,lee@email.com
-Team 3,Patric,Rossouw,FALSE,,patric@email.com
-Team 3,Raja,Shnoudeh,FALSE,,raja@email.com
-Team 3,Rob,Larson,FALSE,,rob@email.com
-Team 3,Paul,Barnett,FALSE,,paul@email.com
-Team 4,Jason,Scott,FALSE,,jason@email.com
-Team 4,John,Belbeck,FALSE,,john@email.com
-Team 4,Marshall,Chen,FALSE,,marshall@email.com
-Team 4,Pasquale,Belfrutto,FALSE,,pasquale@email.com
-Team 4,Scott,Marven,FALSE,,scott@email.com
-Team 4,Shadi,Almashni,FALSE,,shadi@email.com
-Team 4,Steve,Harrison,TRUE,,steve@email.com
-Team 4,Tyler,Vindua,FALSE,,tyler@email.com
-Team 5,Anatoliy,Sobolev,FALSE,,anatoliy@email.com
-Team 5,Eagle,Yeh,FALSE,,eagle@email.com
-Team 5,Steve,Parish,FALSE,,steve@email.com
-Team 5,Henry,Wong,FALSE,,henry@email.com
-Team 5,Nikolay,Klyushkin,TRUE,,nikolay@email.com
-Team 5,Paulo,Carvalho,FALSE,,paulo@email.com
-Team 5,Peter,Kotsopoulos,FALSE,,peter@email.com
-Team 5,RJ,Rojas,FALSE,,rj@email.com
-Team 6,Bill,Katsavos,FALSE,,bill@email.com
-Team 6,Colin,Andruniak,FALSE,,colin@email.com
-Team 6,Colin,Smallwood,TRUE,,colin@email.com
-Team 6,Jacob,Alajajian,FALSE,,jacob@email.com
-Team 6,Mike,Holder,FALSE,,mike@email.com
-Team 6,Omer,Hirsch,FALSE,,omer@email.com
-Team 6,Reid,Spence,FALSE,,reid@email.com
-Team 6,Rick,Spence,FALSE,,rick@email.com
+Team 2,Petar,Rafajlovic,TRUE,47,petar@email.com
+Team 2,Ralph,Romano,FALSE,27,ralph@email.com
+Team 2,Richard,Montoya,FALSE,21,richard@email.com
+Team 2,Sean,Ludwig,FALSE,1,sean@email.com
+Team 3,Brian,Kleiboer,FALSE,52,brian@email.com
+Team 3,Chris,Robertson,FALSE,6,chris@email.com
+Team 3,Ian,Mayers,FALSE,39,ian@email.com
+Team 3,Lee,Taylor,TRUE,16,lee@email.com
+Team 3,Patric,Rossouw,FALSE,31,patric@email.com
+Team 3,Raja,Shnoudeh,FALSE,57,raja@email.com
+Team 3,Rob,Larson,FALSE,7,rob@email.com
+Team 3,Paul,Barnett,FALSE,24,paul@email.com
+Team 4,Jason,Scott,FALSE,55,jason@email.com
+Team 4,John,Belbeck,FALSE,33,john@email.com
+Team 4,Marshall,Chen,FALSE,11,marshall@email.com
+Team 4,Pasquale,Belfrutto,FALSE,2,pasquale@email.com
+Team 4,Scott,Marven,FALSE,39,scott@email.com
+Team 4,Shadi,Almashni,FALSE,3,shadi@email.com
+Team 4,Steve,Harrison,TRUE,42,steve@email.com
+Team 4,Tyler,Vindua,FALSE,10,tyler@email.com
+Team 5,Anatoliy,Sobolev,FALSE,37,anatoliy@email.com
+Team 5,Eagle,Yeh,FALSE,30,eagle@email.com
+Team 5,Steve,Parish,FALSE,55,steve@email.com
+Team 5,Henry,Wong,FALSE,32,henry@email.com
+Team 5,Nikolay,Klyushkin,TRUE,17,nikolay@email.com
+Team 5,Paulo,Carvalho,FALSE,8,paulo@email.com
+Team 5,Peter,Kotsopoulos,FALSE,32,peter@email.com
+Team 5,RJ,Rojas,FALSE,26,rj@email.com
+Team 6,Bill,Katsavos,FALSE,14,bill@email.com
+Team 6,Colin,Andruniak,FALSE,40,colin@email.com
+Team 6,Colin,Smallwood,TRUE,44,colin@email.com
+Team 6,Jacob,Alajajian,FALSE,4,jacob@email.com
+Team 6,Mike,Holder,FALSE,56,mike@email.com
+Team 6,Omer,Hirsch,FALSE,38,omer@email.com
+Team 6,Reid,Spence,FALSE,46,reid@email.com
+Team 6,Rick,Spence,FALSE,35,rick@email.com
