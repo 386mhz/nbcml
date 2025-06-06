@@ -1,39 +1,105 @@
-# Basketball League Website
+# NBCML - Basketball League Website
 
-This project is a website for a basketball league, providing information about schedules, standings, rosters, stats, and results.
+A modern, responsive website for managing and displaying information about the Newmarket Basketball Club Men's League (NBCML). The site features real-time game results, schedules, standings, team rosters, and player statistics.
+
+![NBCML Logo](images/NBCML_logo_blue_rnd.png)
 
 ## Features
 
-- **Schedules**: View upcoming games and full season schedule.
-- **Standings**: Check the current standings of teams in the league.
-- **Rosters**: View team rosters and player information.
-- **Stats**: Access team and player statistics.
-- **Results**: See the results of past games.
+### 🏀 Game Information
+- Real-time game results with scores and team records
+- Scrollable results interface for easy navigation
+- Comprehensive season schedule with game times and locations
+- Scorekeeper assignments for each game
+
+### 📊 Statistics & Standings
+- Team standings with win/loss records and point differentials
+- Detailed team statistics including:
+  - Average points scored/allowed
+  - Top scorers
+  - Current streaks
+- Individual player statistics (PPG, RPG, APG)
+
+### 👥 Team Management
+- Complete team rosters
+- Captain designations
+- Player statistics tracking
+- Administrative tools for schedule management
+
+### 📝 League Administration
+- Secure admin panel for managing game data
+- CSV schedule upload functionality
+- Easy-to-use game management interface
+- Scoresheet access and downloads
 
 ## Technologies Used
 
-- **HTML**: Structure of the website.
-- **CSS**: Styling of the website.
-- **JavaScript**: Functionality and interactivity.
+- **HTML5** - Structure and content
+- **CSS3** - Styling and animations
+- **JavaScript** - Dynamic functionality and data management
+- **Font Awesome** - Icons and visual elements
 
 ## Getting Started
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/386mhz/nbcml.git
-    ```
+```bash
+git clone https://github.com/386mhz/nbcml.git
+```
+
 2. Navigate to the project directory:
-    ```bash
-    cd nbcml
-    ```
-3. Open `index.html` in your browser to view the website.
+```bash
+cd nbcml
+```
 
-## File Structure
+3. Open `index.html` in your web browser
 
-- `index.html`: The main HTML file containing the structure of the website.
-- `style.css`: The CSS file for styling the website.
-- `scripts.js`: The JavaScript file for functionality and interactivity.
+## Project Structure
 
-## Credits
+```
+nbcml/
+├── index.html      # Main HTML file
+├── style.css       # CSS styles
+├── scripts.js      # JavaScript functionality
+├── data/          # CSV schedule files
+├── images/        # Logo and visual assets
+└── README.md      # Project documentation
+```
 
-- Project developed by https://github.com/386mhz.
+## Features in Detail
+
+### Navigation
+- Home/Main
+- Schedule
+- Standings
+- Rules
+- Rosters
+- Team Stats
+- Player Stats
+- Admin Panel (password protected)
+
+### Responsive Design
+- Mobile-friendly layout
+- Flexible content containers
+- Dynamic resizing for all screen sizes
+
+### Administrative Features
+- Secure admin login
+- Schedule management
+- Game data updates
+- CSV data import
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is maintained by NBCML. All rights reserved.
+
+## Contact
+
+For questions or support, please contact the NBCML executive team.
