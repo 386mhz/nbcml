@@ -85,15 +85,6 @@ const DataStore = {
         new Team('Team 6', 1, 9, 0, 688, 879, 'L5')
     ],
 
-    rosters: {
-        'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
-        'Team 2': ['*C* Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson', 'Dennis Bean', 'Hunter Rosas', 'Dustin Fuller'],
-        'Team 3': ['*C* Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris', 'Garrett McKenzie', 'Briar King', 'Julian Gill'],
-        'Team 4': ['*C* Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker', 'Cullen Elliott', 'Noelle Whitaker', 'Keith Li'],
-        'Team 5': ['*C* Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright', 'Jaden Morales', 'Skylar Henry', 'Carlos Wall'],
-        'Team 6': ['*C* Owen Lopez', 'Ethan Hill', 'Lucas Scott', 'Carter Green', 'Hunter Adams', 'Killian Pratt', 'Ailani Bernal', 'Eithan Hayden']
-    },
-
     teamStats: [
         { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
         { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
@@ -104,24 +95,24 @@ const DataStore = {
     ],
 
     playerStats: [
-        { name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, rpg: 8.2, apg: 5.1 },
-        { name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, rpg: 6.9, apg: 7.3 },
-        { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, rpg: 9.1, apg: 4.2 },
-        { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, rpg: 5.8, apg: 6.7 },
-        { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, rpg: 7.4, apg: 3.9 },
-        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, rpg: 6.1, apg: 4.8 },
-		{ name: 'Ethan Hill', team: 'Team 1', ppg: 28.4, rpg: 8.2, apg: 5.1 },
-        { name: 'Connor Allen', team: 'Team 2', ppg: 25.8, rpg: 6.9, apg: 7.3 },
-        { name: 'Luke Thompson', team: 'Team 3', ppg: 15.6, rpg: 9.1, apg: 4.2 },
-        { name: 'Matt Thomas', team: 'Team 4', ppg: 8.9, rpg: 5.8, apg: 6.7 },
-        { name: 'Mark Garcia', team: 'Team 5', ppg: 27.2, rpg: 7.4, apg: 3.9 },
-        { name: 'Chris Williams', team: 'Team 6', ppg: 15.8, rpg: 6.1, apg: 4.8 },
-		{ name: 'David Brown', team: 'Team 1', ppg: 22.8, rpg: 8.2, apg: 5.1 },
-        { name: 'Tom Rodriguez', team: 'Team 2', ppg: 20.1, rpg: 6.9, apg: 7.3 },
-        { name: 'Josh Jackson', team: 'Team 3', ppg: 29.6, rpg: 9.1, apg: 4.2 },
-        { name: 'Sam Garcia', team: 'Team 4', ppg: 14.9, rpg: 5.8, apg: 6.7 },
-        { name: 'Noah Young', team: 'Team 5', ppg: 7.2, rpg: 7.4, apg: 3.9 },
-        { name: 'Lucas Scott', team: 'Team 6', ppg: 12.8, rpg: 6.1, apg: 4.8 }
+        { name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, fpg: 4.2, tpg: 0.11 },
+        { name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, fpg: 3.9, tpg: 0.32 },
+        { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, fpg: 4.1, tpg: 1.23 },
+        { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, fpg: 3.8, tpg: 0.74 },
+        { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, fpg: 2.4, tpg: 0.95 },
+        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, fpg: 1.1, tpg: 0.86 },
+		{ name: 'Ethan Hill', team: 'Team 1', ppg: 28.4, fpg: 2.2, tpg: 0.17 },
+        { name: 'Connor Allen', team: 'Team 2', ppg: 25.8, fpg: 3.9, tpg: 0.38 },
+        { name: 'Luke Thompson', team: 'Team 3', ppg: 15.6, fpg: 4.1, tpg: 1.29 },
+        { name: 'Matt Thomas', team: 'Team 4', ppg: 8.9, fpg: 2.8, tpg: 0.70 },
+        { name: 'Mark Garcia', team: 'Team 5', ppg: 27.2, fpg: 1.4, tpg: 0.99 },
+        { name: 'Chris Williams', team: 'Team 6', ppg: 15.8, fpg: 3.1, tpg: 0.87 },
+		{ name: 'David Brown', team: 'Team 1', ppg: 22.8, fpg: 3.2, tpg: 1.16 },
+        { name: 'Tom Rodriguez', team: 'Team 2', ppg: 20.1, fpg: 2.9, tpg: 1.35 },
+        { name: 'Josh Jackson', team: 'Team 3', ppg: 29.6, fpg: 4.1, tpg: 0.24 },
+        { name: 'Sam Garcia', team: 'Team 4', ppg: 14.9, fpg: 2.8, tpg: 0.73 },
+        { name: 'Noah Young', team: 'Team 5', ppg: 7.2, fpg: 3.4, tpg: 0.92 },
+        { name: 'Lucas Scott', team: 'Team 6', ppg: 12.8, fpg: 3.1, tpg: 0.81}
     ]
 };
 
@@ -553,12 +544,12 @@ renderPlayerStats() {
                         <span class="stat-label">PPG</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value">${player.rpg}</span>
-                        <span class="stat-label">RPG</span>
+                        <span class="stat-value">${player.fpg}</span>
+                        <span class="stat-label">FPG</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value">${player.apg}</span>
-                        <span class="stat-label">APG</span>
+                        <span class="stat-value">${player.tpg}</span>
+                        <span class="stat-label">TPG</span>
                     </div>
                 </div>
             `);
