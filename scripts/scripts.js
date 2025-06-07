@@ -3,7 +3,9 @@ const CONFIG = {
     adminPassword: "nbc2025",
     venue: "Magna Centre Gym",
     gameTimeSlots: ['18:30', '19:40', '20:50'],
-    gameLabels: ['Early Game - 6:30', 'Middle Game - 7:40', 'Late Game - 8:50']
+    gameLabels: ['Early Game - 6:30', 'Middle Game - 7:40', 'Late Game - 8:50'],
+    scrollPosition: 0,
+    scrollStep: 300
 };
 
 // Application State
@@ -14,7 +16,7 @@ const AppState = {
 
 // Data Models
 class Game {
-    constructor(id, date, time, homeTeam, awayTeam, location = CONFIG.venue, status = 'scheduled') {
+    constructor(id, date, time, homeTeam, awayTeam, location = CONFIG.venue, status = 'scheduled', sk1 = '', sk2 = '') {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -22,6 +24,8 @@ class Game {
         this.awayTeam = awayTeam;
         this.location = location;
         this.status = status;
+        this.sk1 = sk1;
+        this.sk2 = sk2;
     }
 }
 
@@ -52,9 +56,24 @@ class Team {
 // ===== DATA STORAGE =====
 const DataStore = {
     games: [
-        new Game(1, '2025-10-07', '18:30', 'Team 1', 'Team 2'),
-        new Game(2, '2025-10-07', '19:40', 'Team 3', 'Team 4'),
-        new Game(3, '2025-10-07', '20:50', 'Team 5', 'Team 6')
+        new Game(1, '2025-06-03', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Mark', 'Chris'),
+        new Game(2, '2025-06-03', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Adam', 'Dan'),
+        new Game(3, '2025-06-03', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Mike', 'Kevin'),
+        new Game(4, '2025-06-10', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Luke', 'Matt'),
+        new Game(5, '2025-06-10', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Peter', 'Geroge'),
+        new Game(6, '2025-06-10', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Paul', 'Dan'),
+        new Game(7, '2025-06-17', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Ethan', 'Connor'),
+        new Game(8, '2025-06-17', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Steve', 'Ian'),
+        new Game(9, '2025-06-17', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Adam', 'Owen')
+    ],
+
+    gameResults: [
+        { id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
+        { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 75, awayScore: 79, status: 'final' },
+        { id: 3, date: '2025-05-28', homeTeam: 'Team 5', awayTeam: 'Team 6', homeScore: 71, awayScore: 68, status: 'final' },
+        { id: 4, date: '2025-06-04', homeTeam: 'Team 2', awayTeam: 'Team 5', homeScore: null, awayScore: null, status: 'scheduled', time: '18:30' },
+        { id: 5, date: '2025-06-04', homeTeam: 'Team 1', awayTeam: 'Team 3', homeScore: null, awayScore: null, status: 'scheduled', time: '19:40' },
+        { id: 6, date: '2025-06-04', homeTeam: 'Team 4', awayTeam: 'Team 6', homeScore: null, awayScore: null, status: 'scheduled', time: '20:50' }
     ],
 
     teams: [
@@ -66,15 +85,6 @@ const DataStore = {
         new Team('Team 6', 1, 9, 0, 688, 879, 'L5')
     ],
 
-    rosters: {
-        'Team 1': ['*C* Mike Johnson', 'Chris Williams', 'David Brown', 'Alex Davis', 'Ryan Miller', 'Murphy Banks', 'Stefan White', 'Desmond Martin'],
-        'Team 2': ['*C* Kevin Wilson', 'Mark Garcia', 'Tom Rodriguez', 'Sean Martinez', 'Jake Anderson', 'Dennis Bean'],
-        'Team 3': ['*C* Paul Taylor', 'Matt Thomas', 'Josh Jackson', 'Nick White', 'Eric Harris'],
-        'Team 4': ['*C* Dan Martin', 'Luke Thompson', 'Sam Garcia', 'Tyler Lee', 'Ben Walker'],
-        'Team 5': ['*C* Adam Hall', 'Connor Allen', 'Noah Young', 'Logan King', 'Mason Wright'],
-        'Team 6': ['*C* Owen Lopez', 'Ethan Hill', 'Lucas Scott', 'Carter Green', 'Hunter Adams']
-    },
-
     teamStats: [
         { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
         { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
@@ -85,12 +95,24 @@ const DataStore = {
     ],
 
     playerStats: [
-        { name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, rpg: 8.2, apg: 5.1 },
-        { name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, rpg: 6.9, apg: 7.3 },
-        { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, rpg: 9.1, apg: 4.2 },
-        { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, rpg: 5.8, apg: 6.7 },
-        { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, rpg: 7.4, apg: 3.9 },
-        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, rpg: 6.1, apg: 4.8 }
+        { name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, fpg: 4.2, tpg: 0.11 },
+        { name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, fpg: 3.9, tpg: 0.32 },
+        { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, fpg: 4.1, tpg: 1.23 },
+        { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, fpg: 3.8, tpg: 0.74 },
+        { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, fpg: 2.4, tpg: 0.95 },
+        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, fpg: 1.1, tpg: 0.86 },
+		{ name: 'Ethan Hill', team: 'Team 1', ppg: 28.4, fpg: 2.2, tpg: 0.17 },
+        { name: 'Connor Allen', team: 'Team 2', ppg: 25.8, fpg: 3.9, tpg: 0.38 },
+        { name: 'Luke Thompson', team: 'Team 3', ppg: 15.6, fpg: 4.1, tpg: 1.29 },
+        { name: 'Matt Thomas', team: 'Team 4', ppg: 8.9, fpg: 2.8, tpg: 0.70 },
+        { name: 'Mark Garcia', team: 'Team 5', ppg: 27.2, fpg: 1.4, tpg: 0.99 },
+        { name: 'Chris Williams', team: 'Team 6', ppg: 15.8, fpg: 3.1, tpg: 0.87 },
+		{ name: 'David Brown', team: 'Team 1', ppg: 22.8, fpg: 3.2, tpg: 1.16 },
+        { name: 'Tom Rodriguez', team: 'Team 2', ppg: 20.1, fpg: 2.9, tpg: 1.35 },
+        { name: 'Josh Jackson', team: 'Team 3', ppg: 29.6, fpg: 4.1, tpg: 0.24 },
+        { name: 'Sam Garcia', team: 'Team 4', ppg: 14.9, fpg: 2.8, tpg: 0.73 },
+        { name: 'Noah Young', team: 'Team 5', ppg: 7.2, fpg: 3.4, tpg: 0.92 },
+        { name: 'Lucas Scott', team: 'Team 6', ppg: 12.8, fpg: 3.1, tpg: 0.81}
     ]
 };
 
@@ -120,6 +142,18 @@ const Utils = {
             hour12: true 
         });
     },
+
+	formatDateShort(dateString) {
+		const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+		const date = new Date(year, month - 1, day);
+		
+		return date.toLocaleDateString('en-US', {
+			weekday: 'short',
+			month: 'short', 
+			day: 'numeric',
+			timeZone: 'America/Toronto'
+		}).toUpperCase();
+	},
 
     getUpcomingGames(limit = 3) {
         const today = new Date();
@@ -323,14 +357,34 @@ const ScheduleRenderer = {
                 const gameAtTime = gamesOnDate.find(game => game.time === timeSlot);
                 
                 if (gameAtTime) {
-                    gameCell.innerHTML = `${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}`;
+                    const scorekeepers = gameAtTime.sk1 && gameAtTime.sk2 ? 
+                        `${gameAtTime.sk1} & ${gameAtTime.sk2}` : '--';
+                        
+                    gameCell.innerHTML = `
+                        <div class="game-cell-content">
+                            <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
+                            <div class="scorekeepers">${scorekeepers}</div>
+                        </div>
+                    `;
                 } else {
-                    gameCell.innerHTML = '<em>No game</em>';
+                    gameCell.innerHTML = `
+                        <div class="game-cell-content">
+                            <div class="game-teams"><em>No game</em></div>
+                            <div class="scorekeepers"><em>--</em></div>
+                        </div>
+                    `;
                     gameCell.style.color = '#999';
                 }
                 
                 row.appendChild(gameCell);
             });
+            
+            // Add scoresheet column
+            const scoresheetCell = document.createElement('td');
+            scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
+                <i class="fa-solid fa-download" style="color: #000E54;"></i>
+            </a>`;
+            row.appendChild(scoresheetCell);
             
             fullScheduleBody.appendChild(row);
             weekCounter++;
@@ -367,26 +421,49 @@ const StandingsRenderer = {
 };
 
 const RosterRenderer = {
-    render() {
+    async render() {
         const rostersContainer = document.getElementById('rostersContainer');
-        rostersContainer.innerHTML = '';
+        if (!rostersContainer) return;
+        
+        rostersContainer.innerHTML = '<div class="loading">Loading rosters...</div>';
 
-        Object.entries(DataStore.rosters).forEach(([teamName, players]) => {
-            const teamRoster = Utils.createElement('div', 'team-roster', `
-                <h3>${teamName}</h3>
-                <ul class="player-list">
-                    ${players.map(player => {
-                        if (player.startsWith('*C*')) {
-                            const captainName = player.replace('*C* ', '');
-                            return `<li class="captain"><i class="fas fa-crown"></i> ${captainName} <span class="captain-badge">CAPTAIN</span></li>`;
-                        } else {
-                            return `<li>${player}</li>`;
-                        }
-                    }).join('')}
-                </ul>
-            `);
-            rostersContainer.appendChild(teamRoster);
-        });
+        try {
+            const data = await RosterLoader.loadRostersFromCSV();
+            if (!data || !data.rosters) {
+                rostersContainer.innerHTML = '<div class="error">Error loading rosters</div>';
+                return;
+            }
+
+            rostersContainer.innerHTML = '';
+            Object.entries(data.rosters).forEach(([teamName, teamData]) => {
+                const sortedPlayers = teamData.players.sort((a, b) => {
+                    if (a.captain !== b.captain) return b.captain - a.captain;
+                    return a.name.localeCompare(b.name);
+                });
+
+                const teamRoster = Utils.createElement('div', 'team-roster', `
+                    <h3>${teamName}</h3>
+                    <ul class="player-list">
+                        ${sortedPlayers.map(player => {
+                            const numberDisplay = player.number ? `#${player.number}` : '';
+                            if (player.captain) {
+                                return `<li class="captain">
+                                    <i class="fas fa-crown"></i> 
+                                    ${player.name} ${numberDisplay}
+                                    <span class="captain-badge">CAPTAIN</span>
+                                </li>`;
+                            } else {
+                                return `<li>${player.name} ${numberDisplay}</li>`;
+                            }
+                        }).join('')}
+                    </ul>
+                `);
+                rostersContainer.appendChild(teamRoster);
+            });
+        } catch (error) {
+            console.error('Error in RosterRenderer:', error);
+            rostersContainer.innerHTML = '<div class="error">Error displaying rosters</div>';
+        }
     }
 };
 
@@ -415,36 +492,183 @@ const StatsRenderer = {
         });
     },
 
-    renderPlayerStats() {
+    async renderPlayerStats() {
         const container = document.getElementById('individualScoringContainer');
+        container.innerHTML = '<div class="loading">Loading player stats...</div>';
+
+        try {
+            const data = await RosterLoader.loadRostersFromCSV();
+            if (!data || !data.playerStats) {
+                container.innerHTML = '<div class="error">Error loading player stats</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            // Create columns
+            const topColumn = Utils.createElement('div', 'player-stats-column', '');
+            const middleColumn = Utils.createElement('div', 'player-stats-column', '');
+            const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
+
+            // Sort players by PPG descending
+            const sortedPlayers = [...data.playerStats].sort((a, b) => b.ppg - a.ppg);
+            const total = sortedPlayers.length;
+            const oneThird = Math.ceil(total / 3);
+
+            const getRankColor = (col) => {
+                if (col === 'top') return '#F76900';
+                if (col === 'middle') return '#000E54';
+                return '#8D817B';
+            };
+
+            sortedPlayers.forEach((player, idx) => {
+                let col, rankColor;
+                if (idx < oneThird) {
+                    col = 'top';
+                    rankColor = getRankColor('top');
+                } else if (idx < 2 * oneThird) {
+                    col = 'middle';
+                    rankColor = getRankColor('middle');
+                } else {
+                    col = 'bottom';
+                    rankColor = getRankColor('bottom');
+                }
+
+                const playerCard = Utils.createElement('div', 'player-stat-card', `
+                    <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
+                    <div class="player-info">
+                        <div class="player-name">
+                            <div class="first-name">${player.firstName}</div>
+                            <div class="last-name">${player.lastName}</div>
+                        </div>
+                        <div class="player-team">${player.team}</div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">${player.ppg}</span>
+                            <span class="stat-label">PPG</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${player.fpg}</span>
+                            <span class="stat-label">FPG</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${player.tpg}</span>
+                            <span class="stat-label">TPG</span>
+                        </div>
+                    </div>
+                `);
+
+                if (col === 'top') topColumn.appendChild(playerCard);
+                else if (col === 'middle') middleColumn.appendChild(playerCard);
+                else bottomColumn.appendChild(playerCard);
+            });
+
+            container.appendChild(topColumn);
+            container.appendChild(middleColumn);
+            container.appendChild(bottomColumn);
+
+        } catch (error) {
+            console.error('Error rendering player stats:', error);
+            container.innerHTML = '<div class="error">Error displaying player stats</div>';
+        }
+    }
+};
+
+const ResultsRenderer = {
+    render() {
+        const container = document.getElementById('resultsContainer');
+        if (!container) return;
+        
         container.innerHTML = '';
-
-        const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
-
-        sortedPlayers.forEach((player, index) => {
-            const playerCard = Utils.createElement('div', 'player-stat-card', `
-                <div class="player-rank">#${index + 1}</div>
-                <div class="player-info">
-                    <div class="player-name">${player.name}</div>
-                    <div class="player-team">${player.team}</div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">${player.ppg}</span>
-                        <span class="stat-label">PPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.rpg}</span>
-                        <span class="stat-label">RPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.apg}</span>
-                        <span class="stat-label">APG</span>
-                    </div>
-                </div>
-            `);
-            container.appendChild(playerCard);
+        
+        // Group games by date
+        const gamesByDate = {};
+        DataStore.gameResults.forEach(game => {
+            if (!gamesByDate[game.date]) {
+                gamesByDate[game.date] = [];
+            }
+            gamesByDate[game.date].push(game);
         });
+        
+        // Sort dates in descending order (most recent first)
+        const sortedDates = Object.keys(gamesByDate).sort().reverse();
+        
+        sortedDates.forEach(date => {
+            const games = gamesByDate[date];
+            const resultGroup = Utils.createElement('div', 'result-group');
+            
+            // Create date header with vertical layout
+            const dateSection = Utils.createElement('div', 'result-date-section');
+            const dateHeader = Utils.createElement('div', 'result-date-vertical', Utils.formatDateShort(date));
+            dateSection.appendChild(dateHeader);
+            
+            // Create games row container
+            const gamesRow = Utils.createElement('div', 'games-row');
+            
+            // Add games horizontally
+            games.forEach(game => {
+                const gameCard = Utils.createElement('div', 'game-result-card');
+                
+                if (game.status === 'final') {
+                    // Determine winner for highlighting
+                    const homeWon = game.homeScore > game.awayScore;
+                    const awayWon = game.awayScore > game.homeScore;
+                    
+                    gameCard.innerHTML = `
+                        <div class="game-result-teams">
+                            <div class="team-score-line ${homeWon ? 'winner' : ''}">
+                                <span class="team-name">${game.homeTeam}</span>
+                                <span class="team-score">${game.homeScore}</span>
+                                ${homeWon ? '<div class="winner-indicator">▶</div>' : ''}
+                            </div>
+                            <div class="team-score-line ${awayWon ? 'winner' : ''}">
+                                <span class="team-name">${game.awayTeam}</span>
+                                <span class="team-score">${game.awayScore}</span>
+                                ${awayWon ? '<div class="winner-indicator">▶</div>' : ''}
+                            </div>
+                        </div>
+                        <div class="game-result-status final">FINAL</div>
+                    `;
+                } else {
+                    // Get team records
+                    const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
+                    const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);
+                    
+                    gameCard.innerHTML = `
+                        <div class="game-result-teams">
+                            <div class="team-score-line">
+                                <span class="team-name">${game.homeTeam}</span>
+                                <span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
+                            </div>
+                            <div class="team-score-line">
+                                <span class="team-name">${game.awayTeam}</span>
+                                <span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
+                            </div>
+                        </div>
+                        <div class="game-result-status scheduled">${Utils.formatTime(game.time)}</div>
+                    `;
+                }
+                
+                gamesRow.appendChild(gameCard);
+            });
+            
+            dateSection.appendChild(gamesRow);
+            resultGroup.appendChild(dateSection);
+            container.appendChild(resultGroup);
+        });
+        
+        // Reset scroll position
+        CONFIG.scrollPosition = 0;
+        this.updateScrollPosition();
+    },
+
+    // ADD THIS MISSING METHOD:
+    updateScrollPosition() {
+        const container = document.getElementById('resultsContainer');
+        if (container) {
+            container.style.transform = `translateX(-${CONFIG.scrollPosition}px)`;
+        }
     }
 };
 
@@ -511,9 +735,9 @@ const Admin = {
                 
                 // Process games for each time slot
                 const gameSlots = [
-                    { homeIndex: 2, awayIndex: 3, time: '18:30' },
-                    { homeIndex: 4, awayIndex: 5, time: '19:40' },
-                    { homeIndex: 6, awayIndex: 7, time: '20:50' }
+                    { homeIndex: 2, awayIndex: 3, sk1Index: 4, sk2Index: 5, time: '18:30' },
+                    { homeIndex: 6, awayIndex: 7, sk1Index: 8, sk2Index: 9, time: '19:40' },
+                    { homeIndex: 10, awayIndex: 11, sk1Index: 12, sk2Index: 13, time: '20:50' }
                 ];
                 
                 gameSlots.forEach(slot => {
@@ -523,7 +747,11 @@ const Admin = {
                             formattedDate,
                             slot.time,
                             parts[slot.homeIndex],
-                            parts[slot.awayIndex]
+                            parts[slot.awayIndex],  // Fixed: was parts[slot.awayTeam]
+                            CONFIG.venue,
+                            'scheduled',
+                            parts[slot.sk1Index],
+                            parts[slot.sk2Index]
                         ));
                     }
                 });
@@ -554,14 +782,14 @@ const Admin = {
 
 // ===== INITIALIZATION =====
 const App = {
-    init() {
+    async init() {
         // Render initial content
-        ScheduleRenderer.renderUpcoming();
         ScheduleRenderer.renderFull();
         StandingsRenderer.render();
-        RosterRenderer.render();
+        await RosterRenderer.render(); // Changed to await
         StatsRenderer.renderTeamStats();
         StatsRenderer.renderPlayerStats();
+        ResultsRenderer.render();
     }
 };
 
@@ -594,5 +822,20 @@ function updateScheduleFromCSV() {
     Admin.updateScheduleFromCSV();
 }
 
+function scrollResults(direction) {
+    const container = document.getElementById('resultsContainer');
+    if (!container) return;
+    
+    const maxScroll = Math.max(0, container.scrollWidth - container.parentElement.clientWidth);
+    
+    if (direction === 'left') {
+        CONFIG.scrollPosition = Math.max(0, CONFIG.scrollPosition - CONFIG.scrollStep);
+    } else {
+        CONFIG.scrollPosition = Math.min(maxScroll, CONFIG.scrollPosition + CONFIG.scrollStep);
+    }
+    
+    ResultsRenderer.updateScrollPosition();
+}
+
 // Initialize app when DOM is ready
-document.addEventListener('DOMContentLoaded', App.init);
+document.addEventListener('DOMContentLoaded', () => App.init());
