@@ -612,6 +612,7 @@ body {
     margin-bottom: 5px;
     border-left: 4px solid var(--accent-red, #d35400);
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    min-height: 100px; /* Ensure consistent card height */
 }
 
 .player-rank {
@@ -628,14 +629,27 @@ body {
 }
 
 .player-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary, #222);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Changed from center */
+    text-align: left;         /* Changed from center */
+    gap: 2px;
+    font-weight: 600;        /* Added weight to full name */
+    color: var(--text-primary);
 }
 
 .player-team {
-    color: var(--text-secondary, #666);
+    color: var(--text-secondary);
     font-size: 0.9rem;
+    text-align: left;        /* Added left alignment */
+}
+
+/* Remove these styles as we don't want different styling for first/last name */
+.first-name,
+.last-name {
+    font-size: 1rem;         /* Same size for both */
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .player-stats {

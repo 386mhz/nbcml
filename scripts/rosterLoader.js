@@ -1,4 +1,12 @@
 class RosterLoader {
+    static calculatePlayerStats(totalPoints, gamesPlayed, totalFouls, technicals) {
+        return {
+            ppg: gamesPlayed > 0 ? (totalPoints / gamesPlayed).toFixed(1) : '0.0',
+            fpg: gamesPlayed > 0 ? (totalFouls / gamesPlayed).toFixed(1) : '0.0',
+            tpg: gamesPlayed > 0 ? (technicals / gamesPlayed).toFixed(2) : '0.00'
+        };
+    }
+
     static async loadRostersFromCSV() {
         try {
             console.log('Starting roster load...');
@@ -10,6 +18,7 @@ class RosterLoader {
             
             const csvText = await response.text();
             const rosters = {};
+            const playerStats = [];
 
             // Parse CSV rows
             const rows = csvText.split('\n')
@@ -20,24 +29,41 @@ class RosterLoader {
             const dataRows = rows.slice(1);
             
             dataRows.forEach(row => {
-                const [team, firstName, lastName, captain, number, email] = row.split(',').map(item => item.trim());
+                const [team, firstName, lastName, captain, number, email, 
+                       gamesPlayed, totalPoints, totalFouls, totalTechs] = row.split(',').map(item => item.trim());
                 
                 if (!rosters[team]) {
                     rosters[team] = { players: [] };
                 }
 
-                // Format player number display - only show if number exists
-                const displayNumber = number ? ` #${number}` : '';
+                // Calculate stats
+                const stats = this.calculatePlayerStats(
+                    parseInt(totalPoints) || 0,
+                    parseInt(gamesPlayed) || 0,
+                    parseInt(totalFouls) || 0,
+                    parseInt(totalTechs) || 0
+                );
 
+                playerStats.push({
+                    firstName: firstName,
+                    lastName: lastName,
+                    team: team,
+                    ppg: parseFloat(stats.ppg),
+                    fpg: parseFloat(stats.fpg),
+                    tpg: parseFloat(stats.tpg)
+                });
+
+                // Add to rosters
                 rosters[team].players.push({
-                    name: `${firstName} ${lastName}${displayNumber}`,
+                    name: `${firstName} ${lastName}`,
                     captain: captain.toUpperCase() === 'TRUE',
+                    number: number || '',
                     email: email || ''
                 });
             });
 
             console.log('Processed rosters:', rosters);
-            return rosters;
+            return { rosters, playerStats };
 
         } catch (error) {
             console.error('RosterLoader error:', error);
@@ -52,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (rostersContainer) {
         RosterLoader.loadRostersFromCSV()
-            .then(rosters => {
+            .then(({ rosters, playerStats }) => {
                 if (rosters) {
                     console.log('Rendering rosters...');
                     rostersContainer.innerHTML = Object.entries(rosters)

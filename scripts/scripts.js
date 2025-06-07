@@ -423,26 +423,19 @@ const StandingsRenderer = {
 const RosterRenderer = {
     async render() {
         const rostersContainer = document.getElementById('rostersContainer');
-        if (!rostersContainer) {
-            console.error('Rosters container not found in DOM');
-            return;
-        }
+        if (!rostersContainer) return;
         
         rostersContainer.innerHTML = '<div class="loading">Loading rosters...</div>';
 
         try {
-            console.log('Attempting to load rosters...');
-            const rosters = await RosterLoader.loadRostersFromCSV();
-            console.log('Loaded rosters:', rosters);
-            
-            if (!rosters) {
-                rostersContainer.innerHTML = '<div class="error">Error loading rosters. Check console for details.</div>';
+            const data = await RosterLoader.loadRostersFromCSV();
+            if (!data || !data.rosters) {
+                rostersContainer.innerHTML = '<div class="error">Error loading rosters</div>';
                 return;
             }
 
             rostersContainer.innerHTML = '';
-            Object.entries(rosters).forEach(([teamName, teamData]) => {
-                // Sort players - captains first, then alphabetically by name
+            Object.entries(data.rosters).forEach(([teamName, teamData]) => {
                 const sortedPlayers = teamData.players.sort((a, b) => {
                     if (a.captain !== b.captain) return b.captain - a.captain;
                     return a.name.localeCompare(b.name);
@@ -469,7 +462,7 @@ const RosterRenderer = {
             });
         } catch (error) {
             console.error('Error in RosterRenderer:', error);
-            rostersContainer.innerHTML = '<div class="error">Error displaying rosters. Check console for details.</div>';
+            rostersContainer.innerHTML = '<div class="error">Error displaying rosters</div>';
         }
     }
 };
@@ -499,74 +492,86 @@ const StatsRenderer = {
         });
     },
 
-renderPlayerStats() {
+    async renderPlayerStats() {
         const container = document.getElementById('individualScoringContainer');
-        container.innerHTML = '';
+        container.innerHTML = '<div class="loading">Loading player stats...</div>';
 
-        // Prepare columns
-        const topColumn = Utils.createElement('div', 'player-stats-column', '');
-        const middleColumn = Utils.createElement('div', 'player-stats-column', '');
-        const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
-
-        // Sort players by PPG descending
-        const sortedPlayers = [...DataStore.playerStats].sort((a, b) => b.ppg - a.ppg);
-        const total = sortedPlayers.length;
-        const oneThird = Math.ceil(total / 3);
-
-        const getRankColor = (col) => {
-            if (col === 'top') return '#F76900';
-            if (col === 'middle') return '#000E54';
-            return '#8D817B';
-        };
-
-        sortedPlayers.forEach((player, idx) => {
-            let col, rankColor;
-            if (idx < oneThird) {
-                col = 'top';
-                rankColor = getRankColor('top');
-            } else if (idx < 2 * oneThird) {
-                col = 'middle';
-                rankColor = getRankColor('middle');
-            } else {
-                col = 'bottom';
-                rankColor = getRankColor('bottom');
+        try {
+            const data = await RosterLoader.loadRostersFromCSV();
+            if (!data || !data.playerStats) {
+                container.innerHTML = '<div class="error">Error loading player stats</div>';
+                return;
             }
 
-            const playerCard = Utils.createElement('div', 'player-stat-card', `
-                <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
-                <div class="player-info">
-                    <div class="player-name">${player.name}</div>
-                    <div class="player-team">${player.team}</div>
-                </div>
-                <div class="player-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">${player.ppg}</span>
-                        <span class="stat-label">PPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.fpg}</span>
-                        <span class="stat-label">FPG</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${player.tpg}</span>
-                        <span class="stat-label">TPG</span>
-                    </div>
-                </div>
-            `);
+            container.innerHTML = '';
 
-            if (col === 'top') {
-                topColumn.appendChild(playerCard);
-            } else if (col === 'middle') {
-                middleColumn.appendChild(playerCard);
-            } else {
-                bottomColumn.appendChild(playerCard);
-            }
-        });
+            // Create columns
+            const topColumn = Utils.createElement('div', 'player-stats-column', '');
+            const middleColumn = Utils.createElement('div', 'player-stats-column', '');
+            const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
 
-        // Add all columns to the container
-        container.appendChild(topColumn);
-        container.appendChild(middleColumn);
-        container.appendChild(bottomColumn);
+            // Sort players by PPG descending
+            const sortedPlayers = [...data.playerStats].sort((a, b) => b.ppg - a.ppg);
+            const total = sortedPlayers.length;
+            const oneThird = Math.ceil(total / 3);
+
+            const getRankColor = (col) => {
+                if (col === 'top') return '#F76900';
+                if (col === 'middle') return '#000E54';
+                return '#8D817B';
+            };
+
+            sortedPlayers.forEach((player, idx) => {
+                let col, rankColor;
+                if (idx < oneThird) {
+                    col = 'top';
+                    rankColor = getRankColor('top');
+                } else if (idx < 2 * oneThird) {
+                    col = 'middle';
+                    rankColor = getRankColor('middle');
+                } else {
+                    col = 'bottom';
+                    rankColor = getRankColor('bottom');
+                }
+
+                const playerCard = Utils.createElement('div', 'player-stat-card', `
+                    <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
+                    <div class="player-info">
+                        <div class="player-name">
+                            <div class="first-name">${player.firstName}</div>
+                            <div class="last-name">${player.lastName}</div>
+                        </div>
+                        <div class="player-team">${player.team}</div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">${player.ppg}</span>
+                            <span class="stat-label">PPG</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${player.fpg}</span>
+                            <span class="stat-label">FPG</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${player.tpg}</span>
+                            <span class="stat-label">TPG</span>
+                        </div>
+                    </div>
+                `);
+
+                if (col === 'top') topColumn.appendChild(playerCard);
+                else if (col === 'middle') middleColumn.appendChild(playerCard);
+                else bottomColumn.appendChild(playerCard);
+            });
+
+            container.appendChild(topColumn);
+            container.appendChild(middleColumn);
+            container.appendChild(bottomColumn);
+
+        } catch (error) {
+            console.error('Error rendering player stats:', error);
+            container.innerHTML = '<div class="error">Error displaying player stats</div>';
+        }
     }
 };
 
