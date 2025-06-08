@@ -530,10 +530,16 @@ const StatsRenderer = {
         const container = document.getElementById('individualScoringContainer');
         container.innerHTML = '';
 
-        // Create columns
-        const topColumn = Utils.createElement('div', 'player-stats-column', '');
-        const middleColumn = Utils.createElement('div', 'player-stats-column', '');
-        const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
+        // Create columns with headers
+        const topColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Top Third</div>
+        `);
+        const middleColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Middle Third</div>
+        `);
+        const bottomColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Bottom Third</div>
+        `);
 
         // Sort players based on current sort criteria
         const sortedPlayers = [...this.playerStats].sort((a, b) => b[this.currentSort] - a[this.currentSort]);

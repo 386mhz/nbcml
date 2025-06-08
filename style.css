@@ -595,12 +595,12 @@ body {
 }
 
 .player-stats-column {
-    flex: 1 1 0px;
-    min-width: 250px;
-    max-width: 350px;
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    padding: 0 10px;
 }
 
 .player-stat-card {
@@ -1171,4 +1171,14 @@ body {
     color: #e74c3c;
     background: #fde8e7;
     border-radius: var(--border-radius);
+}
+
+.column-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
 }
