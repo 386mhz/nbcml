@@ -475,19 +475,62 @@ const StatsRenderer = {
         container.innerHTML = '';
 
         DataStore.teamStats.forEach(team => {
+            // Calculate total points
+            const wins = team.wins || 0;
+            const losses = team.losses || 0;
+            const ties = team.ties || 0;
+            const totalPoints = (wins * 2) + ties;
+
+            // Find top foulers and tech getters from playerStats
+            const teamPlayers = DataStore.playerStats.filter(player => player.team === team.team);
+            const topFouler = teamPlayers.reduce((prev, curr) => 
+                prev.fpg > curr.fpg ? prev : curr, teamPlayers[0]);
+            const topTech = teamPlayers.reduce((prev, curr) => 
+                prev.tpg > curr.tpg ? prev : curr, teamPlayers[0]);
+
             const teamCard = Utils.createElement('div', 'team-stat-card', `
                 <h3>${team.team}</h3>
-                <div class="stat-row">
-                    <span>Avg Points Scored:</span>
-                    <span>${team.avgPts}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Record:</span>
+                        <span>${wins}W - ${losses}L - ${ties}T</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Total Points:</span>
+                        <span>${totalPoints} TP</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Games Back:</span>
+                        <span>${team.gamesBack || '0.0'} GB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Streak:</span>
+                        <span>${team.streak || '-'}</span>
+                    </div>
                 </div>
-                <div class="stat-row">
-                    <span>Avg Points Allowed:</span>
-                    <span>${team.avgAllowed}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Avg Points Scored:</span>
+                        <span>${team.avgPts}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Avg Points Allowed:</span>
+                        <span>${team.avgAllowed}</span>
+                    </div>
                 </div>
-                <div class="stat-row">
-                    <span>Top Scorer:</span>
-                    <span>${team.topScorer}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Top Scorer:</span>
+                        <span>${team.topScorer}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Whistle Magnet:</span>
+                        <span>${topFouler ? `${topFouler.name} (${topFouler.fpg} FPG)` : '-'}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Mr Tech:</span>
+                        <span>${topTech ? `${topTech.name} (${topTech.tpg} TPG)` : '-'}</span>
+                    </div>
                 </div>
             `);
             container.appendChild(teamCard);

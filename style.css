@@ -561,29 +561,47 @@ body {
 }
 
 .team-stat-card {
-    background: var(--card-bg);
+    background: var(--card-bg, #fff);
     border-radius: var(--border-radius);
     padding: 20px;
-    margin-bottom: 20px;
-    border-left: 4px solid var(--accent-blue);
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-light);
 }
 
 .team-stat-card h3 {
-    color: var(--text-primary);
+    color: var(--primary-blue);
     margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.stat-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-group:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .stat-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    padding: 5px 0;
 }
 
-.stat-row:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+.stat-row span:first-child {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-row span:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .player-stats-columns {
