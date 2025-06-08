@@ -875,9 +875,9 @@ body {
     justify-content: center;
     text-align: center;
 	display: flex;
-  	flex-wrap: wrap;
-  	gap: 10px;
-  	padding: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
 }
 
 .executive-team .player-list li {
