@@ -468,6 +468,8 @@ const RosterRenderer = {
 };
 
 const StatsRenderer = {
+    currentSort: 'ppg',
+
     renderTeamStats() {
         const container = document.getElementById('teamScoringContainer');
         container.innerHTML = '';
@@ -503,75 +505,85 @@ const StatsRenderer = {
                 return;
             }
 
-            container.innerHTML = '';
-
-            // Create columns
-            const topColumn = Utils.createElement('div', 'player-stats-column', '');
-            const middleColumn = Utils.createElement('div', 'player-stats-column', '');
-            const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
-
-            // Sort players by PPG descending
-            const sortedPlayers = [...data.playerStats].sort((a, b) => b.ppg - a.ppg);
-            const total = sortedPlayers.length;
-            const oneThird = Math.ceil(total / 3);
-
-            const getRankColor = (col) => {
-                if (col === 'top') return '#F76900';
-                if (col === 'middle') return '#000E54';
-                return '#8D817B';
-            };
-
-            sortedPlayers.forEach((player, idx) => {
-                let col, rankColor;
-                if (idx < oneThird) {
-                    col = 'top';
-                    rankColor = getRankColor('top');
-                } else if (idx < 2 * oneThird) {
-                    col = 'middle';
-                    rankColor = getRankColor('middle');
-                } else {
-                    col = 'bottom';
-                    rankColor = getRankColor('bottom');
-                }
-
-                const playerCard = Utils.createElement('div', 'player-stat-card', `
-                    <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
-                    <div class="player-info">
-                        <div class="player-name">
-                            <div class="first-name">${player.firstName}</div>
-                            <div class="last-name">${player.lastName}</div>
-                        </div>
-                        <div class="player-team">${player.team}</div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="stat-item">
-                            <span class="stat-value">${player.ppg}</span>
-                            <span class="stat-label">PPG</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">${player.fpg}</span>
-                            <span class="stat-label">FPG</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">${player.tpg}</span>
-                            <span class="stat-label">TPG</span>
-                        </div>
-                    </div>
-                `);
-
-                if (col === 'top') topColumn.appendChild(playerCard);
-                else if (col === 'middle') middleColumn.appendChild(playerCard);
-                else bottomColumn.appendChild(playerCard);
+            this.playerStats = data.playerStats;
+            
+            // Add event listeners to sort buttons
+            document.querySelectorAll('.sort-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sortBy = e.target.dataset.sort;
+                    document.querySelectorAll('.sort-btn').forEach(btn => 
+                        btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    this.currentSort = sortBy;
+                    this.renderStats();
+                });
             });
 
-            container.appendChild(topColumn);
-            container.appendChild(middleColumn);
-            container.appendChild(bottomColumn);
-
+            this.renderStats();
         } catch (error) {
             console.error('Error rendering player stats:', error);
             container.innerHTML = '<div class="error">Error displaying player stats</div>';
         }
+    },
+
+    renderStats() {
+        const container = document.getElementById('individualScoringContainer');
+        container.innerHTML = '';
+
+        // Create columns
+        const topColumn = Utils.createElement('div', 'player-stats-column', '');
+        const middleColumn = Utils.createElement('div', 'player-stats-column', '');
+        const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
+
+        // Sort players based on current sort criteria
+        const sortedPlayers = [...this.playerStats].sort((a, b) => b[this.currentSort] - a[this.currentSort]);
+        const total = sortedPlayers.length;
+        const oneThird = Math.ceil(total / 3);
+
+        const getRankColor = (idx) => {
+            if (idx < oneThird) return '#F76900';
+            if (idx < oneThird * 2) return '#000E54';
+            return '#8D817B';
+        };
+
+        sortedPlayers.forEach((player, idx) => {
+            const playerCard = Utils.createElement('div', 'player-stat-card', `
+                <div class="player-rank" style="color: ${getRankColor(idx)}">#${idx + 1}</div>
+                <div class="player-info">
+                    <div class="player-name">
+                        <div class="first-name">${player.firstName}</div>
+                        <div class="last-name">${player.lastName}</div>
+                    </div>
+                    <div class="player-team">${player.team}</div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item ${this.currentSort === 'ppg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.ppg}</span>
+                        <span class="stat-label">PPG</span>
+                    </div>
+                    <div class="stat-item ${this.currentSort === 'fpg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.fpg}</span>
+                        <span class="stat-label">FPG</span>
+                    </div>
+                    <div class="stat-item ${this.currentSort === 'tpg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.tpg}</span>
+                        <span class="stat-label">TPG</span>
+                    </div>
+                </div>
+            `);
+
+            if (idx < oneThird) {
+                topColumn.appendChild(playerCard);
+            } else if (idx < oneThird * 2) {
+                middleColumn.appendChild(playerCard);
+            } else {
+                bottomColumn.appendChild(playerCard);
+            }
+        });
+
+        container.appendChild(topColumn);
+        container.appendChild(middleColumn);
+        container.appendChild(bottomColumn);
     }
 };
 

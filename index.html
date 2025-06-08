@@ -197,14 +197,16 @@
 
 		<!-- Individual Scoring Section -->
 		<div id="individual-scoring" class="content-section">
-  			<h2><i class="fas fa-star"></i> Player Stats</h2>
-  			<div id="individualScoringContainer" class="player-stats-columns">
-				<!-- Individual scoring stats will be populated by JavaScript -->
-			<div class="player-stats-column" id="topThird"></div>
-			<div class="player-stats-column" id="middleThird"></div>
-			<div class="player-stats-column" id="bottomThird"></div>
-	</div>
-		</div>		
+    <h2><i class="fas fa-star"></i> Player Stats</h2>
+    <div class="sort-controls">
+        <button class="sort-btn active" data-sort="ppg">Points Per Game</button>
+        <button class="sort-btn" data-sort="fpg">Fouls Per Game</button>
+        <button class="sort-btn" data-sort="tpg">Techs Per Game</button>
+    </div>
+    <div id="individualScoringContainer" class="player-stats-columns">
+        <!-- Columns will be populated by JavaScript -->
+    </div>
+</div>		
 
         <!-- Admin Section -->
         <div id="admin" class="content-section">
