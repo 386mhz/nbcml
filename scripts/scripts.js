@@ -94,26 +94,6 @@ const DataStore = {
         { team: 'Team 6', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez' }
     ],
 
-    playerStats: [
-        { name: 'Mike Johnson', team: 'Team 1', ppg: 22.4, fpg: 4.2, tpg: 0.11 },
-        { name: 'Kevin Wilson', team: 'Team 2', ppg: 20.8, fpg: 3.9, tpg: 0.32 },
-        { name: 'Paul Taylor', team: 'Team 3', ppg: 19.6, fpg: 4.1, tpg: 1.23 },
-        { name: 'Dan Martin', team: 'Team 4', ppg: 18.9, fpg: 3.8, tpg: 0.74 },
-        { name: 'Adam Hall', team: 'Team 5', ppg: 17.2, fpg: 2.4, tpg: 0.95 },
-        { name: 'Owen Lopez', team: 'Team 6', ppg: 16.8, fpg: 1.1, tpg: 0.86 },
-		{ name: 'Ethan Hill', team: 'Team 1', ppg: 28.4, fpg: 2.2, tpg: 0.17 },
-        { name: 'Connor Allen', team: 'Team 2', ppg: 25.8, fpg: 3.9, tpg: 0.38 },
-        { name: 'Luke Thompson', team: 'Team 3', ppg: 15.6, fpg: 4.1, tpg: 1.29 },
-        { name: 'Matt Thomas', team: 'Team 4', ppg: 8.9, fpg: 2.8, tpg: 0.70 },
-        { name: 'Mark Garcia', team: 'Team 5', ppg: 27.2, fpg: 1.4, tpg: 0.99 },
-        { name: 'Chris Williams', team: 'Team 6', ppg: 15.8, fpg: 3.1, tpg: 0.87 },
-		{ name: 'David Brown', team: 'Team 1', ppg: 22.8, fpg: 3.2, tpg: 1.16 },
-        { name: 'Tom Rodriguez', team: 'Team 2', ppg: 20.1, fpg: 2.9, tpg: 1.35 },
-        { name: 'Josh Jackson', team: 'Team 3', ppg: 29.6, fpg: 4.1, tpg: 0.24 },
-        { name: 'Sam Garcia', team: 'Team 4', ppg: 14.9, fpg: 2.8, tpg: 0.73 },
-        { name: 'Noah Young', team: 'Team 5', ppg: 7.2, fpg: 3.4, tpg: 0.92 },
-        { name: 'Lucas Scott', team: 'Team 6', ppg: 12.8, fpg: 3.1, tpg: 0.81}
-    ]
 };
 
 // ===== UTILITY FUNCTIONS =====

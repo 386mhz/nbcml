@@ -1,33 +1,35 @@
-Week,Type,Date,EarlyHomeTeam,EarlyHomeScore,EarlyAwayTeam,EarlyAwayScore,MidHomeTeam,MidHomeScore,MidAwayTeam,MidAwayScore,LateHomeTeam,LateHomeScore,LateAwayTeam,LateAwayScore
-1,S,05-06-2025,,,,,,,,,,,,
-2,R,05-13-2025,Team 1,76,Team 2,70,Team 3,90,Team 4,94,Team 5,55,Team 6,50
-3,R,05-20-2025,Team 6,53,Team 4,65,Team 2,85,Team 3,90,Team 1,66,Team 5,71
-4,R,05-27-2025,Team 3,78,Team 1,80,Team 5,67,Team 4,78,Team 2,56,Team 6,82
-5,R,06-03-2025,Team 4,66,Team 2,58,Team 6,76,Team 1,78,Team 3,79,Team 5,73
-6,R,06-10-2025,Team 1,,Team 4,,Team 5,,Team 2,,Team 6,,Team 3,
-7,R,06-17-2025,Team 2,,Team 6,,Team 4,,Team 3,,Team 5,,Team 1,
-8,R,06-24-2025,Team 5,,Team 3,,Team 1,,Team 6,,Team 4,,Team 2,
-9,R,07-01-2025,Team 3,,Team 2,,Team 6,,Team 5,,Team 1,,Team 4,
-10,R,07-08-2025,Team 4,,Team 1,,Team 2,,Team 5,,Team 3,,Team 6,
-11,R,07-15-2025,Team 6,,Team 2,,Team 1,,Team 3,,Team 4,,Team 5,
-12,R,07-22-2025,Team 2,,Team 4,,Team 5,,Team 6,,Team 3,,Team 1,
-13,R,07-29-2025,Team 1,,Team 5,,Team 3,,Team 2,,Team 6,,Team 4,
-14,R,08-05-2025,Team 4,,Team 6,,Team 2,,Team 1,,Team 5,,Team 3,
-15,R,08-12-2025,Team 3,,Team 4,,Team 6,,Team 2,,Team 1,,Team 5,
-16,R,08-19-2025,Team 5,,Team 2,,Team 1,,Team 4,,Team 6,,Team 3,
-17,R,08-26-2025,Team 4,,Team 5,,Team 3,,Team 6,,Team 2,,Team 1,
-18,R,09-02-2025,Team 1,,Team 3,,Team 5,,Team 4,,Team 2,,Team 6,
-19,R,09-09-2025,Team 6,,Team 1,,Team 2,,Team 5,,Team 4,,Team 3,
-20,R,09-16-2025,Team 3,,Team 5,,Team 4,,Team 2,,Team 1,,Team 6,
-21,R,09-23-2025,Team 2,,Team 3,,Team 6,,Team 4,,Team 5,,Team 1,
-22,R,09-30-2025,Team 1,,Team 2,,Team 4,,Team 6,,Team 3,,Team 5,
-23,R,10-07-2025,Team 5,,Team 6,,Team 3,,Team 1,,Team 2,,Team 4,
-24,R,10-14-2025,Team 4,,Team 3,,Team 1,,Team 5,,Team 6,,Team 2,
-25,R,10-21-2025,Team 2,,Team 1,,Team 5,,Team 3,,Team 4,,Team 6,
-26,R,10-28-2025,Team 6,,Team 5,,Team 4,,Team 1,,Team 2,,Team 3,
-27,R,11-04-2025,Team 3,,Team 2,,Team 1,,Team 6,,Team 5,,Team 4,
-28,R,11-11-2025,Team 5,,Team 2,,Team 6,,Team 3,,Team 1,,Team 4,
-29,R,11-18-2025,Team 4,,Team 5,,Team 2,,Team 6,,Team 3,,Team 1,
-30,P,11-25-2025,,,,,,,,,,,,
-31,P,12-02-2025,,,,,,,,,,,,
-32,P,12-09-2025,,,,,,,,,,,,
+Week,Type,Date,EarlyHomeTeam,EarlyHomeScore,EarlyAwayTeam,EarlyAwayScore,EarlySK1,EarlySK2,MidHomeTeam,MidHomeScore,MidAwayTeam,MidAwayScore,MidSK1,MidSk2,LateHomeTeam,LateHomeScore,LateAwayTeam,LateAwayScore,LateSK1,LateSK2
+1,S,05-06-2025,,,,,,,,,,,,,,,,,,
+2,R,05-13-2025,Team 1,76,Team 2,70,Brian ,Steve,Team 3,90,Team 4,94,Chris,Rick,Team 5,55,Team 6,50,Frank,Peter
+3,R,05-20-2025,Team 6,53,Team 4,65,Dave ,Tyler,Team 2,85,Team 3,90,Ian,Scott,Team 1,66,Team 5,71,James,RJ
+4,R,05-27-2025,Team 3,78,Team 1,80,Evan ,Anatoliy,Team 5,67,Team 4,78,Lee,Shadi,Team 2,56,Team 6,82,Mav,Bill
+5,R,06-03-2025,Team 4,66,Team 2,58,Jeff ,Eagle,Team 6,76,Team 1,78,Patric,Brian ,Team 3,79,Team 5,73,George,Colin
+6,R,06-10-2025,Team 1,,Team 4,,Jordan ,Steve,Team 5,,Team 2,,Raja,Dave ,Team 6,,Team 3,,Petar,Colin
+7,R,06-17-2025,Team 2,,Team 6,,Damon ,Henry,Team 4,,Team 3,,Rob,Evan ,Team 5,,Team 1,,Ralph,Jacob
+8,R,06-24-2025,Team 5,,Team 3,,Mike ,Nikolay,Team 1,,Team 6,,Paul,Jeff ,Team 4,,Team 2,,Richard,Mike
+9,R,07-01-2025,Team 3,,Team 2,,Paul ,Paulo,Team 6,,Team 5,,Jason,Jordan ,Team 1,,Team 4,,Sean,Omer
+10,H,07-08-2025,,,,,,,,,,,,,,,,,,
+11,R,07-15-2025,Team 4,,Team 1,,Frank,Peter,Team 2,,Team 5,,John,Damon ,Team 3,,Team 6,,Brian,Reid
+12,R,07-22-2025,Team 6,,Team 2,,James,RJ,Team 1,,Team 3,,Marshall,Mike ,Team 4,,Team 5,,Chris,Rick
+13,R,07-29-2025,Team 2,,Team 4,,Mav,Bill,Team 5,,Team 6,,Pasquale,Paul ,Team 3,,Team 1,,Ian,Scott
+14,R,08-05-2025,Team 1,,Team 5,,George,Colin,Team 3,,Team 2,,Brian ,Steve,Team 6,,Team 4,,Lee,Shadi
+15,R,08-12-2025,Team 4,,Team 6,,Petar,Colin,Team 2,,Team 1,,Dave ,Tyler,Team 5,,Team 3,,Patric,Brian 
+16,R,08-19-2025,Team 3,,Team 4,,Ralph,Jacob,Team 6,,Team 2,,Evan ,Anatoliy,Team 1,,Team 5,,Raja,Dave 
+17,R,08-26-2025,Team 5,,Team 2,,Richard,Mike,Team 1,,Team 4,,Jeff ,Eagle,Team 6,,Team 3,,Rob,Evan 
+18,R,09-02-2025,Team 4,,Team 5,,Sean,Omer,Team 3,,Team 6,,Jordan ,Steve,Team 2,,Team 1,,Paul,Jeff 
+19,R,09-09-2025,Team 1,,Team 3,,Brian,Reid,Team 5,,Team 4,,Damon ,Henry,Team 2,,Team 6,,Jason,Jordan 
+20,H,09-16-2025,,,,,,,,,,,,,,,,,,
+21,R,09-23-2025,Team 6,,Team 1,,Chris,Rick,Team 2,,Team 5,,Mike ,Nikolay,Team 4,,Team 3,,Brian ,Steve
+22,R,09-30-2025,Team 3,,Team 5,,Ian,Scott,Team 4,,Team 2,,Paul ,Paulo,Team 1,,Team 6,,Dave ,Tyler
+23,R,10-07-2025,Team 2,,Team 3,,Lee,Shadi,Team 6,,Team 4,,Frank,Peter,Team 5,,Team 1,,Evan ,Anatoliy
+24,R,10-14-2025,Team 1,,Team 2,,Patric,Brian ,Team 4,,Team 6,,James,RJ,Team 3,,Team 5,,Jeff ,Eagle
+25,R,10-21-2025,Team 5,,Team 6,,Raja,Dave ,Team 3,,Team 1,,Mav,Bill,Team 2,,Team 4,,Jordan ,Steve
+26,R,10-28-2025,Team 4,,Team 3,,Rob,Evan ,Team 1,,Team 5,,George,Colin,Team 6,,Team 2,,Damon ,Henry
+27,R,11-04-2025,Team 2,,Team 1,,Paul,Jeff ,Team 5,,Team 3,,Petar,Colin,Team 4,,Team 6,,Mike ,Nikolay
+28,R,11-11-2025,Team 6,,Team 5,,Jason,Jordan ,Team 4,,Team 1,,Ralph,Jacob,Team 2,,Team 3,,Paul ,Paulo
+29,R,11-18-2025,Team 3,,Team 2,,John,Damon ,Team 1,,Team 6,,Richard,Mike,Team 5,,Team 4,,Rob,Evan 
+30,R,11-25-2025,Team 5,,Team 2,,Marshall,Mike ,Team 6,,Team 3,,Sean,Omer,Team 1,,Team 4,,Paul,Jeff 
+31,R,12-02-2025,Team 4,,Team 5,,Pasquale,Paul ,Team 2,,Team 6,,Brian,Reid,Team 3,,Team 1,,Jason,Jordan 
+32,P,12-09-2025,,,,,,,,,,,,,,,,,,
+33,P,12-16-2025,,,,,,,,,,,,,,,,,,
+34,P,12-23-2025,,,,,,,,,,,,,,,,,,
