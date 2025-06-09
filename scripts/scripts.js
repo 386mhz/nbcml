@@ -468,24 +468,76 @@ const RosterRenderer = {
 };
 
 const StatsRenderer = {
+    currentSort: 'ppg',
+
     renderTeamStats() {
         const container = document.getElementById('teamScoringContainer');
         container.innerHTML = '';
 
         DataStore.teamStats.forEach(team => {
+            // Calculate total points and plus/minus
+            const wins = team.wins || 0;
+            const losses = team.losses || 0;
+            const ties = team.ties || 0;
+            const totalPoints = (wins * 2) + ties;
+            
+            // Calculate plus/minus (difference between points scored and allowed)
+            const plusMinus = (team.avgPts - team.avgAllowed).toFixed(1);
+            const plusMinusDisplay = plusMinus > 0 ? `+${plusMinus}` : plusMinus;
+            const plusMinusColor = plusMinus > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+
+            // Find top foulers and tech getters from playerStats
+            const teamPlayers = DataStore.playerStats.filter(p => p.team === team.team);
+            const topFouler = teamPlayers.reduce((max, p) => p.fpg > max.fpg ? p : max, teamPlayers[0]);
+            const topTech = teamPlayers.reduce((max, p) => p.tpg > max.tpg ? p : max, teamPlayers[0]);
+
             const teamCard = Utils.createElement('div', 'team-stat-card', `
                 <h3>${team.team}</h3>
-                <div class="stat-row">
-                    <span>Avg Points Scored:</span>
-                    <span>${team.avgPts}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Record:</span>
+                        <span>${wins}W - ${losses}L - ${ties}T</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Total Points:</span>
+                        <span>${totalPoints} TP</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Games Back:</span>
+                        <span>${team.gamesBack || '0.0'} GB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Streak:</span>
+                        <span>${team.streak || '-'}</span>
+                    </div>
                 </div>
-                <div class="stat-row">
-                    <span>Avg Points Allowed:</span>
-                    <span>${team.avgAllowed}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Avg Points Scored:</span>
+                        <span>${team.avgPts}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Avg Points Allowed:</span>
+                        <span>${team.avgAllowed}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Scoring +/-:</span>
+                        <span style="color: ${plusMinusColor}">${plusMinusDisplay}</span>
+                    </div>
                 </div>
-                <div class="stat-row">
-                    <span>Top Scorer:</span>
-                    <span>${team.topScorer}</span>
+                <div class="stat-group">
+                    <div class="stat-row">
+                        <span>Top Scorer:</span>
+                        <span>${team.topScorer}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Whistle Magnet:</span>
+                        <span>${topFouler ? `${topFouler.name} (${topFouler.fpg.toFixed(1)} FPG)` : '-'}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Mr Tech:</span>
+                        <span>${topTech ? `${topTech.name} (${topTech.tpg.toFixed(2)} TPG)` : '-'}</span>
+                    </div>
                 </div>
             `);
             container.appendChild(teamCard);
@@ -503,75 +555,91 @@ const StatsRenderer = {
                 return;
             }
 
-            container.innerHTML = '';
-
-            // Create columns
-            const topColumn = Utils.createElement('div', 'player-stats-column', '');
-            const middleColumn = Utils.createElement('div', 'player-stats-column', '');
-            const bottomColumn = Utils.createElement('div', 'player-stats-column', '');
-
-            // Sort players by PPG descending
-            const sortedPlayers = [...data.playerStats].sort((a, b) => b.ppg - a.ppg);
-            const total = sortedPlayers.length;
-            const oneThird = Math.ceil(total / 3);
-
-            const getRankColor = (col) => {
-                if (col === 'top') return '#F76900';
-                if (col === 'middle') return '#000E54';
-                return '#8D817B';
-            };
-
-            sortedPlayers.forEach((player, idx) => {
-                let col, rankColor;
-                if (idx < oneThird) {
-                    col = 'top';
-                    rankColor = getRankColor('top');
-                } else if (idx < 2 * oneThird) {
-                    col = 'middle';
-                    rankColor = getRankColor('middle');
-                } else {
-                    col = 'bottom';
-                    rankColor = getRankColor('bottom');
-                }
-
-                const playerCard = Utils.createElement('div', 'player-stat-card', `
-                    <div class="player-rank" style="color: ${rankColor}">#${idx + 1}</div>
-                    <div class="player-info">
-                        <div class="player-name">
-                            <div class="first-name">${player.firstName}</div>
-                            <div class="last-name">${player.lastName}</div>
-                        </div>
-                        <div class="player-team">${player.team}</div>
-                    </div>
-                    <div class="player-stats">
-                        <div class="stat-item">
-                            <span class="stat-value">${player.ppg}</span>
-                            <span class="stat-label">PPG</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">${player.fpg}</span>
-                            <span class="stat-label">FPG</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">${player.tpg}</span>
-                            <span class="stat-label">TPG</span>
-                        </div>
-                    </div>
-                `);
-
-                if (col === 'top') topColumn.appendChild(playerCard);
-                else if (col === 'middle') middleColumn.appendChild(playerCard);
-                else bottomColumn.appendChild(playerCard);
+            this.playerStats = data.playerStats;
+            
+            // Add event listeners to sort buttons
+            document.querySelectorAll('.sort-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sortBy = e.target.dataset.sort;
+                    document.querySelectorAll('.sort-btn').forEach(btn => 
+                        btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    this.currentSort = sortBy;
+                    this.renderStats();
+                });
             });
 
-            container.appendChild(topColumn);
-            container.appendChild(middleColumn);
-            container.appendChild(bottomColumn);
-
+            this.renderStats();
         } catch (error) {
             console.error('Error rendering player stats:', error);
             container.innerHTML = '<div class="error">Error displaying player stats</div>';
         }
+    },
+
+    renderStats() {
+        const container = document.getElementById('individualScoringContainer');
+        container.innerHTML = '';
+
+        // Create columns with headers
+        const topColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Top Third</div>
+        `);
+        const middleColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Middle Third</div>
+        `);
+        const bottomColumn = Utils.createElement('div', 'player-stats-column', `
+            <div class="column-header">Bottom Third</div>
+        `);
+
+        // Sort players based on current sort criteria
+        const sortedPlayers = [...this.playerStats].sort((a, b) => b[this.currentSort] - a[this.currentSort]);
+        const total = sortedPlayers.length;
+        const oneThird = Math.ceil(total / 3);
+
+        const getRankColor = (idx) => {
+            if (idx < oneThird) return '#F76900';
+            if (idx < oneThird * 2) return '#000E54';
+            return '#8D817B';
+        };
+
+        sortedPlayers.forEach((player, idx) => {
+            const playerCard = Utils.createElement('div', 'player-stat-card', `
+                <div class="player-rank" style="color: ${getRankColor(idx)}">#${idx + 1}</div>
+                <div class="player-info">
+                    <div class="player-name">
+                        <div class="first-name">${player.firstName}</div>
+                        <div class="last-name">${player.lastName}</div>
+                    </div>
+                    <div class="player-team">${player.team}</div>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item ${this.currentSort === 'ppg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.ppg}</span>
+                        <span class="stat-label">PPG</span>
+                    </div>
+                    <div class="stat-item ${this.currentSort === 'fpg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.fpg}</span>
+                        <span class="stat-label">FPG</span>
+                    </div>
+                    <div class="stat-item ${this.currentSort === 'tpg' ? 'highlighted' : ''}">
+                        <span class="stat-value">${player.tpg}</span>
+                        <span class="stat-label">TPG</span>
+                    </div>
+                </div>
+            `);
+
+            if (idx < oneThird) {
+                topColumn.appendChild(playerCard);
+            } else if (idx < oneThird * 2) {
+                middleColumn.appendChild(playerCard);
+            } else {
+                bottomColumn.appendChild(playerCard);
+            }
+        });
+
+        container.appendChild(topColumn);
+        container.appendChild(middleColumn);
+        container.appendChild(bottomColumn);
     }
 };
 

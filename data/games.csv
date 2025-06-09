@@ -1,0 +1,33 @@
+Week,Type,Date,EarlyHomeTeam,EarlyHomeScore,EarlyAwayTeam,EarlyAwayScore,MidHomeTeam,MidHomeScore,MidAwayTeam,MidAwayScore,LateHomeTeam,LateHomeScore,LateAwayTeam,LateAwayScore
+1,S,05-06-2025,,,,,,,,,,,,
+2,R,05-13-2025,Team 1,76,Team 2,70,Team 3,90,Team 4,94,Team 5,55,Team 6,50
+3,R,05-20-2025,Team 6,53,Team 4,65,Team 2,85,Team 3,90,Team 1,66,Team 5,71
+4,R,05-27-2025,Team 3,78,Team 1,80,Team 5,67,Team 4,78,Team 2,56,Team 6,82
+5,R,06-03-2025,Team 4,66,Team 2,58,Team 6,76,Team 1,78,Team 3,79,Team 5,73
+6,R,06-10-2025,Team 1,,Team 4,,Team 5,,Team 2,,Team 6,,Team 3,
+7,R,06-17-2025,Team 2,,Team 6,,Team 4,,Team 3,,Team 5,,Team 1,
+8,R,06-24-2025,Team 5,,Team 3,,Team 1,,Team 6,,Team 4,,Team 2,
+9,R,07-01-2025,Team 3,,Team 2,,Team 6,,Team 5,,Team 1,,Team 4,
+10,R,07-08-2025,Team 4,,Team 1,,Team 2,,Team 5,,Team 3,,Team 6,
+11,R,07-15-2025,Team 6,,Team 2,,Team 1,,Team 3,,Team 4,,Team 5,
+12,R,07-22-2025,Team 2,,Team 4,,Team 5,,Team 6,,Team 3,,Team 1,
+13,R,07-29-2025,Team 1,,Team 5,,Team 3,,Team 2,,Team 6,,Team 4,
+14,R,08-05-2025,Team 4,,Team 6,,Team 2,,Team 1,,Team 5,,Team 3,
+15,R,08-12-2025,Team 3,,Team 4,,Team 6,,Team 2,,Team 1,,Team 5,
+16,R,08-19-2025,Team 5,,Team 2,,Team 1,,Team 4,,Team 6,,Team 3,
+17,R,08-26-2025,Team 4,,Team 5,,Team 3,,Team 6,,Team 2,,Team 1,
+18,R,09-02-2025,Team 1,,Team 3,,Team 5,,Team 4,,Team 2,,Team 6,
+19,R,09-09-2025,Team 6,,Team 1,,Team 2,,Team 5,,Team 4,,Team 3,
+20,R,09-16-2025,Team 3,,Team 5,,Team 4,,Team 2,,Team 1,,Team 6,
+21,R,09-23-2025,Team 2,,Team 3,,Team 6,,Team 4,,Team 5,,Team 1,
+22,R,09-30-2025,Team 1,,Team 2,,Team 4,,Team 6,,Team 3,,Team 5,
+23,R,10-07-2025,Team 5,,Team 6,,Team 3,,Team 1,,Team 2,,Team 4,
+24,R,10-14-2025,Team 4,,Team 3,,Team 1,,Team 5,,Team 6,,Team 2,
+25,R,10-21-2025,Team 2,,Team 1,,Team 5,,Team 3,,Team 4,,Team 6,
+26,R,10-28-2025,Team 6,,Team 5,,Team 4,,Team 1,,Team 2,,Team 3,
+27,R,11-04-2025,Team 3,,Team 2,,Team 1,,Team 6,,Team 5,,Team 4,
+28,R,11-11-2025,Team 5,,Team 2,,Team 6,,Team 3,,Team 1,,Team 4,
+29,R,11-18-2025,Team 4,,Team 5,,Team 2,,Team 6,,Team 3,,Team 1,
+30,P,11-25-2025,,,,,,,,,,,,
+31,P,12-02-2025,,,,,,,,,,,,
+32,P,12-09-2025,,,,,,,,,,,,
