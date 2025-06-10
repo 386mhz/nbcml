@@ -455,21 +455,18 @@ const StatsRenderer = {
         container.innerHTML = '';
 
         DataStore.teamStats.forEach(team => {
-            // Calculate total points and plus/minus
+            // Calculate total points
             const wins = team.wins || 0;
             const losses = team.losses || 0;
             const ties = team.ties || 0;
             const totalPoints = (wins * 2) + ties;
-            
-            // Calculate plus/minus (difference between points scored and allowed)
-            const plusMinus = (team.avgPts - team.avgAllowed).toFixed(1);
-            const plusMinusDisplay = plusMinus > 0 ? `+${plusMinus}` : plusMinus;
-            const plusMinusColor = plusMinus > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
 
             // Find top foulers and tech getters from playerStats
-            const teamPlayers = DataStore.playerStats.filter(p => p.team === team.team);
-            const topFouler = teamPlayers.reduce((max, p) => p.fpg > max.fpg ? p : max, teamPlayers[0]);
-            const topTech = teamPlayers.reduce((max, p) => p.tpg > max.tpg ? p : max, teamPlayers[0]);
+            const teamPlayers = DataStore.playerStats.filter(player => player.team === team.team);
+            const topFouler = teamPlayers.reduce((prev, curr) => 
+                prev.fpg > curr.fpg ? prev : curr, teamPlayers[0]);
+            const topTech = teamPlayers.reduce((prev, curr) => 
+                prev.tpg > curr.tpg ? prev : curr, teamPlayers[0]);
 
             const teamCard = Utils.createElement('div', 'team-stat-card', `
                 <h3>${team.team}</h3>
@@ -500,10 +497,6 @@ const StatsRenderer = {
                         <span>Avg Points Allowed:</span>
                         <span>${team.avgAllowed}</span>
                     </div>
-                    <div class="stat-row">
-                        <span>Scoring +/-:</span>
-                        <span style="color: ${plusMinusColor}">${plusMinusDisplay}</span>
-                    </div>
                 </div>
                 <div class="stat-group">
                     <div class="stat-row">
@@ -512,11 +505,11 @@ const StatsRenderer = {
                     </div>
                     <div class="stat-row">
                         <span>Whistle Magnet:</span>
-                        <span>${topFouler ? `${topFouler.name} (${topFouler.fpg.toFixed(1)} FPG)` : '-'}</span>
+                        <span>${topFouler ? `${topFouler.name} (${topFouler.fpg} FPG)` : '-'}</span>
                     </div>
                     <div class="stat-row">
                         <span>Mr Tech:</span>
-                        <span>${topTech ? `${topTech.name} (${topTech.tpg.toFixed(2)} TPG)` : '-'}</span>
+                        <span>${topTech ? `${topTech.name} (${topTech.tpg} TPG)` : '-'}</span>
                     </div>
                 </div>
             `);
