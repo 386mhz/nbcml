@@ -229,11 +229,9 @@ body {
 
 .game-teams {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
-    width: 100%;
-    text-align: center;
+    margin-bottom: 8px;
 }
 
 .team-result {
@@ -356,6 +354,11 @@ body {
     font-weight: 600;
     flex: 1;
     text-align: left;
+}
+
+.team-name-large {
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .team-score {
@@ -544,6 +547,12 @@ body {
     border-radius: 50%;
     font-weight: bold;
     font-size: 0.8rem;
+}
+
+.vs-text {
+    margin: 0 6px;
+    color: #666;
+    font-size: 0.9em;
 }
 
 /* Team and Player Cards */
@@ -1141,7 +1150,10 @@ body {
 }
 
 .game-teams {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .scorekeepers {

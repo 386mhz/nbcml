@@ -342,7 +342,11 @@ const ScheduleRenderer = {
                         
                     gameCell.innerHTML = `
                         <div class="game-cell-content">
-                            <div class="game-teams">${gameAtTime.homeTeam} vs ${gameAtTime.awayTeam}</div>
+                            <div class="game-teams">
+                                <span class="team-name-large">${gameAtTime.homeTeam}</span>
+                                <span class="vs-text">vs</span>
+                                <span class="team-name-large">${gameAtTime.awayTeam}</span>
+                            </div>
                             <div class="scorekeepers">${scorekeepers}</div>
                         </div>
                     `;
