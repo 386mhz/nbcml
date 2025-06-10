@@ -1,6 +1,6 @@
 Team,FirstName,LastName,Captain,Number,Email,GamesPlayed,TotalPts,TotalFouls,TotalTechs
 Team 1,Brian ,Wilson,TRUE,25,brian@email.com,25,712,75,1
-Team 1,Dave ,Moore,FALSE,,dave@email.com,19,514,11,3
+Team 1,Dave ,Moore,FALSE,69,dave@email.com,19,514,11,3
 Team 1,Evan ,Hopkins,FALSE,18,evan@email.com,19,477,61,5
 Team 1,Jeff ,Smith,FALSE,20,jeff@email.com,16,360,43,2
 Team 1,Jordan ,Huang,FALSE,23,jordan@email.com,25,520,9,1
@@ -10,7 +10,7 @@ Team 1,Paul ,Pappas,FALSE,50,paul@email.com,28,533,76,1
 Team 2,Frank,Vucko,FALSE,28,frank@email.com,27,505,35,2
 Team 2,James,Wang,FALSE,68,james@email.com,14,249,68,3
 Team 2,Mav,Marick,FALSE,5,mav@email.com,22,390,6,4
-Team 2,George,Sparangis,FALSE,,george@email.com,21,334,12,5
+Team 2,George,Sparangis,FALSE,0,george@email.com,21,334,12,5
 Team 2,Petar,Rafajlovic,TRUE,47,petar@email.com,23,352,43,6
 Team 2,Ralph,Romano,FALSE,27,ralph@email.com,24,356,11,7
 Team 2,Richard,Montoya,FALSE,21,richard@email.com,15,199,51,8
