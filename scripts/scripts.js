@@ -594,94 +594,186 @@ const StatsRenderer = {
 };
 
 const ResultsRenderer = {
-    render() {
+    async render() {
         const container = document.getElementById('resultsContainer');
         if (!container) return;
         
-        container.innerHTML = '';
-        
-        // Group games by date
-        const gamesByDate = {};
-        DataStore.gameResults.forEach(game => {
-            if (!gamesByDate[game.date]) {
-                gamesByDate[game.date] = [];
-            }
-            gamesByDate[game.date].push(game);
-        });
-        
-        // Sort dates in descending order (most recent first)
-        const sortedDates = Object.keys(gamesByDate).sort().reverse();
-        
-        sortedDates.forEach(date => {
-            const games = gamesByDate[date];
-            const resultGroup = Utils.createElement('div', 'result-group');
+        container.innerHTML = '<div class="loading">Loading results...</div>';
+
+        try {
+            const response = await fetch('data/games.csv');
+            const csvText = await response.text();
+            const games = this.parseGamesCSV(csvText);
             
-            // Create date header with vertical layout
-            const dateSection = Utils.createElement('div', 'result-date-section');
-            const dateHeader = Utils.createElement('div', 'result-date-vertical', Utils.formatDateShort(date));
-            dateSection.appendChild(dateHeader);
+            container.innerHTML = '';
             
-            // Create games row container
-            const gamesRow = Utils.createElement('div', 'games-row');
-            
-            // Add games horizontally
+            // Group games by date
+            const gamesByDate = {};
             games.forEach(game => {
-                const gameCard = Utils.createElement('div', 'game-result-card');
-                
-                if (game.status === 'final') {
-                    // Determine winner for highlighting
-                    const homeWon = game.homeScore > game.awayScore;
-                    const awayWon = game.awayScore > game.homeScore;
-                    
-                    gameCard.innerHTML = `
-                        <div class="game-result-teams">
-                            <div class="team-score-line ${homeWon ? 'winner' : ''}">
-                                <span class="team-name">${game.homeTeam}</span>
-                                <span class="team-score">${game.homeScore}</span>
-                                ${homeWon ? '<div class="winner-indicator">▶</div>' : ''}
-                            </div>
-                            <div class="team-score-line ${awayWon ? 'winner' : ''}">
-                                <span class="team-name">${game.awayTeam}</span>
-                                <span class="team-score">${game.awayScore}</span>
-                                ${awayWon ? '<div class="winner-indicator">▶</div>' : ''}
-                            </div>
-                        </div>
-                        <div class="game-result-status final">FINAL</div>
-                    `;
-                } else {
-                    // Get team records
-                    const homeTeamData = DataStore.teams.find(t => t.name === game.homeTeam);
-                    const awayTeamData = DataStore.teams.find(t => t.name === game.awayTeam);
-                    
-                    gameCard.innerHTML = `
-                        <div class="game-result-teams">
-                            <div class="team-score-line">
-                                <span class="team-name">${game.homeTeam}</span>
-                                <span class="team-record">(${homeTeamData?.wins || 0}-${homeTeamData?.losses || 0})</span>
-                            </div>
-                            <div class="team-score-line">
-                                <span class="team-name">${game.awayTeam}</span>
-                                <span class="team-record">(${awayTeamData?.wins || 0}-${awayTeamData?.losses || 0})</span>
-                            </div>
-                        </div>
-                        <div class="game-result-status scheduled">${Utils.formatTime(game.time)}</div>
-                    `;
+                if (!gamesByDate[game.date]) {
+                    gamesByDate[game.date] = [];
                 }
-                
-                gamesRow.appendChild(gameCard);
+                gamesByDate[game.date].push(game);
             });
             
-            dateSection.appendChild(gamesRow);
-            resultGroup.appendChild(dateSection);
-            container.appendChild(resultGroup);
-        });
+            // Sort dates in ascending order (oldest first)
+            const sortedDates = Object.keys(gamesByDate).sort();
+            
+            sortedDates.forEach(date => {
+                const games = gamesByDate[date];
+                const resultGroup = Utils.createElement('div', 'result-group');
+                
+                // Create date header
+                const dateSection = Utils.createElement('div', 'result-date-section');
+                const dateHeader = Utils.createElement('div', 'result-date-vertical', Utils.formatDateShort(date));
+                dateSection.appendChild(dateHeader);
+                
+                // Create games row container
+                const gamesRow = Utils.createElement('div', 'games-row');
+                
+                // Add games horizontally
+                games.forEach(game => {
+                    const gameCard = Utils.createElement('div', 'game-result-card');
+                    
+                    if (game.homeScore !== null && game.awayScore !== null) {
+                        // Game has scores (completed game)
+                        const homeWon = parseInt(game.homeScore) > parseInt(game.awayScore);
+                        const awayWon = parseInt(game.awayScore) > parseInt(game.homeScore);
+                        
+                        gameCard.innerHTML = `
+                            <div class="game-result-teams">
+                                <div class="team-score-line ${homeWon ? 'winner' : ''}">
+                                    <span class="team-name">${game.homeTeam}</span>
+                                    <span class="team-score">${game.homeScore}</span>
+                                    ${homeWon ? '<div class="winner-indicator">▶</div>' : ''}
+                                </div>
+                                <div class="team-score-line ${awayWon ? 'winner' : ''}">
+                                    <span class="team-name">${game.awayTeam}</span>
+                                    <span class="team-score">${game.awayScore}</span>
+                                    ${awayWon ? '<div class="winner-indicator">▶</div>' : ''}
+                                </div>
+                            </div>
+                            <div class="game-result-status final">FINAL</div>
+                        `;
+                    } else {
+                        // Scheduled game
+                        gameCard.innerHTML = `
+                            <div class="game-result-teams">
+                                <div class="team-score-line">
+                                    <span class="team-name">${game.homeTeam}</span>
+                                    <span class="team-record">(${game.homeRecord.wins}-${game.homeRecord.losses}-${game.homeRecord.ties})</span>
+                                </div>
+                                <div class="team-score-line">
+                                    <span class="team-name">${game.awayTeam}</span>
+                                    <span class="team-record">(${game.awayRecord.wins}-${game.awayRecord.losses}-${game.awayRecord.ties})</span>
+                                </div>
+                            </div>
+                            <div class="game-result-status scheduled">${Utils.formatTime(game.time)}</div>
+                        `;
+                    }
+                    
+                    gamesRow.appendChild(gameCard);
+                });
+                
+                dateSection.appendChild(gamesRow);
+                resultGroup.appendChild(dateSection);
+                container.appendChild(resultGroup);
+            });
+            
+        } catch (error) {
+            console.error('Error loading games:', error);
+            container.innerHTML = '<div class="error">Error loading game results</div>';
+        }
         
-        // Reset scroll position
+        // Reset scroll position to show oldest games first
         CONFIG.scrollPosition = 0;
         this.updateScrollPosition();
     },
 
-    // ADD THIS MISSING METHOD:
+    parseGamesCSV(csvText) {
+        const lines = csvText.split('\n').slice(1); // Skip header row
+        const games = [];
+        const teamRecords = {};
+        
+        // Initialize team records
+        const initTeamRecord = () => ({ wins: 0, losses: 0, ties: 0 });
+        
+        lines.forEach(line => {
+            const columns = line.split(',');
+            if (columns[1] === 'R') { // Only process regular games
+                const gameSlots = [
+                    {
+                        homeTeam: columns[3],
+                        homeScore: columns[4],
+                        awayTeam: columns[5],
+                        awayScore: columns[6]
+                    },
+                    {
+                        homeTeam: columns[9],
+                        homeScore: columns[10],
+                        awayTeam: columns[11],
+                        awayScore: columns[12]
+                    },
+                    {
+                        homeTeam: columns[15],
+                        homeScore: columns[16],
+                        awayTeam: columns[17],
+                        awayScore: columns[18]
+                    }
+                ];
+
+                const date = this.formatDateFromCSV(columns[2]);
+                
+                gameSlots.forEach((slot, index) => {
+                    if (slot.homeTeam && slot.awayTeam) {
+                        // Initialize team records if not exists
+                        if (!teamRecords[slot.homeTeam.trim()]) {
+                            teamRecords[slot.homeTeam.trim()] = initTeamRecord();
+                        }
+                        if (!teamRecords[slot.awayTeam.trim()]) {
+                            teamRecords[slot.awayTeam.trim()] = initTeamRecord();
+                        }
+
+                        // Calculate records for completed games
+                        if (slot.homeScore && slot.awayScore) {
+                            const homeScore = parseInt(slot.homeScore);
+                            const awayScore = parseInt(slot.awayScore);
+                            
+                            if (homeScore > awayScore) {
+                                teamRecords[slot.homeTeam.trim()].wins++;
+                                teamRecords[slot.awayTeam.trim()].losses++;
+                            } else if (awayScore > homeScore) {
+                                teamRecords[slot.homeTeam.trim()].losses++;
+                                teamRecords[slot.awayTeam.trim()].wins++;
+                            } else {
+                                teamRecords[slot.homeTeam.trim()].ties++;
+                                teamRecords[slot.awayTeam.trim()].ties++;
+                            }
+                        }
+
+                        games.push({
+                            date: date,
+                            homeTeam: slot.homeTeam.trim(),
+                            awayTeam: slot.awayTeam.trim(),
+                            homeScore: slot.homeScore ? parseInt(slot.homeScore) : null,
+                            awayScore: slot.awayScore ? parseInt(slot.awayScore) : null,
+                            time: CONFIG.gameTimeSlots[index],
+                            homeRecord: teamRecords[slot.homeTeam.trim()],
+                            awayRecord: teamRecords[slot.awayTeam.trim()]
+                        });
+                    }
+                });
+            }
+        });
+        
+        return games;
+    },
+
+    formatDateFromCSV(dateStr) {
+        const [month, day, year] = dateStr.split('-');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    },
+
     updateScrollPosition() {
         const container = document.getElementById('resultsContainer');
         if (container) {
