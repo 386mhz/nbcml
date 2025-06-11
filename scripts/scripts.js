@@ -86,12 +86,12 @@ const DataStore = {
     ],
 
     teamStats: [
-        { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson' },
-        { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson' },
-        { team: 'Team 3', avgPts: 78.9, avgAllowed: 76.2, topScorer: 'Paul Taylor' },
-        { team: 'Team 4', avgPts: 76.4, avgAllowed: 78.1, topScorer: 'Dan Martin' },
-        { team: 'Team 5', avgPts: 71.2, avgAllowed: 83.4, topScorer: 'Adam Hall' },
-        { team: 'Team 6', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez' }
+        { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson', wins: 8, losses: 2, ties: 0, totalPoints: 16, gb: '-', streak: 'W4' },
+        { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson', wins: 7, losses: 3, ties: 0, totalPoints: 14, gb: '1.0', streak: 'L1' },
+        { team: 'Team 3', avgPts: 78.9, avgAllowed: 76.2, topScorer: 'Paul Taylor', wins: 6, losses: 4, ties: 0, totalPoints: 12, gb: '2.0', streak: 'W2' },
+        { team: 'Team 4', avgPts: 76.4, avgAllowed: 78.1, topScorer: 'Dan Martin', wins: 5, losses: 5, ties: 0, totalPoints: 10, gb: '3.0', streak: 'L2' },
+        { team: 'Team 5', avgPts: 71.2, avgAllowed: 83.4, topScorer: 'Adam Hall', wins: 3, losses: 7, ties: 0, totalPoints: 6, gb: '5.0', streak: 'L3' },
+        { team: 'Team 6', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez', wins: 1, losses: 9, ties: 0, totalPoints: 2, gb: '7.0', streak: 'L5' }
     ],
 
 };
@@ -461,6 +461,22 @@ const StatsRenderer = {
         DataStore.teamStats.forEach(team => {
             const teamCard = Utils.createElement('div', 'team-stat-card', `
                 <h3>${team.team}</h3>
+                <div class="stat-row">
+                    <span>Record:</span>
+                    <span>${team.wins}-${team.losses}-${team.ties}</span>
+                </div>
+                <div class="stat-row">
+                    <span>Total Points:</span>
+                    <span>${team.totalPoints} TP</span>
+                </div>
+                <div class="stat-row">
+                    <span>Games Back:</span>
+                    <span>${team.gb}</span>
+                </div>
+                <div class="stat-row">
+                    <span>Current Streak:</span>
+                    <span>${team.streak}</span>
+                </div>
                 <div class="stat-row">
                     <span>Avg Points Scored:</span>
                     <span>${team.avgPts}</span>
