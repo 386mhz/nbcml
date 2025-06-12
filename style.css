@@ -1251,3 +1251,70 @@ body {
 .update-schedule-section {
     margin-top: 20px;
 }
+
+/* Update playoffs section styles */
+#playoffs.content-section {
+    max-width: 1000px;  /* Increased width */
+    margin: 0 auto;
+}
+
+#playoffs .card-base {
+    width: 100%;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+#playoffs .schedule-grid {
+    display: flex;          /* Changed from grid to flex */
+    flex-direction: column; /* Stack rounds vertically */
+    gap: 20px;
+    padding: 20px;
+    width: 100%;           /* Ensure full width */
+}
+
+#playoffs .game-card {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-light);
+    width: 100%;           /* Ensure full width */
+}
+
+#playoffs .round-label {
+    font-weight: bold;
+    color: var(--primary-orange); /* Changed to match theme */
+    font-size: 1.2em;            /* Increased size */
+    margin-bottom: 15px;
+}
+
+#playoffs .playoff-matchup {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#playoffs .playoff-matchup:last-child {
+    border-bottom: none;
+}
+
+#playoffs .game-time {
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 4px 12px;
+    border-radius: var(--border-radius-small);
+    display: block;         /* Changed from inline-block */
+    text-align: center;     /* Added to center the text */
+    width: fit-content;     /* Make it only as wide as needed */
+    margin-left: auto;      /* Center horizontally */
+    margin-right: auto;
+}
+
+/* Add some hover effects */
+#playoffs .game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s ease;
+}

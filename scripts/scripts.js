@@ -94,6 +94,14 @@ const DataStore = {
         { team: 'Team 6', avgPts: 68.8, avgAllowed: 87.9, topScorer: 'Owen Lopez', wins: 1, losses: 9, ties: 0, totalPoints: 2, gb: '7.0', streak: 'L5' }
     ],
 
+    playoffs: [
+        new Game(1, '2025-06-03', '18:30', 'Seed 1', 'Seed 2', CONFIG.venue, 'scheduled', 'Mark', 'Chris'),
+        new Game(2, '2025-06-03', '19:40', 'Seed 4', 'Seed 5', CONFIG.venue, 'scheduled', 'Adam', 'Dan'),
+        new Game(3, '2025-06-03', '20:50', 'Seed 3', 'Seed 6', CONFIG.venue, 'scheduled', 'Mike', 'Kevin'),
+        new Game(4, '2025-06-10', '19:00', 'Seed 1', 'Lowest 4 5 6', CONFIG.venue, 'scheduled', 'Luke', 'Matt'),
+        new Game(5, '2025-06-10', '20:15', 'Seed 2', 'Lowest 3 4 5', CONFIG.venue, 'scheduled', 'Peter', 'Geroge'),
+        new Game(6, '2025-06-17', '19:30', 'Game 1 Winner', 'Game 2 Winner', CONFIG.venue, 'scheduled', 'Adam', 'Owen')
+    ],
 };
 
 // ===== UTILITY FUNCTIONS =====
@@ -852,6 +860,7 @@ const App = {
         StatsRenderer.renderTeamStats();
         StatsRenderer.renderPlayerStats();
         ResultsRenderer.render();
+        PlayoffsRenderer.render();
     }
 };
 
@@ -923,3 +932,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+const PlayoffsRenderer = {
+    render() {
+        const playoffsBody = document.querySelector('#playoffs .schedule-grid');
+        if (!playoffsBody) return;
+
+        playoffsBody.innerHTML = '';
+
+        const gamesByDate = {};
+        DataStore.playoffs.forEach(game => {
+            if (!gamesByDate[game.date]) {
+                gamesByDate[game.date] = [];
+            }
+            gamesByDate[game.date].push(game);
+        });
+
+        const sortedDates = Object.keys(gamesByDate).sort();
+        
+        if (sortedDates.length === 0) {
+            playoffsBody.innerHTML = '<div class="no-games">No playoff games scheduled</div>';
+            return;
+        }
+
+        let roundCounter = 1;
+        sortedDates.forEach(date => {
+            const gamesOnDate = gamesByDate[date].sort((a, b) => a.time.localeCompare(b.time));
+            
+            const gameCard = document.createElement('div');
+            gameCard.className = 'game-card';
+            
+            const content = `
+                <div class="game-header">
+                    <div class="round-label">Round ${roundCounter}</div>
+                    <div class="game-date">${Utils.formatDate(date)}</div>
+                </div>
+                ${gamesOnDate.map(game => `
+                    <div class="playoff-matchup">
+                        <div class="game-time">${Utils.formatTime(game.time)}</div>
+                        <div class="game-teams">
+                            <div class="team-name-large">${game.homeTeam}</div>
+                            <div class="vs-text">vs</div>
+                            <div class="team-name-large">${game.awayTeam}</div>
+                        </div>
+                        <div class="scorekeepers">Scorekeepers: ${game.sk1} & ${game.sk2}</div>
+                    </div>
+                `).join('')}
+            `;
+            
+            gameCard.innerHTML = content;
+            playoffsBody.appendChild(gameCard);
+            roundCounter++;
+        });
+    }
+};
