@@ -897,3 +897,29 @@ function scrollResults(direction) {
 
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => App.init());
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Playoffs toggle logic
+    const playoffsToggle = document.getElementById('playoffsToggle');
+    const playoffsTab = document.getElementById('playoffsTab');
+    const playoffsSection = document.getElementById('playoffs');
+
+    // Initialize toggle state from localStorage
+    const playoffsEnabled = localStorage.getItem('playoffsEnabled') === 'true';
+    if (playoffsToggle) playoffsToggle.checked = playoffsEnabled;
+    if (playoffsTab) playoffsTab.style.display = playoffsEnabled ? '' : 'none';
+    if (playoffsSection) playoffsSection.style.display = playoffsEnabled ? '' : 'none';
+
+    if (playoffsToggle) {
+        playoffsToggle.addEventListener('change', function() {
+            const enabled = playoffsToggle.checked;
+            localStorage.setItem('playoffsEnabled', enabled);
+            if (playoffsTab) playoffsTab.style.display = enabled ? '' : 'none';
+            if (playoffsSection) playoffsSection.style.display = enabled ? '' : 'none';
+            // If hiding while on playoffs page, switch to main
+            if (!enabled && document.querySelector('.content-section.active')?.id === 'playoffs') {
+                showSection('main');
+            }
+        });
+    }
+});

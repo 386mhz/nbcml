@@ -48,6 +48,9 @@
             <button class="nav-tab" id="adminTab" style="display: none;" onclick="showSection('admin')">
                 <i class="fas fa-cog"></i> Admin
             </button>
+            <button class="nav-tab" id="playoffsTab" style="display:none;" onclick="showSection('playoffs')">
+                <i class="fas fa-trophy"></i> Playoffs
+            </button>
         </div>
 
 		<!-- Scrolling Results Section -->
@@ -234,6 +237,18 @@
                     </div>
                     <button class="btn" onclick="addGame()">Add Game</button>
                 </div>
+
+                <!-- Add this for the Playoff section -->
+                <div class="admin-form">
+                    <h3>Playoff Management</h3>
+                    <div class="form-group">
+                        <label class="toggle-control">
+                            <input type="checkbox" id="playoffsToggle">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Show Playoffs Tab</span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -254,5 +269,10 @@
         </button>
     </div>
 
+	<!-- Playoffs Section -->
+		<div id="playoffs" class="content-section">
+			<h2><i class="fas fa-trophy"></i> Playoffs</h2>
+			<p>The playoffs page is currently enabled.</p>
+		</div>
 </body>
 </html>

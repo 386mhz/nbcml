@@ -1105,6 +1105,46 @@ body {
     color: white;
 }
 
+/* Toggle Switch */
+.toggle-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.toggle-control input[type="checkbox"] {
+    display: none;
+}
+.toggle-slider {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.3s;
+    display: inline-block;
+}
+.toggle-slider:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 1px;
+    top: 1px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+.toggle-control input:checked + .toggle-slider {
+    background: #4caf50;
+}
+.toggle-control input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+.toggle-label {
+    font-weight: 500;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .container {
