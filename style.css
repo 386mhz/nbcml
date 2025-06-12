@@ -377,11 +377,17 @@ body {
 
 .winner-indicator {
     position: absolute;
-    right: 20px;
     color: var(--primary-orange);
     font-size: 0.8rem;
     font-weight: bold;
+    right: 20px;
+    transform: translateX(0); /* fallback */
 }
+
+.team-score-line .team-score.score-3-digit + .winner-indicator {
+    right: 30px; /* add more space for 3-digit scores */
+}
+
 
 .game-result-status {
     text-align: center;

@@ -644,12 +644,12 @@ const ResultsRenderer = {
                             <div class="game-result-teams">
                                 <div class="team-score-line ${homeWon ? 'winner' : ''}">
                                     <span class="team-name">${game.homeTeam}</span>
-                                    <span class="team-score">${game.homeScore}</span>
+                                    <span class="team-score ${game.homeScore >= 100 ? 'score-3-digit' : ''}">${game.homeScore}</span>
                                     ${homeWon ? '<div class="winner-indicator">▶</div>' : ''}
                                 </div>
                                 <div class="team-score-line ${awayWon ? 'winner' : ''}">
                                     <span class="team-name">${game.awayTeam}</span>
-                                    <span class="team-score">${game.awayScore}</span>
+                                    <span class="team-score ${game.awayScore >= 100 ? 'score-3-digit' : ''}">${game.awayScore}</span>
                                     ${awayWon ? '<div class="winner-indicator">▶</div>' : ''}
                                 </div>
                             </div>
