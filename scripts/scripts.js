@@ -622,6 +622,7 @@ const ResultsRenderer = {
             sortedDates.forEach(date => {
                 const games = gamesByDate[date];
                 const resultGroup = Utils.createElement('div', 'result-group');
+                resultGroup.setAttribute('data-date', date);
                 
                 // Create date header
                 const dateSection = Utils.createElement('div', 'result-date-section');
@@ -688,6 +689,29 @@ const ResultsRenderer = {
         // Reset scroll position to show oldest games first
         CONFIG.scrollPosition = 0;
         this.updateScrollPosition();
+        // Scroll to most recent final game group
+        const resultGroups = document.querySelectorAll('.result-group');
+        let mostRecentGroup = null;
+        let mostRecentDate = null;
+
+        resultGroups.forEach(group => {
+            const finals = group.querySelectorAll('.game-result-status.final');
+            if (finals.length > 0) {
+                const date = group.getAttribute('data-date');
+                if (!mostRecentDate || new Date(date) > new Date(mostRecentDate)) {
+                    mostRecentDate = date;
+                    mostRecentGroup = group;
+                }
+            }
+        });
+
+        if (mostRecentGroup) {
+            const container = document.getElementById('resultsContainer');
+            const offset = mostRecentGroup.offsetLeft;
+            CONFIG.scrollPosition = offset;
+            container.style.transform = `translateX(-${offset}px)`;
+        }
+
     },
 
     parseGamesCSV(csvText) {
