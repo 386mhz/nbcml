@@ -839,78 +839,6 @@ const Admin = {
         });
 
         alert('Game added successfully!');
-    },
-
-    updateScheduleFromCSV() {
-        const csvData = document.getElementById('scheduleCSV').value.trim();
-        if (!csvData) {
-            alert('Please paste CSV data first');
-            return;
-        }
-
-        const currentGameCount = DataStore.games.length;
-        if (!confirm(`This will replace all ${currentGameCount} existing games with new data from CSV. Are you sure you want to continue?`)) {
-            return;
-        }
-
-        const lines = csvData.split('\n').filter(line => line.trim());
-        const newGames = [];
-        let gameId = 1;
-        let processedLines = 0;
-        let validLines = 0;
-        
-        lines.forEach(line => {
-            processedLines++;
-            const parts = line.split(',').map(part => part.trim());
-            
-            if (parts.length >= 4) {
-                validLines++;
-                const formattedDate = Utils.parseCSVDate(parts[1]);
-                
-                // Process games for each time slot
-                const gameSlots = [
-                    { homeIndex: 2, awayIndex: 3, sk1Index: 4, sk2Index: 5, time: '18:30' },
-                    { homeIndex: 6, awayIndex: 7, sk1Index: 8, sk2Index: 9, time: '19:40' },
-                    { homeIndex: 10, awayIndex: 11, sk1Index: 12, sk2Index: 13, time: '20:50' }
-                ];
-                
-                gameSlots.forEach(slot => {
-                    if (parts[slot.homeIndex] && parts[slot.awayIndex]) {
-                        newGames.push(new Game(
-                            gameId++,
-                            formattedDate,
-                            slot.time,
-                            parts[slot.homeIndex],
-                            parts[slot.awayIndex],  // Fixed: was parts[slot.awayTeam]
-                            CONFIG.venue,
-                            'scheduled',
-                            parts[slot.sk1Index],
-                            parts[slot.sk2Index]
-                        ));
-                    }
-                });
-            }
-        });
-        
-        if (newGames.length > 0) {
-            DataStore.games = newGames;
-            ScheduleRenderer.renderUpcoming();
-            ScheduleRenderer.renderFull();
-            document.getElementById('scheduleCSV').value = '';
-            
-            alert(`Schedule Update Complete!\n\n` +
-                  `📊 CSV Processing Summary:\n` +
-                  `• Lines processed: ${processedLines}\n` +
-                  `• Valid schedule lines: ${validLines}\n` +
-                  `• Previous games: ${currentGameCount}\n` +
-                  `• New games created: ${newGames.length}\n\n` +
-                  `✅ The schedule has been successfully updated!`);
-        } else {
-            alert(`❌ CSV Processing Failed!\n\n` +
-                  `No valid games found in the CSV data.\n\n` +
-                  `Please check your CSV format:\n` +
-                  `Week,Date,Early Home,Early Away,Middle Home,Middle Away,Late Home,Late Away`);
-        }
     }
 };
 
@@ -950,10 +878,6 @@ function checkAdminPassword() {
 
 function addGame() {
     Admin.addGame();
-}
-
-function updateScheduleFromCSV() {
-    Admin.updateScheduleFromCSV();
 }
 
 function scrollResults(direction) {
