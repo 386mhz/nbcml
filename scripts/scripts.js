@@ -918,6 +918,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Pre-Season toggle initialization and handling
+    const preSeasonToggle = document.getElementById('preSeasonToggle');
+    const preSeasonTab = document.getElementById('preSeasonTab');
+    
+    // Initialize toggle state from localStorage
+    const preSeasonEnabled = localStorage.getItem('preSeasonEnabled') === 'true';
+    preSeasonToggle.checked = preSeasonEnabled;
+    preSeasonTab.style.display = preSeasonEnabled ? '' : 'none';
+
+    // Add event listener for pre-season toggle
+    preSeasonToggle.addEventListener('change', function() {
+        const isEnabled = preSeasonToggle.checked;
+        preSeasonTab.style.display = isEnabled ? '' : 'none';
+        localStorage.setItem('preSeasonEnabled', isEnabled);
+        
+        // If pre-season section is currently visible and being disabled, switch to main
+        if (!isEnabled && document.querySelector('#preSeason.active')) {
+            showSection('main');
+        }
+    });
 });
 
 const PlayoffsRenderer = {
