@@ -416,11 +416,13 @@ const StandingsRenderer = {
         const standingsBody = document.getElementById('standingsBody');
         standingsBody.innerHTML = '';
 
-        const sortedTeams = [...DataStore.teams].sort((a, b) => b.totalPoints - a.totalPoints);
-        const topPoints = sortedTeams[0]?.totalPoints || 0;
+        // Calculate team records from games.csv
+        const teamStats = this.calculateTeamStats();
+        const sortedTeams = this.sortTeams(teamStats);
+        const topPoints = sortedTeams[0]?.points || 0;
 
         sortedTeams.forEach((team, index) => {
-            const gb = ((topPoints - team.totalPoints) / 2).toFixed(1);
+            const gb = ((topPoints - team.points) / 2).toFixed(1);
             
             const row = Utils.createElement('tr', '', `
                 <td>${index + 1}</td>
@@ -430,12 +432,118 @@ const StandingsRenderer = {
                 <td>${team.ties}</td>
                 <td>${team.pf}</td>
                 <td>${team.pa}</td>
-                <td>${team.totalPoints}</td>
+                <td>${team.points}</td>
                 <td>${gb === '0.0' ? '-' : gb}</td>
                 <td>${team.streak}</td>
             `);
             standingsBody.appendChild(row);
         });
+    },
+
+    calculateTeamStats() {
+        const teams = {};
+        const csvText = this.loadGamesCSV();
+        const lines = csvText.split('\n').slice(1); // Skip header row
+
+        lines.forEach(line => {
+            const columns = line.split(',');
+            if (columns[1] === 'R') { // Only process regular season games
+                this.processGameSlot(teams, columns[3], columns[4], columns[5], columns[6]); // Early game
+                this.processGameSlot(teams, columns[9], columns[10], columns[11], columns[12]); // Mid game
+                this.processGameSlot(teams, columns[15], columns[16], columns[17], columns[18]); // Late game
+            }
+        });
+
+        return teams;
+    },
+
+    processGameSlot(teams, homeTeam, homeScore, awayTeam, awayScore) {
+        if (!homeTeam || !awayTeam) return;
+
+        // Initialize teams if they don't exist
+        [homeTeam, awayTeam].forEach(team => {
+            if (!teams[team.trim()]) {
+                teams[team.trim()] = {
+                    name: team.trim(),
+                    wins: 0,
+                    losses: 0,
+                    ties: 0,
+                    pf: 0,
+                    pa: 0,
+                    points: 0,
+                    lastResults: [],
+                    streak: ''
+                };
+            }
+        });
+
+        // Process completed games
+        if (homeScore && awayScore) {
+            const home = teams[homeTeam.trim()];
+            const away = teams[awayTeam.trim()];
+            const homeScoreNum = parseInt(homeScore);
+            const awayScoreNum = parseInt(awayScore);
+
+            // Update points for and against
+            home.pf += homeScoreNum;
+            home.pa += awayScoreNum;
+            away.pf += awayScoreNum;
+            away.pa += homeScoreNum;
+
+            // Update wins, losses, ties
+            if (homeScoreNum > awayScoreNum) {
+                home.wins++;
+                away.losses++;
+                home.lastResults.push('W');
+                away.lastResults.push('L');
+            } else if (awayScoreNum > homeScoreNum) {
+                away.wins++;
+                home.losses++;
+                home.lastResults.push('L');
+                away.lastResults.push('W');
+            } else {
+                home.ties++;
+                away.ties++;
+                home.lastResults.push('T');
+                away.lastResults.push('T');
+            }
+
+            // Calculate points (2 for win, 1 for tie)
+            home.points = (home.wins * 2) + home.ties;
+            away.points = (away.wins * 2) + away.ties;
+
+            // Calculate streak
+            [home, away].forEach(team => {
+                let count = 0;
+                const lastResult = team.lastResults[team.lastResults.length - 1];
+                for (let i = team.lastResults.length - 1; i >= 0; i--) {
+                    if (team.lastResults[i] === lastResult) count++;
+                    else break;
+                }
+                team.streak = `${lastResult}${count}`;
+            });
+        }
+    },
+
+    sortTeams(teams) {
+        return Object.values(teams).sort((a, b) => {
+            // Sort by points
+            if (b.points !== a.points) return b.points - a.points;
+            // Then by point differential
+            const aDiff = a.pf - a.pa;
+            const bDiff = b.pf - b.pa;
+            if (bDiff !== aDiff) return bDiff - aDiff;
+            // Then by points scored
+            return b.pf - a.pf;
+        });
+    },
+
+    loadGamesCSV() {
+        // Synchronously load the CSV file content
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'data/games.csv', false);  // false makes the request synchronous
+        xhr.send();
+        return xhr.responseText;
     }
 };
 
