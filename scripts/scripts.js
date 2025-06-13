@@ -360,7 +360,7 @@ const ScheduleRenderer = {
                 if (gameWeek.type === 'H') {
                     // Holiday - No Games
                     const noGamesCell = Utils.createElement('td', '', 'No Games Scheduled');
-                    noGamesCell.colSpan = 4;
+                    noGamesCell.colSpan = 5; // Update colspan to include scoresheet column
                     noGamesCell.style.textAlign = 'center';
                     noGamesCell.style.color = '#999';
                     row.appendChild(noGamesCell);
@@ -395,14 +395,14 @@ const ScheduleRenderer = {
                         }
                         row.appendChild(gameCell);
                     });
+                    
+                    // Add scoresheet column only for regular games
+                    const scoresheetCell = document.createElement('td');
+                    scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
+                        <i class="fa-solid fa-download" style="color: #000E54;"></i>
+                    </a>`;
+                    row.appendChild(scoresheetCell);
                 }
-                
-                // Add scoresheet column
-                const scoresheetCell = document.createElement('td');
-                scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
-                    <i class="fa-solid fa-download" style="color: #000E54;"></i>
-                </a>`;
-                row.appendChild(scoresheetCell);
                 
                 fullScheduleBody.appendChild(row);
                 weekCounter++;
