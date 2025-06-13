@@ -332,73 +332,132 @@ const ScheduleRenderer = {
         });
     },
 
-    renderFull() {
+    async renderFull() {
         const fullScheduleBody = document.getElementById('fullScheduleBody');
         fullScheduleBody.innerHTML = '';
 
-        const gamesByDate = Utils.groupGamesByDate();
-        const sortedDates = Object.keys(gamesByDate).sort();
-        
-        if (sortedDates.length === 0) {
-            const row = Utils.createElement('tr', '', '<td colspan="5" style="text-align: center; color: #999;">No games scheduled</td>');
-            fullScheduleBody.appendChild(row);
-            return;
-        }
+        try {
+            const response = await fetch('data/games.csv');
+            const csvText = await response.text();
+            const games = this.parseGamesCSV(csvText);
+            
+            if (games.length === 0) {
+                const row = Utils.createElement('tr', '', '<td colspan="6" style="text-align: center; color: #999;">No games scheduled</td>');
+                fullScheduleBody.appendChild(row);
+                return;
+            }
 
-        let weekCounter = 1;
-        sortedDates.forEach(date => {
-            const gamesOnDate = gamesByDate[date].sort((a, b) => a.time.localeCompare(b.time));
-            
-            const row = document.createElement('tr');
-            
-            // Week column
-            row.appendChild(Utils.createElement('td', '', `Week ${weekCounter}`));
-            
-            // Date column
-            row.appendChild(Utils.createElement('td', '', Utils.formatDate(date)));
-            
-            // Game time slots
-            CONFIG.gameTimeSlots.forEach(timeSlot => {
-                const gameCell = document.createElement('td');
-                const gameAtTime = gamesOnDate.find(game => game.time === timeSlot);
+            let weekCounter = 1;
+            games.forEach(gameWeek => {
+                const row = document.createElement('tr');
                 
-                if (gameAtTime) {
-                    const scorekeepers = gameAtTime.sk1 && gameAtTime.sk2 ? 
-                        `${gameAtTime.sk1} & ${gameAtTime.sk2}` : '--';
-                        
-                    gameCell.innerHTML = `
-                        <div class="game-cell-content">
-                            <div class="game-teams">
-                                <span class="team-name-large">${gameAtTime.homeTeam}</span>
-                                <span class="vs-text">vs</span>
-                                <span class="team-name-large">${gameAtTime.awayTeam}</span>
-                            </div>
-                            <div class="scorekeepers">${scorekeepers}</div>
-                        </div>
-                    `;
+                // Week number
+                row.appendChild(Utils.createElement('td', '', `Week ${gameWeek.week}`));
+                
+                // Date
+                row.appendChild(Utils.createElement('td', '', Utils.formatDate(gameWeek.date)));
+                
+                if (gameWeek.type === 'H') {
+                    // Holiday - No Games
+                    const noGamesCell = Utils.createElement('td', '', 'No Games Scheduled');
+                    noGamesCell.colSpan = 4;
+                    noGamesCell.style.textAlign = 'center';
+                    noGamesCell.style.color = '#999';
+                    row.appendChild(noGamesCell);
                 } else {
-                    gameCell.innerHTML = `
-                        <div class="game-cell-content">
-                            <div class="game-teams"><em>No game</em></div>
-                            <div class="scorekeepers"><em>--</em></div>
-                        </div>
-                    `;
-                    gameCell.style.color = '#999';
+                    // Regular game slots
+                    CONFIG.gameTimeSlots.forEach((timeSlot, index) => {
+                        const gameCell = document.createElement('td');
+                        const game = gameWeek.games[index];
+                        
+                        if (game && game.homeTeam && game.awayTeam) {
+                            const scorekeepers = game.sk1 && game.sk2 ? 
+                                `${game.sk1} & ${game.sk2}` : '--';
+                                
+                            gameCell.innerHTML = `
+                                <div class="game-cell-content">
+                                    <div class="game-teams">
+                                        <span class="team-name-large">${game.homeTeam}</span>
+                                        <span class="vs-text">vs</span>
+                                        <span class="team-name-large">${game.awayTeam}</span>
+                                    </div>
+                                    <div class="scorekeepers">${scorekeepers}</div>
+                                </div>
+                            `;
+                        } else {
+                            gameCell.innerHTML = `
+                                <div class="game-cell-content">
+                                    <div class="game-teams"><em>No game</em></div>
+                                    <div class="scorekeepers"><em>--</em></div>
+                                </div>
+                            `;
+                            gameCell.style.color = '#999';
+                        }
+                        row.appendChild(gameCell);
+                    });
                 }
                 
-                row.appendChild(gameCell);
+                // Add scoresheet column
+                const scoresheetCell = document.createElement('td');
+                scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
+                    <i class="fa-solid fa-download" style="color: #000E54;"></i>
+                </a>`;
+                row.appendChild(scoresheetCell);
+                
+                fullScheduleBody.appendChild(row);
+                weekCounter++;
             });
+
+        } catch (error) {
+            console.error('Error loading schedule:', error);
+            fullScheduleBody.innerHTML = '<tr><td colspan="6" class="error">Error loading schedule</td></tr>';
+        }
+    },
+
+    parseGamesCSV(csvText) {
+        const lines = csvText.split('\n').slice(1); // Skip header row
+        const games = [];
+        
+        lines.forEach(line => {
+            const columns = line.split(',');
+            const type = columns[1];
             
-            // Add scoresheet column
-            const scoresheetCell = document.createElement('td');
-            scoresheetCell.innerHTML = `<a href="Scoresheets.pdf" target="_blank">
-                <i class="fa-solid fa-download" style="color: #000E54;"></i>
-            </a>`;
-            row.appendChild(scoresheetCell);
-            
-            fullScheduleBody.appendChild(row);
-            weekCounter++;
+            // Only process Regular season (R) and Holiday (H) games
+            if (type === 'R' || type === 'H') {
+                games.push({
+                    week: columns[0],
+                    type: type,
+                    date: this.formatDateFromCSV(columns[2]),
+                    games: type === 'R' ? [
+                        {
+                            homeTeam: columns[3].trim(),
+                            awayTeam: columns[5].trim(),
+                            sk1: columns[7].trim(),
+                            sk2: columns[8].trim()
+                        },
+                        {
+                            homeTeam: columns[9].trim(),
+                            awayTeam: columns[11].trim(),
+                            sk1: columns[13].trim(),
+                            sk2: columns[14].trim()
+                        },
+                        {
+                            homeTeam: columns[15].trim(),
+                            awayTeam: columns[17].trim(),
+                            sk1: columns[19].trim(),
+                            sk2: columns[20].trim()
+                        }
+                    ] : []
+                });
+            }
         });
+        
+        return games;
+    },
+
+    formatDateFromCSV(dateStr) {
+        const [month, day, year] = dateStr.split('-');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     }
 };
 
