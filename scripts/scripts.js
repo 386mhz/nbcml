@@ -852,6 +852,7 @@ const App = {
         StatsRenderer.renderPlayerStats();
         ResultsRenderer.render();
         PlayoffsRenderer.render();
+        PreSeasonRenderer.render();
     }
 };
 
@@ -991,6 +992,39 @@ const PlayoffsRenderer = {
             gameCard.innerHTML = content;
             playoffsBody.appendChild(gameCard);
             roundCounter++;
+        });
+    }
+};
+
+const PreSeasonRenderer = {
+    render() {
+        const preSeasonBody = document.querySelector('#preSeason .preseason-grid');
+        if (!preSeasonBody) return;
+
+        // Clear existing content
+        preSeasonBody.innerHTML = '';
+
+        // Create columns for each game time
+        const gameSlots = [
+            { time: '6:30 PM', players: DataStore.preSeasonPlayers.game1 },
+            { time: '7:30 PM', players: DataStore.preSeasonPlayers.game2 },
+            { time: '8:30 PM', players: DataStore.preSeasonPlayers.game3 }
+        ];
+
+        gameSlots.forEach(slot => {
+            const column = document.createElement('div');
+            column.className = 'preseason-column';
+            
+            column.innerHTML = `
+                <h3 class="game-time-header">${slot.time}</h3>
+                <div class="player-list">
+                    ${slot.players.map(player => `
+                        <div class="player-item">${player}</div>
+                    `).join('')}
+                </div>
+            `;
+            
+            preSeasonBody.appendChild(column);
         });
     }
 };

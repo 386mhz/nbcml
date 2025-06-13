@@ -692,8 +692,9 @@ body {
 .player-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Force 4 players per row */
+  grid-template-columns: repeat(2, 1fr); /* Changed from 4 to 2 columns */
   gap: 10px;
+  padding: 10px;
 }
 
 .player-list li {
@@ -1312,9 +1313,49 @@ body {
     margin-right: auto;
 }
 
-/* Add some hover effects */
-#playoffs .game-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
+/* Pre-Season styles */
+.preseason-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.preseason-column {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow-light);
+}
+
+.game-time-header {
+    color: var(--primary-orange);
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.player-item {
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-small);
+    text-align: center;
     transition: all 0.3s ease;
+}
+
+.player-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+#preSeason .card-base {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
 }
