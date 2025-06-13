@@ -76,15 +76,6 @@ const DataStore = {
         { id: 6, date: '2025-06-04', homeTeam: 'Team 4', awayTeam: 'Team 6', homeScore: null, awayScore: null, status: 'scheduled', time: '20:50' }
     ],
 
-    teams: [
-        new Team('Team 1', 8, 2, 0, 852, 728, 'W4'),
-        new Team('Team 2', 7, 3, 0, 821, 753, 'L1'),
-        new Team('Team 3', 6, 4, 0, 789, 762, 'W2'),
-        new Team('Team 4', 5, 5, 0, 764, 781, 'L2'),
-        new Team('Team 5', 3, 7, 0, 712, 834, 'L3'),
-        new Team('Team 6', 1, 9, 0, 688, 879, 'L5')
-    ],
-
     teamStats: [
         { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson', wins: 8, losses: 2, ties: 0, totalPoints: 16, gb: '-', streak: 'W4' },
         { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson', wins: 7, losses: 3, ties: 0, totalPoints: 14, gb: '1.0', streak: 'L1' },
