@@ -841,42 +841,6 @@ const ResultsRenderer = {
     }
 };
 
-// ===== ADMIN MODULE =====
-const Admin = {
-    addGame() {
-        const date = document.getElementById('gameDate').value;
-        const time = document.getElementById('gameTime').value;
-        const homeTeam = document.getElementById('homeTeam').value;
-        const awayTeam = document.getElementById('awayTeam').value;
-
-        if (!date || !time || !homeTeam || !awayTeam) {
-            alert('Please fill in all fields');
-            return;
-        }
-
-        const newGame = new Game(
-            DataStore.games.length + 1,
-            date,
-            time,
-            homeTeam,
-            awayTeam
-        );
-
-        DataStore.games.push(newGame);
-        
-        // Re-render schedules
-        ScheduleRenderer.renderUpcoming();
-        ScheduleRenderer.renderFull();
-
-        // Clear form
-        ['gameDate', 'gameTime', 'homeTeam', 'awayTeam'].forEach(id => {
-            document.getElementById(id).value = '';
-        });
-
-        alert('Game added successfully!');
-    }
-};
-
 // ===== INITIALIZATION =====
 const App = {
     async init() {
@@ -910,10 +874,6 @@ function handleEnterKey(event) {
 
 function checkAdminPassword() {
     Auth.checkAdminPassword();
-}
-
-function addGame() {
-    Admin.addGame();
 }
 
 function scrollResults(direction) {
