@@ -473,6 +473,8 @@ const StandingsRenderer = {
 
         sortedTeams.forEach((team, index) => {
             const gb = ((topPoints - team.points) / 2).toFixed(1);
+            const homeRecord = `${team.homeWins}-${team.homeLosses}${team.homeTies ? `-${team.homeTies}` : ''}`;
+            const awayRecord = `${team.awayWins}-${team.awayLosses}${team.awayTies ? `-${team.awayTies}` : ''}`;
             
             const row = Utils.createElement('tr', '', `
                 <td>${index + 1}</td>
@@ -484,6 +486,8 @@ const StandingsRenderer = {
                 <td>${team.pa}</td>
                 <td>${team.points}</td>
                 <td>${gb === '0.0' ? '-' : gb}</td>
+                <td>${homeRecord}</td>
+                <td>${awayRecord}</td>
                 <td>${team.streak}</td>
             `);
             standingsBody.appendChild(row);
@@ -493,34 +497,50 @@ const StandingsRenderer = {
     calculateTeamStats() {
         const teams = {};
         const csvText = this.loadGamesCSV();
-        const lines = csvText.split('\n').slice(1); // Skip header row
+        const lines = csvText.split('\n').slice(1);
 
         lines.forEach(line => {
             const columns = line.split(',');
-            if (columns[1] === 'R') { // Only process regular season games
-                this.processGameSlot(teams, columns[3], columns[4], columns[5], columns[6]); // Early game
-                this.processGameSlot(teams, columns[9], columns[10], columns[11], columns[12]); // Mid game
-                this.processGameSlot(teams, columns[15], columns[16], columns[17], columns[18]); // Late game
+            if (columns[1] === 'R') {
+                // Process each game slot and track home/away records
+                [
+                    { home: 3, homeScore: 4, away: 5, awayScore: 6 },
+                    { home: 9, homeScore: 10, away: 11, awayScore: 12 },
+                    { home: 15, homeScore: 16, away: 17, awayScore: 18 }
+                ].forEach(slot => {
+                    this.processGameSlot(teams, 
+                        columns[slot.home].trim(), 
+                        columns[slot.homeScore], 
+                        columns[slot.away].trim(), 
+                        columns[slot.awayScore],
+                        true  // Include home/away tracking
+                    );
+                });
             }
         });
-
         return teams;
     },
 
-    processGameSlot(teams, homeTeam, homeScore, awayTeam, awayScore) {
+    processGameSlot(teams, homeTeam, homeScore, awayTeam, awayScore, trackHomeAway = false) {
         if (!homeTeam || !awayTeam) return;
 
         // Initialize teams if they don't exist
         [homeTeam, awayTeam].forEach(team => {
-            if (!teams[team.trim()]) {
-                teams[team.trim()] = {
-                    name: team.trim(),
+            if (!teams[team]) {
+                teams[team] = {
+                    name: team,
                     wins: 0,
                     losses: 0,
                     ties: 0,
                     pf: 0,
                     pa: 0,
                     points: 0,
+                    homeWins: 0,
+                    homeLosses: 0,
+                    homeTies: 0,
+                    awayWins: 0,
+                    awayLosses: 0,
+                    awayTies: 0,
                     lastResults: [],
                     streak: ''
                 };
@@ -529,40 +549,49 @@ const StandingsRenderer = {
 
         // Process completed games
         if (homeScore && awayScore) {
-            const home = teams[homeTeam.trim()];
-            const away = teams[awayTeam.trim()];
+            const home = teams[homeTeam];
+            const away = teams[awayTeam];
             const homeScoreNum = parseInt(homeScore);
             const awayScoreNum = parseInt(awayScore);
 
-            // Update points for and against
             home.pf += homeScoreNum;
             home.pa += awayScoreNum;
             away.pf += awayScoreNum;
             away.pa += homeScoreNum;
 
-            // Update wins, losses, ties
             if (homeScoreNum > awayScoreNum) {
                 home.wins++;
                 away.losses++;
+                if (trackHomeAway) {
+                    home.homeWins++;
+                    away.awayLosses++;
+                }
                 home.lastResults.push('W');
                 away.lastResults.push('L');
             } else if (awayScoreNum > homeScoreNum) {
                 away.wins++;
                 home.losses++;
+                if (trackHomeAway) {
+                    away.awayWins++;
+                    home.homeLosses++;
+                }
                 home.lastResults.push('L');
                 away.lastResults.push('W');
             } else {
                 home.ties++;
                 away.ties++;
+                if (trackHomeAway) {
+                    home.homeTies++;
+                    away.awayTies++;
+                }
                 home.lastResults.push('T');
                 away.lastResults.push('T');
             }
 
-            // Calculate points (2 for win, 1 for tie)
+            // Update points and streak
             home.points = (home.wins * 2) + home.ties;
             away.points = (away.wins * 2) + away.ties;
 
-            // Calculate streak
             [home, away].forEach(team => {
                 let count = 0;
                 const lastResult = team.lastResults[team.lastResults.length - 1];
