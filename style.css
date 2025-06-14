@@ -1403,3 +1403,84 @@ body {
     border-radius: var(--border-radius);
     padding: 20px;
 }
+
+/* Team Standings Table Styles */
+#standingsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2em;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+#standingsTable th {
+    background: rgba(0, 14, 84, 0.8); /* Navy blue background for headers */
+    color: white;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-orange);
+}
+
+#standingsTable td {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Team name column */
+#standingsTable td:nth-child(2) {
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--primary-orange);
+}
+
+/* Position column */
+#standingsTable td:first-child {
+    font-weight: 700;
+    color: white;
+    background: rgba(0, 14, 84, 0.6);
+}
+
+/* Win/Loss/Tie columns */
+#standingsTable td:nth-child(3),
+#standingsTable td:nth-child(4),
+#standingsTable td:nth-child(5) {
+    font-weight: 600;
+}
+
+/* Home/Away record columns */
+#standingsTable td:nth-child(10),
+#standingsTable td:nth-child(11) {
+    font-family: monospace;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* Streak column */
+#standingsTable td:last-child {
+    font-weight: 700;
+    color: var(--primary-orange);
+}
+
+#standingsTable tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #standingsTable {
+        font-size: 1em;
+    }
+    
+    #standingsTable th,
+    #standingsTable td {
+        padding: 8px;
+    }
+}
