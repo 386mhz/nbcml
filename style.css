@@ -912,6 +912,9 @@ body {
     transition: all 0.3s ease;
     padding: 20px;
     border-radius: var(--border-radius);
+    margin-top: 30px;
+    text-align: center;
+    border-top: 2px solid var(--border-color);
 }
 
 .rules-pdf-link:hover {
@@ -936,6 +939,47 @@ body {
     font-size: 1.1rem;
     margin: 0;
     color: var(--accent-blue);
+}
+
+/* Rules Section Styles */
+.nbcml-rules h3 {
+    color: var(--primary-orange);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.nbcml-rules ul, 
+.nbcml-rules ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.nbcml-rules li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.nbcml-rules p {
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.rules-pdf-link {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid var(--border-color);
+}
+
+.rules-pdf-link .btn {
+    font-size: 1.1em;
+    padding: 12px 24px;
+}
+
+.rules-pdf-link .btn i {
+    margin-right: 8px;
 }
 
 /* ===== FORMS & ADMIN ===== */
