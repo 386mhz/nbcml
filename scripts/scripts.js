@@ -337,7 +337,7 @@ const ScheduleRenderer = {
         fullScheduleBody.innerHTML = '';
 
         try {
-            const response = await fetch('data/games.csv');
+            const response = await fetch('data/regseason.csv');  // Updated file path
             const csvText = await response.text();
             const games = this.parseGamesCSV(csvText);
             
@@ -620,7 +620,7 @@ const StandingsRenderer = {
     loadGamesCSV() {
         // Synchronously load the CSV file content
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'data/games.csv', false);  // false makes the request synchronous
+        xhr.open('GET', 'data/regseason.csv', false);  // Updated file path
         xhr.send();
         return xhr.responseText;
     }
