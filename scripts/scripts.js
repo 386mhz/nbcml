@@ -1184,34 +1184,70 @@ const PlayoffsRenderer = {
 };
 
 const PreSeasonRenderer = {
-    render() {
+    async render() {
         const preSeasonBody = document.querySelector('#preSeason .preseason-grid');
         if (!preSeasonBody) return;
 
-        // Clear existing content
-        preSeasonBody.innerHTML = '';
-
-        // Create columns for each game time
-        const gameSlots = [
-            { time: '6:30 PM', players: DataStore.preSeasonPlayers.game1 },
-            { time: '7:30 PM', players: DataStore.preSeasonPlayers.game2 },
-            { time: '8:30 PM', players: DataStore.preSeasonPlayers.game3 }
-        ];
-
-        gameSlots.forEach(slot => {
-            const column = document.createElement('div');
-            column.className = 'preseason-column';
+        try {
+            const response = await fetch('data/preseason.csv');
+            const csvText = await response.text();
+            const players = this.parsePreSeasonCSV(csvText);
             
-            column.innerHTML = `
-                <h3 class="game-time-header">${slot.time}</h3>
-                <div class="player-list">
-                    ${slot.players.map(player => `
-                        <div class="player-item">${player}</div>
-                    `).join('')}
-                </div>
-            `;
+            // Clear existing content
+            preSeasonBody.innerHTML = '';
+
+            // Create columns for each game time
+            const gameSlots = [
+                { game: '1', time: '6:30 PM' },
+                { game: '2', time: '7:30 PM' },
+                { game: '3', time: '8:30 PM' }
+            ];
+
+            gameSlots.forEach(slot => {
+                const column = document.createElement('div');
+                column.className = 'preseason-column';
+                
+                column.innerHTML = `
+                    <h3 class="game-time-header">${slot.time}</h3>
+                    <div class="player-list">
+                        ${players[slot.game]?.map(player => `
+                            <div class="player-item">${player.firstName} ${player.lastName}</div>
+                        `).join('') || ''}
+                    </div>
+                `;
+                
+                preSeasonBody.appendChild(column);
+            });
+
+        } catch (error) {
+            console.error('Error loading pre-season data:', error);
+            preSeasonBody.innerHTML = '<div class="error">Error loading pre-season data</div>';
+        }
+    },
+
+    parsePreSeasonCSV(csvText) {
+        const lines = csvText.split('\n').slice(1); // Skip header row
+        const players = {};
+        
+        lines.forEach(line => {
+            if (!line.trim()) return; // Skip empty lines
             
-            preSeasonBody.appendChild(column);
+            const [game, firstName, lastName, type, date, time] = line.split(',');
+            
+            if (type === 'S') { // Only process pre-season games
+                if (!players[game]) {
+                    players[game] = [];
+                }
+                
+                players[game].push({
+                    firstName: firstName.trim(),
+                    lastName: lastName.trim(),
+                    date: date.trim(),
+                    time: time.trim()
+                });
+            }
         });
+        
+        return players;
     }
 };
