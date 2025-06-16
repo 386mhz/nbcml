@@ -818,12 +818,14 @@ const StatsRenderer = {
 const ResultsRenderer = {
     async render() {
         const container = document.getElementById('resultsContainer');
-        if (!container) return;
-        
-        container.innerHTML = '<div class="loading">Loading results...</div>';
+        if (!container) {
+            console.error('Results container not found');
+            return;
+        }
 
         try {
-            const response = await fetch('data/games.csv');
+            // Update CSV file path
+            const response = await fetch('data/regseason.csv');
             const csvText = await response.text();
             const games = this.parseGamesCSV(csvText);
             
@@ -904,8 +906,8 @@ const ResultsRenderer = {
             });
             
         } catch (error) {
-            console.error('Error loading games:', error);
-            container.innerHTML = '<div class="error">Error loading game results</div>';
+            console.error('Error loading results:', error);
+            container.innerHTML = '<div class="error">Unable to load game results</div>';
         }
         
         // Reset scroll position to show oldest games first
