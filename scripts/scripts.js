@@ -55,18 +55,6 @@ class Team {
 
 // ===== DATA STORAGE =====
 const DataStore = {
-    games: [
-        new Game(1, '2025-06-03', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Mark', 'Chris'),
-        new Game(2, '2025-06-03', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Adam', 'Dan'),
-        new Game(3, '2025-06-03', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Mike', 'Kevin'),
-        new Game(4, '2025-06-10', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Luke', 'Matt'),
-        new Game(5, '2025-06-10', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Peter', 'Geroge'),
-        new Game(6, '2025-06-10', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Paul', 'Dan'),
-        new Game(7, '2025-06-17', '18:30', 'Team 1', 'Team 2', CONFIG.venue, 'scheduled', 'Ethan', 'Connor'),
-        new Game(8, '2025-06-17', '19:40', 'Team 3', 'Team 4', CONFIG.venue, 'scheduled', 'Steve', 'Ian'),
-        new Game(9, '2025-06-17', '20:50', 'Team 5', 'Team 6', CONFIG.venue, 'scheduled', 'Adam', 'Owen')
-    ],
-
     gameResults: [
         { id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
         { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 75, awayScore: 79, status: 'final' },
