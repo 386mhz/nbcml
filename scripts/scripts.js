@@ -55,15 +55,6 @@ class Team {
 
 // ===== DATA STORAGE =====
 const DataStore = {
-    gameResults: [
-        { id: 1, date: '2025-05-28', homeTeam: 'Team 1', awayTeam: 'Team 2', homeScore: 78, awayScore: 72, status: 'final' },
-        { id: 2, date: '2025-05-28', homeTeam: 'Team 3', awayTeam: 'Team 4', homeScore: 75, awayScore: 79, status: 'final' },
-        { id: 3, date: '2025-05-28', homeTeam: 'Team 5', awayTeam: 'Team 6', homeScore: 71, awayScore: 68, status: 'final' },
-        { id: 4, date: '2025-06-04', homeTeam: 'Team 2', awayTeam: 'Team 5', homeScore: null, awayScore: null, status: 'scheduled', time: '18:30' },
-        { id: 5, date: '2025-06-04', homeTeam: 'Team 1', awayTeam: 'Team 3', homeScore: null, awayScore: null, status: 'scheduled', time: '19:40' },
-        { id: 6, date: '2025-06-04', homeTeam: 'Team 4', awayTeam: 'Team 6', homeScore: null, awayScore: null, status: 'scheduled', time: '20:50' }
-    ],
-
     teamStats: [
         { team: 'Team 1', avgPts: 85.2, avgAllowed: 72.8, topScorer: 'Mike Johnson', wins: 8, losses: 2, ties: 0, totalPoints: 16, gb: '-', streak: 'W4' },
         { team: 'Team 2', avgPts: 82.1, avgAllowed: 75.3, topScorer: 'Kevin Wilson', wins: 7, losses: 3, ties: 0, totalPoints: 14, gb: '1.0', streak: 'L1' },
