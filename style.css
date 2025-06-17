@@ -1473,14 +1473,68 @@ body {
     transition: background 0.3s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #standingsTable {
-        font-size: 1em;
-    }
-    
-    #standingsTable th,
-    #standingsTable td {
-        padding: 8px;
-    }
+/* Preseason Note Styles */
+.preseason-note {
+    background: rgba(0, 14, 84, 0.1);
+    border-left: 4px solid var(--primary-orange);
+    padding: 20px;
+    margin: 40px 0;  /* Increased margin */
+    border-radius: var(--border-radius);
+}
+
+.preseason-note h3 {
+    color: var(--primary-orange);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.preseason-note ul {
+    margin: 20px auto;
+    padding-left: 0;
+    width: 80%;
+}
+
+.preseason-note li {
+    margin: 12px 0;
+    line-height: 1.4;
+    text-align: center;
+    list-style: none;
+    padding: 12px;  /* Increased padding */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-small);
+    transition: all 0.3s ease;
+    font-weight: 600;  /* Made text bolder */
+    font-size: 1.1em;  /* Slightly larger text */
+    letter-spacing: 0.5px;  /* Better readability */
+}
+
+.preseason-note li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+    font-weight: 700;  /* Even bolder on hover */
+}
+
+.arrival-note {
+    text-align: center;
+    margin: 30px 0;
+    padding: 15px;
+    color: var(--primary-orange);
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrival-note i {
+    margin: 0 10px;
+    color: var(--accent-blue);
+}
+
+.arrival-note span {
+    font-weight: 700;  /* Bolder text */
+    font-size: 1.1em;  /* Slightly larger */
 }

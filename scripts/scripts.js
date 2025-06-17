@@ -71,34 +71,7 @@ const DataStore = {
         new Game(4, '2025-06-10', '19:00', 'Seed 1', 'Lowest 4 5 6', CONFIG.venue, 'scheduled', 'Luke', 'Matt'),
         new Game(5, '2025-06-10', '20:15', 'Seed 2', 'Lowest 3 4 5', CONFIG.venue, 'scheduled', 'Peter', 'Geroge'),
         new Game(6, '2025-06-17', '19:30', 'Game 1 Winner', 'Game 2 Winner', CONFIG.venue, 'scheduled', 'Adam', 'Owen')
-    ],
-
-    preSeasonPlayers: {
-        game1: [ // 6:30 PM
-            'James Wilson', 'Michael Smith', 'David Brown',
-            'Robert Johnson', 'William Davis', 'Thomas Anderson',
-            'Christopher Lee', 'Daniel White', 'Joseph Taylor',
-            'Matthew Martin', 'Andrew Thompson', 'Ryan Garcia',
-            'Kevin Rodriguez', 'Steven Martinez', 'Brian Robinson',
-            'Jason Wright'
-        ],
-        game2: [ // 7:30 PM
-            'John Murphy', 'Paul Collins', 'Mark Edwards',
-            'Eric Phillips', 'George Howard', 'Kenneth Butler',
-            'Ronald Turner', 'Timothy Ross', 'Gary Coleman',
-            'Stephen Hill', 'Edward Baker', 'Patrick Kelly',
-            'Frank Young', 'Scott King', 'Jeffrey Lopez',
-            'Larry Mitchell'
-        ],
-        game3: [ // 8:30 PM
-            'Donald Gray', 'Gregory Adams', 'Charles Hall',
-            'Dennis Nelson', 'Jerry Torres', 'Peter Morgan',
-            'Carl Carter', 'Henry Ward', 'Roger Watson',
-            'Albert Brooks', 'Wayne Price', 'Bruce Bennett',
-            'Fred Hughes', 'Vincent Cox', 'Ralph Bailey',
-            'Todd Richardson'
-        ]
-    }
+    ]
 };
 
 // ===== UTILITY FUNCTIONS =====
