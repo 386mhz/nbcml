@@ -46,6 +46,13 @@ body {
     min-height: 100vh;
 }
 
+/* ===== FONTS ===== */
+@font-face {
+    font-family: 'Roboto';
+    font-display: swap;
+    src: url('fonts/roboto-regular.woff2') format('woff2');
+}
+
 /* ===== LAYOUT COMPONENTS ===== */
 .container {
     max-width: 1200px;

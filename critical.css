@@ -1,0 +1,30 @@
+t\OneDrive\Documents\GitHub\nbcml\critical.css
+/* Critical path CSS */
+:root {
+    --primary-orange: #FF6B00;
+    --accent-blue: #3498db;
+    --text-primary: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --border-radius: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000E54;
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
