@@ -1,0 +1,15 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm start",
+      "url": ["https://386mhz.github.io/nbcml/"],
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
