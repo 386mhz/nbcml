@@ -1298,13 +1298,13 @@ body {
 /* Remove or update the playoffs content section width restriction */
 #playoffs.content-section {
     width: 100%;
-    max-width: 1200px; /* Match other sections */
+    max-width: 1150px; /* Match other sections */
     margin: 0 auto;
 }
 
 #playoffs .card-base {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1150px;
     margin: 0 auto;
     background: var(--glass-bg);
     border-radius: var(--border-radius);
