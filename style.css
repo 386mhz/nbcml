@@ -1545,3 +1545,17 @@ body {
     font-weight: 700;  /* Bolder text */
     font-size: 1.1em;  /* Slightly larger */
 }
+
+.schedule-special-cell {
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-orange);
+    padding: 15px !important;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.schedule-special-cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}

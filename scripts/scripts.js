@@ -289,33 +289,112 @@ const ScheduleRenderer = {
         fullScheduleBody.innerHTML = '';
 
         try {
-            const response = await fetch('data/regseason.csv');  // Updated file path
+            const response = await fetch('data/regseason.csv');
             const csvText = await response.text();
-            const games = this.parseGamesCSV(csvText);
             
-            if (games.length === 0) {
-                const row = Utils.createElement('tr', '', '<td colspan="6" style="text-align: center; color: #999;">No games scheduled</td>');
-                fullScheduleBody.appendChild(row);
-                return;
-            }
-
-            let weekCounter = 1;
+            // Add debug logging
+            console.log('Loading schedule data...');
+            
+            const lines = csvText.split('\n').slice(1); // Skip header
+            const games = [];
+            
+            lines.forEach((line, index) => {
+                if (!line.trim()) return; // Skip empty lines
+                
+                const columns = line.split(',');
+                const weekNum = parseInt(columns[0]);
+                
+                // Debug log for each row
+                console.log(`Processing week ${weekNum}`);
+                
+                // Check if we already have this week
+                let weekData = games.find(g => g.week === weekNum);
+                
+                if (!weekData) {
+                    weekData = {
+                        week: weekNum,
+                        type: columns[1],
+                        date: this.formatDateFromCSV(columns[2]),
+                        games: []
+                    };
+                    games.push(weekData);
+                }
+                
+                // Process game slots if it's a regular season game
+                if (columns[1] === 'R') {
+                    // First game slot
+                    if (columns[3] && columns[5]) {
+                        weekData.games.push({
+                            homeTeam: columns[3].trim(),
+                            homeScore: columns[4]?.trim(),
+                            awayTeam: columns[5].trim(),
+                            awayScore: columns[6]?.trim(),
+                            sk1: columns[7]?.trim(),
+                            sk2: columns[8]?.trim()
+                        });
+                    }
+                    
+                    // Second game slot
+                    if (columns[9] && columns[11]) {
+                        weekData.games.push({
+                            homeTeam: columns[9].trim(),
+                            homeScore: columns[10]?.trim(),
+                            awayTeam: columns[11].trim(),
+                            awayScore: columns[12]?.trim(),
+                            sk1: columns[13]?.trim(),
+                            sk2: columns[14]?.trim()
+                        });
+                    }
+                    
+                    // Third game slot
+                    if (columns[15] && columns[17]) {
+                        weekData.games.push({
+                            homeTeam: columns[15].trim(),
+                            homeScore: columns[16]?.trim(),
+                            awayTeam: columns[17].trim(),
+                            awayScore: columns[18]?.trim(),
+                            sk1: columns[19]?.trim(),
+                            sk2: columns[20]?.trim()
+                        });
+                    }
+                }
+            });
+            
+            // Sort games by week number
+            games.sort((a, b) => a.week - b.week);
+            
+            // Debug log for processed weeks
+            console.log('Processed weeks:', games.map(g => g.week));
+            
+            // Render the schedule
             games.forEach(gameWeek => {
                 const row = document.createElement('tr');
                 
-                // Week number
+                // Week number and date
                 row.appendChild(Utils.createElement('td', '', `Week ${gameWeek.week}`));
-                
-                // Date
                 row.appendChild(Utils.createElement('td', '', Utils.formatDate(gameWeek.date)));
-                
+
                 if (gameWeek.type === 'H') {
                     // Holiday - No Games
                     const noGamesCell = Utils.createElement('td', '', 'No Games Scheduled');
-                    noGamesCell.colSpan = 5; // Update colspan to include scoresheet column
+                    noGamesCell.colSpan = 5;
                     noGamesCell.style.textAlign = 'center';
                     noGamesCell.style.color = '#999';
                     row.appendChild(noGamesCell);
+                } else if (gameWeek.type === 'S') {
+                    // Pre-Season Games
+                    const preSeasonCell = Utils.createElement('td', '', 'See Pre-Season Page For Details');
+                    preSeasonCell.colSpan = 5;
+                    preSeasonCell.style.textAlign = 'center';
+                    preSeasonCell.style.color = '#999';
+                    row.appendChild(preSeasonCell);
+                } else if (gameWeek.type === 'P') {
+                    // Playoff Games
+                    const playoffCell = Utils.createElement('td', '', 'See Playoffs Page For Details');
+                    playoffCell.colSpan = 5;
+                    playoffCell.style.textAlign = 'center';
+                    playoffCell.style.color = '#999';
+                    row.appendChild(playoffCell);
                 } else {
                     // Regular game slots
                     CONFIG.gameTimeSlots.forEach((timeSlot, index) => {
@@ -357,12 +436,11 @@ const ScheduleRenderer = {
                 }
                 
                 fullScheduleBody.appendChild(row);
-                weekCounter++;
             });
 
         } catch (error) {
             console.error('Error loading schedule:', error);
-            fullScheduleBody.innerHTML = '<tr><td colspan="6" class="error">Error loading schedule</td></tr>';
+            console.error('Error details:', error.stack);
         }
     },
 
