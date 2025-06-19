@@ -1,0 +1,21 @@
+{
+  "name": "North Bay Community Men's League",
+  "short_name": "NBCML",
+  "description": "North Bay Community Men's Basketball League official website",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000E54",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
