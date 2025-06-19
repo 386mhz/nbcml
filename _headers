@@ -1,4 +1,17 @@
 /*
+  # Stage 1: Initial HSTS implementation (1 hour)
+  Strict-Transport-Security: max-age=3600
+
+  # Stage 2: After 1 week, uncomment to add includeSubDomains (1 day)
+  # Strict-Transport-Security: max-age=86400; includeSubDomains
+
+  # Stage 3: After 1 month, uncomment to increase max-age (1 week)
+  # Strict-Transport-Security: max-age=604800; includeSubDomains
+
+  # Stage 4: After 3 months, uncomment for full implementation (1 year + preload)
+  # Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Keep existing security headers
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
