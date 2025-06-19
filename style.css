@@ -1380,3 +1380,79 @@ body {
     background: rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
+
+#standingsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2em;
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: var(--shadow-light);
+}
+
+#standingsTable th {
+    background: rgba(0, 14, 84, 0.9);
+    color: var(--primary-orange);
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-orange);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#standingsTable td {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Team name column */
+#standingsTable td:nth-child(2) {
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--primary-orange);
+}
+
+/* Position column */
+#standingsTable td:first-child {
+    font-weight: 700;
+    color: white;
+    background: rgba(0, 14, 84, 0.7);
+}
+
+/* Win/Loss/Tie columns */
+#standingsTable td:nth-child(3),
+#standingsTable td:nth-child(4),
+#standingsTable td:nth-child(5) {
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+/* Points and Games Back columns */
+#standingsTable td:nth-child(8),
+#standingsTable td:nth-child(9) {
+    font-weight: 700;
+    color: var(--primary-orange);
+}
+
+/* Streak column */
+#standingsTable td:last-child {
+    font-weight: 700;
+    color: var(--primary-orange);
+    font-size: 1.1em;
+}
+
+#standingsTable tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Zebra striping for better readability */
+#standingsTable tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
