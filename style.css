@@ -1456,3 +1456,9 @@ body {
 #standingsTable tr:nth-child(even) {
     background: rgba(255, 255, 255, 0.03);
 }
+
+.recent-champion-row {
+    background: linear-gradient(90deg, #ffe082 0%, #fffde7 100%);
+    font-weight: bold;
+    color: #b26a00;
+}
