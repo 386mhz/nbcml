@@ -697,8 +697,12 @@ body {
 }
 
 .stat-label {
-    font-size: 0.8rem;
-    color: var(--text-secondary, #666);
+    font-size: 1.25em; /* Increased from 1.1em or default
+    font-weight: bold;
+    color: #000E54;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* Player Lists */
@@ -1494,6 +1498,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    font-size: 1.5em; /* Increased from 1.1em or default
 }
 .stat-value {
     color: #333;
