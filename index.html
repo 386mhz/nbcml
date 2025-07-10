@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="scripts/rosterLoader.js"></script>
     <script src="scripts/scripts.js" defer></script>
+    <!-- <script type="module" src="scripts/main.js"></script> -->
     <!-- <script src="https://kit.fontawesome.com/your-kit-code.js" defer crossorigin="anonymous"></script> -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#FF6B00">
@@ -118,6 +119,24 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+
+            <!-- Past Champions Card (moved here) -->
+            <div id="championsCard" class="card-base" style="margin-top: 20px;">
+                <h2 style="text-align:center; color: var(--primary-orange); margin-bottom: 10px;">Past Champions</h2>
+                <table id="championsTable" class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Champion</th>
+                            <th>Venue</th>
+                            <th>Roster</th>
+                        </tr>
+                    </thead>
+                    <tbody id="championsBody">
+                        <!-- Champions will be rendered here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 		
@@ -442,21 +461,5 @@
     </div>
 </div>
 
-<div id="championsCard" class="card-base" style="margin-top: 20px;">
-    <h2 style="text-align:center; color: var(--primary-orange); margin-bottom: 10px;">Past Champions</h2>
-    <table id="championsTable" class="standings-table">
-        <thead>
-            <tr>
-                <th>Year</th>
-                <th>Champion</th>
-                <th>Venue</th>
-                <th>Roster</th>
-            </tr>
-        </thead>
-        <tbody id="championsBody">
-            <!-- Champions will be rendered here -->
-        </tbody>
-    </table>
-</div>
 </body>
 </html>
