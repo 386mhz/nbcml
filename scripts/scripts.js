@@ -56,12 +56,12 @@ class Team {
 // ===== DATA STORAGE =====
 const DataStore = {
     teamStats: [
-        { team: 'Team 1', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
-        { team: 'Team 2', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
-        { team: 'Team 3', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
-        { team: 'Team 4', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
-        { team: 'Team 5', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
-        { team: 'Team 6', topScorer: { name: 'Mike Johnson', ppg: 22.1 }, foulLeader: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 1.1 }},
+        { team: 'Team 1', ballHog: { name: 'Mike Johnson', ppg: 22.1 }, whistleMagnet: { name: 'John Smith', fpg: 2.1 }, cryBaby: { name: 'Adam Hall', tpg: 0.4 }},
+        { team: 'Team 2', ballHog: { name: 'John Belbeck', ppg: 32.6 }, whistleMagnet: { name: 'Jordan Huang', fpg: 3.4 }, cryBaby: { name: 'James Wang', tpg: 1.3 }},
+        { team: 'Team 3', ballHog: { name: 'Steve Harrison', ppg: 25.3 }, whistleMagnet: { name: 'Damon Navi', fpg: 1.9 }, cryBaby: { name: 'Mav Marick', tpg: 0.1 }},
+        { team: 'Team 4', ballHog: { name: 'Dave Moore', ppg: 23.5 }, whistleMagnet: { name: 'Mike Purewal', fpg: 4.1 }, cryBaby: { name: 'George Sparangis', tpg: 1.5 }},
+        { team: 'Team 5', ballHog: { name: 'Evan Hopkins', ppg: 18.7 }, whistleMagnet: { name: 'Paul Pappas', fpg: 2.7 }, cryBaby: { name: 'Petar Rafajlovic', tpg: 1.1 }},
+        { team: 'Team 6', ballHog: { name: 'Jeff Smith', ppg: 22.9 }, whistleMagnet: { name: 'Frank Vucko', fpg: 3.2 }, cryBaby: { name: 'Ralph Romano', tpg: 0.7 }},
     ],
 
     playoffs: [
@@ -712,12 +712,12 @@ const StatsRenderer = {
             const teamCard = Utils.createElement('div', 'team-stat-card', `
                 <h3>${team.team}</h3>
                 <div class="stat-row">
-                    <span>Top Scorer:</span>
-                    <span>${team.topScorer.name} (${team.topScorer.ppg} PPG)</span>
+                    <span>Ball Hog:</span>
+                    <span>${team.ballHog.name} (${team.ballHog.ppg} PPG)</span>
                 </div>
                 <div class="stat-row">
-                    <span>Foul Leader:</span>
-                    <span>${team.foulLeader.name} (${team.foulLeader.fpg} FPG)</span>
+                    <span>Whistle Magnet:</span>
+                    <span>${team.whistleMagnet.name} (${team.whistleMagnet.fpg} FPG)</span>
                 </div>
                 <div class="stat-row">
                     <span>Cry Baby:</span>
