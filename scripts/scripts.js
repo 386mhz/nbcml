@@ -709,19 +709,19 @@ const StatsRenderer = {
         container.innerHTML = '';
 
         DataStore.teamStats.forEach(team => {
-            const teamCard = Utils.createElement('div', 'team-stat-card', `
-                <h3>${team.team}</h3>
-                <div class="stat-row">
-                    <span>Ball Hog:</span>
-                    <span>${team.ballHog.name} (${team.ballHog.ppg} PPG)</span>
+            const teamCard = Utils.createElement('div', 'team-stat-card highlight-card', `
+                <h3 class="team-name-highlight">${team.team}</h3>
+                <div class="stat-row stat-ballhog">
+                    <span class="stat-label"><i class="fa-solid fa-basketball"></i> Ball Hog:</span>
+                    <span class="stat-value">${team.ballHog.name} <span class="stat-num">(${team.ballHog.ppg} PPG)</span></span>
                 </div>
-                <div class="stat-row">
-                    <span>Whistle Magnet:</span>
-                    <span>${team.whistleMagnet.name} (${team.whistleMagnet.fpg} FPG)</span>
+                <div class="stat-row stat-whistle">
+                    <span class="stat-label"><i class="fa-solid fa-handcuffs"></i> Whistle Magnet:</span>
+                    <span class="stat-value">${team.whistleMagnet.name} <span class="stat-num">(${team.whistleMagnet.fpg} FPG)</span></span>
                 </div>
-                <div class="stat-row">
-                    <span>Cry Baby:</span>
-                    <span>${team.cryBaby.name} (${team.cryBaby.tpg} TPG)</span>
+                <div class="stat-row stat-crybaby">
+                    <span class="stat-label"><i class="fa-solid fa-face-angry"></i> Cry Baby:</span>
+                    <span class="stat-value">${team.cryBaby.name} <span class="stat-num">(${team.cryBaby.tpg} TPG)</span></span>
                 </div>
             `);
             container.appendChild(teamCard);
